@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageButton
+      android:id="@+id/card1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/as"
+      android:scaleType="fitXY" />
+
+    <ImageButton
+      android:id="@+id/card2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/as"
+      android:scaleType="fitXY"/>
+
+    <ImageButton
+      android:id="@+id/card3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/as"
+      android:scaleType="fitXY"/>
+
+    <ImageButton
+      android:id="@+id/card4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/as"
+      android:scaleType="fitXY"/>
+
+    <ImageButton
+      android:id="@+id/card5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/as"
+      android:scaleType="fitXY"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageButton
+      android:id="@+id/bet1Button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+    <ImageButton
+      android:id="@+id/bet5Button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+    <ImageButton
+      android:id="@+id/mainButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+    <ImageButton
+      android:id="@+id/drawButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+  </LinearLayout>
+
+
+</LinearLayout>
