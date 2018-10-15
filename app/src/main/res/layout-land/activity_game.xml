@@ -4,11 +4,55 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <ListView
+  <TableLayout
+    android:layout_marginTop="10dp"
+    android:id="@+id/table_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    
-  </ListView>
+
+    <TableRow
+      android:layout_height="wrap_content"
+      android:layout_width="match_parent"
+      android:id="@+id/table_row1"
+      android:padding="10dp">
+      <TextView
+        android:id="@+id/hand_row"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:text="Hand"/>
+      <TextView
+        android:id="@+id/bet1_row"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:text="Bet 1"/>
+      <TextView
+        android:id="@+id/bet2_row"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:text="Bet 2"/>
+      <TextView
+        android:id="@+id/bet3_row"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:text="Bet 3"/>
+      <TextView
+        android:id="@+id/bet4_row"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:text="Bet 4"/>
+      <TextView
+        android:id="@+id/bet5_row"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:text="Bet 5"/>
+    </TableRow>
+  </TableLayout>
 
   <LinearLayout
     android:layout_width="wrap_content"
@@ -77,16 +121,16 @@
       android:gravity="left">
 
     <Button
-      android:id="@+id/bet1Button"
+      android:id="@+id/help_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="BET"/>
+      android:text="HELP"/>
 
     <Button
-      android:id="@+id/bet5Button"
+      android:id="@+id/main_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="MAX"/>
+      android:text="MAIN"/>
     </LinearLayout>
 
 
@@ -97,10 +141,16 @@
       android:gravity="center">
 
     <Button
-      android:id="@+id/mainButton"
+      android:id="@+id/bet1_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="MAIN"/>
+      android:text="BET"/>
+
+      <Button
+        android:id="@+id/bet5_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MAX"/>
 
     </LinearLayout>
 
@@ -111,7 +161,7 @@
       android:gravity="right">
 
       <Button
-      android:id="@+id/drawButton"
+      android:id="@+id/draw_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="DRAW"/>
