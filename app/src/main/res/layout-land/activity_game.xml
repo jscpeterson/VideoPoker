@@ -4,15 +4,26 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
+  <ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+  </ListView>
+
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:layout_gravity="center"
     android:orientation="horizontal">
 
     <ImageButton
       android:id="@+id/card1"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
       android:src="@drawable/as"
       android:scaleType="fitXY" />
 
@@ -20,6 +31,8 @@
       android:id="@+id/card2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
       android:src="@drawable/as"
       android:scaleType="fitXY"/>
 
@@ -27,6 +40,8 @@
       android:id="@+id/card3"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
       android:src="@drawable/as"
       android:scaleType="fitXY"/>
 
@@ -34,6 +49,8 @@
       android:id="@+id/card4"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
       android:src="@drawable/as"
       android:scaleType="fitXY"/>
 
@@ -41,37 +58,68 @@
       android:id="@+id/card5"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
       android:src="@drawable/as"
       android:scaleType="fitXY"/>
 
   </LinearLayout>
 
   <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:gravity="bottom|center_horizontal">
 
-    <ImageButton
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:gravity="left">
+
+    <Button
       android:id="@+id/bet1Button"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:text="BET"/>
 
-    <ImageButton
+    <Button
       android:id="@+id/bet5Button"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:text="MAX"/>
+    </LinearLayout>
 
-    <ImageButton
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:gravity="center">
+
+    <Button
       android:id="@+id/mainButton"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:text="MAIN"/>
 
-    <ImageButton
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:gravity="right">
+
+      <Button
       android:id="@+id/drawButton"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:text="DRAW"/>
 
-  </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
 
 
 </LinearLayout>
