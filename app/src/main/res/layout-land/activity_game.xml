@@ -4,54 +4,62 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
+  <ListView
+    android:id="@+id/payout_list"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+  </ListView>
+
   <TableLayout
     android:layout_marginTop="10dp"
-    android:id="@+id/table_layout"
+    android:id="@+id/payout_table"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TableRow
       android:layout_height="wrap_content"
       android:layout_width="match_parent"
-      android:id="@+id/table_row1"
+      android:id="@+id/payout_table_row1"
       android:padding="10dp">
       <TextView
-        android:id="@+id/hand_row"
+        android:id="@+id/hand_column"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:text="Hand"/>
       <TextView
-        android:id="@+id/bet1_row"
+        android:id="@+id/bet1_column"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:text="Bet 1"/>
       <TextView
-        android:id="@+id/bet2_row"
+        android:id="@+id/bet2_column"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:text="Bet 2"/>
       <TextView
-        android:id="@+id/bet3_row"
+        android:id="@+id/bet3_column"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:text="Bet 3"/>
       <TextView
-        android:id="@+id/bet4_row"
+        android:id="@+id/bet4_column"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:text="Bet 4"/>
       <TextView
-        android:id="@+id/bet5_row"
+        android:id="@+id/bet5_column"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:text="Bet 5"/>
     </TableRow>
+
   </TableLayout>
 
   <LinearLayout
@@ -62,7 +70,7 @@
     android:layout_gravity="center"
     android:orientation="horizontal">
 
-    <ImageButton
+    <ToggleButton
       android:id="@+id/card1"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -71,7 +79,7 @@
       android:src="@drawable/as"
       android:scaleType="fitXY" />
 
-    <ImageButton
+    <ToggleButton
       android:id="@+id/card2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -80,7 +88,7 @@
       android:src="@drawable/as"
       android:scaleType="fitXY"/>
 
-    <ImageButton
+    <ToggleButton
       android:id="@+id/card3"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -89,7 +97,7 @@
       android:src="@drawable/as"
       android:scaleType="fitXY"/>
 
-    <ImageButton
+    <ToggleButton
       android:id="@+id/card4"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -98,7 +106,7 @@
       android:src="@drawable/as"
       android:scaleType="fitXY"/>
 
-    <ImageButton
+    <ToggleButton
       android:id="@+id/card5"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -108,6 +116,50 @@
       android:scaleType="fitXY"/>
 
   </LinearLayout>
+
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:gravity="left">
+    <TextView
+      android:id="@+id/win_total"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="WIN"/>
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:gravity="center">
+    <TextView
+      android:id="@+id/bet_total"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="BET"/>
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:gravity="right">
+    <TextView
+      android:id="@+id/pot_total"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="POT"/>
+    </LinearLayout>
+
+  </LinearLayout>
+
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -144,7 +196,7 @@
       android:id="@+id/bet1_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="BET"/>
+      android:text="BET 1"/>
 
       <Button
         android:id="@+id/bet5_button"
@@ -159,6 +211,12 @@
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:gravity="right">
+
+      <Button
+        android:id="@+id/deal_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DEAL"/>
 
       <Button
       android:id="@+id/draw_button"
