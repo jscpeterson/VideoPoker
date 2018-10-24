@@ -23,7 +23,7 @@ public class Deck extends Stack<Card> {
       generateStandardDeck();
     }
 
-    void generateStandardDeck(){
+    private void generateStandardDeck(){
       for (Suit suit : Suit.values()) {
         for (Rank rank : Rank.values()) {
           Card card = new Card(rank, suit);
@@ -36,12 +36,29 @@ public class Deck extends Stack<Card> {
       Collections.shuffle(this, rng);
     }
 
+  /**
+   * Creates a new hand by dealing numberOfCards from the start of the deck.
+   * @param numberOfCards the size of the hand to be dealt.
+   * @return a new hand of numberOfCards length.
+   */
     public Hand deal(int numberOfCards) {
       Hand hand = new Hand();
       for (int i=0; i<numberOfCards; i++){
-        hand.push(this.pop());
+        hand.push(this.remove(0));
       }
       return hand;
+    }
+
+  /**
+   * Using an existing hand, adds cards from the start of the deck to end the hand while taking cards
+   * from start of the hand and returning them to end of the deck.
+   * @param hand an existing hand of cards.
+   */
+  public void dealAndReplace(Hand hand) {
+      for (int i = 0; i < hand.size(); i++) {
+        hand.push(this.remove(0));
+        this.add(hand.remove(0));
+      }
     }
 
     void print() {
@@ -52,9 +69,4 @@ public class Deck extends Stack<Card> {
       return this.size();
     }
 
-    void repopulate(Hand cards) {
-      for (Card card : cards) {
-        this.push(card);
-      }
-    }
   }

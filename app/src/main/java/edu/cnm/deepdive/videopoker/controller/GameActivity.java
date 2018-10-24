@@ -38,6 +38,7 @@ public class GameActivity extends AppCompatActivity {
     drawButton = findViewById(R.id.draw_button);
 
     deck = new Deck(new SecureRandom());
+    hand = deck.deal(5);
 
     handButtons = new ToggleButton[] {
         findViewById(R.id.card1),
@@ -66,16 +67,18 @@ public class GameActivity extends AppCompatActivity {
 
   void deal() {
     deck.shuffle();
-    hand = deck.deal(5);
-    for (int i = 0; i < 5; i++) {
+    deck.dealAndReplace(hand);
+    for (int i = 0; i < hand.size(); i++) {
       handButtons[i].setTextOff(hand.get(i).getResourceId());
       handButtons[i].setTextOn(hand.get(i).getResourceId());
       handButtons[i].setChecked(false);
     }
+    System.out.println(deck.size());
+    System.out.println(deck);
   }
 
   void draw() {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < hand.size(); i++) {
       if (!handButtons[i].isChecked()) {
         deck.push(hand.get(i));
         hand.set(i, deck.remove(0));
@@ -84,6 +87,8 @@ public class GameActivity extends AppCompatActivity {
         handButtons[i].setChecked(false);
       }
     }
+    System.out.println(deck.size());
+    System.out.println(deck);
   }
 
 
