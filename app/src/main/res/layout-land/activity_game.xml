@@ -76,7 +76,7 @@
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
       android:paddingRight="16dp"
-      android:src="@drawable/as"
+      
       android:scaleType="fitXY" />
 
     <ToggleButton
@@ -85,7 +85,7 @@
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
       android:paddingRight="16dp"
-      android:src="@drawable/as"
+      
       android:scaleType="fitXY"/>
 
     <ToggleButton
@@ -94,7 +94,7 @@
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
       android:paddingRight="16dp"
-      android:src="@drawable/as"
+      
       android:scaleType="fitXY"/>
 
     <ToggleButton
@@ -103,7 +103,7 @@
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
       android:paddingRight="16dp"
-      android:src="@drawable/as"
+      
       android:scaleType="fitXY"/>
 
     <ToggleButton
@@ -112,7 +112,7 @@
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
       android:paddingRight="16dp"
-      android:src="@drawable/as"
+      
       android:scaleType="fitXY"/>
 
   </LinearLayout>

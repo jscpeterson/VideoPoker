@@ -36,19 +36,20 @@ public class Card implements Comparable <Card>{
 
   public String getResourceId() {
     StringBuilder resId = new StringBuilder();
-    resId.append(rank.getSymbol());
+    resId.append("image_");
+    resId.append(rank.getSymbol().toLowerCase());
     switch (suit) {
       case CLUBS:
-        resId.append("C");
+        resId.append("c");
         break;
       case HEARTS:
-        resId.append("H");
+        resId.append("h");
         break;
       case DIAMONDS:
-        resId.append("D");
+        resId.append("d");
         break;
       case SPADES:
-        resId.append("S");
+        resId.append("s");
         break;
     }
     resId.append(".png");

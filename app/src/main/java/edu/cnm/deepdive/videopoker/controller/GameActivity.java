@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.videopoker.controller;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -138,6 +139,14 @@ public class GameActivity extends AppCompatActivity {
     for (int i = 0; i < hand.size(); i++) {
 //      TODO implement cardImage drawables
 //      String resourceId = hand.get(i).getResourceId();
+
+      String resourceId = hand.get(i).getResourceId();
+      int identifier = Resources.getSystem().getIdentifier(resourceId, "drawable", getPackageName());
+      cardButtons[i].setButtonDrawable(identifier);
+
+      System.out.println(Integer.toString(identifier));
+      System.out.println(resourceId);
+
       cardButtons[i].setTextOff(hand.get(i).toString());
       cardButtons[i].setTextOn(hand.get(i).toString());
       cardButtons[i].setChecked(false); //probably poor way to update view
@@ -162,7 +171,10 @@ public class GameActivity extends AppCompatActivity {
         deck.push(hand.get(i));
         hand.set(i, deck.remove(0));
 //        TODO implement cardImage drawables
-//        String resourceId = hand.get(i).getResourceId();
+        String resourceId = hand.get(i).getResourceId();
+        int identifier = Resources.getSystem().getIdentifier(resourceId, "drawable", getPackageName());
+        cardButtons[i].setButtonDrawable(identifier);
+
         cardButtons[i].setTextOff(hand.get(i).toString());
         cardButtons[i].setTextOn(hand.get(i).toString());
         cardButtons[i].setChecked(false);

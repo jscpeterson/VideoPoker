@@ -78,6 +78,8 @@ public class Hand extends Stack<Card> {
     }
     if (checkForFullHouse()) {
       fullhouse = true;
+      threeofakind = true;
+      twopair = true;
     }
     else if (checkForFourOfAKind()) {
       fourofakind = true;
