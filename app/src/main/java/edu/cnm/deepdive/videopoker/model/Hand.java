@@ -14,7 +14,6 @@ public class Hand extends Stack<Card> {
 
   // TODO bring in unit tests
   // TODO optimize, especially Jacks or Better method
-  // TODO separate paytable data from Hand
 
   private final String ROYAL_FLUSH = "Royal Flush";
   private boolean royalFlush;
@@ -44,6 +43,11 @@ public class Hand extends Stack<Card> {
   private Map<String, Integer> betFivePayTable = new Hashtable<>();
   private Map<Rank, Integer> rankMap = new Hashtable<>();
 
+  public Hand() {
+    // TODO separate paytable data from Hand
+    makePayTable();
+  }
+
   void makePayTable() {
     betOnePayTable.put(ROYAL_FLUSH, 800);
     betOnePayTable.put(STRAIGHT_FLUSH, 50);
@@ -59,7 +63,6 @@ public class Hand extends Stack<Card> {
 
   public int getHandScore(int bet) {
     evaluateHand();
-    makePayTable();
     this.bestHand = returnBestHand();
     return (bet*betOnePayTable.get(bestHand));
   }
