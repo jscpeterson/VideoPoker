@@ -16,6 +16,7 @@ import java.security.SecureRandom;
 public class GameActivity extends AppCompatActivity {
 
   private static final int BET_MAX = 5;
+  private static final int HAND_SIZE = 5;
 
   //    https://deckofcardsapi.com/api/deck/new/
   TableLayout payoutTable;
@@ -33,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
 
   boolean firstDeal = true;
   boolean debug = true;
+  boolean images = false;
 
   Deck deck;
   Hand hand;
@@ -46,7 +48,7 @@ public class GameActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_game);
     deck = new Deck(new SecureRandom());
-    hand = deck.deal(5);
+    hand = deck.deal(HAND_SIZE);
     setupButtons();
     setupTextViews();
   }
@@ -137,17 +139,7 @@ public class GameActivity extends AppCompatActivity {
     deck.shuffle();
     deck.dealAndReplace(hand);
     for (int i = 0; i < hand.size(); i++) {
-      String resourceId = hand.get(i).getResourceId();
-      int identifier = getResources()
-          .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
-      System.out.println(resourceId);
-      System.out.println(Integer.toString(identifier));
-
-      // FIXME rescale images
-      cardButtons[i].setBackgroundDrawable(getDrawable(identifier));
-      cardButtons[i].setTextOff(hand.get(i).toString());
-      cardButtons[i].setTextOn(hand.get(i).toString());
-      cardButtons[i].setChecked(false); //probably poor way to update view
+      displayCards(i);
     }
     if (debug) System.out.println(deck.size());
     if (debug) System.out.println(deck);
@@ -164,26 +156,32 @@ public class GameActivity extends AppCompatActivity {
   }
 
   void draw() {
-    for (int i = 0; i < hand.size(); i++) {
+    for (int i = 0; i < HAND_SIZE; i++) {
       if (!cardButtons[i].isChecked()) {
         deck.push(hand.get(i));
         hand.set(i, deck.remove(0));
-//        TODO implement cardImage drawables
-        String resourceId = hand.get(i).getResourceId();
-        int identifier = getResources().getIdentifier(resourceId, "drawable", getPackageName());
-//        cardButtons[i].setButtonDrawable(identifier);
-        System.out.println(resourceId);
-        System.out.println(identifier);
-        cardButtons[i].setBackgroundDrawable(getDrawable(identifier));
-
-        cardButtons[i].setTextOff(hand.get(i).toString());
-        cardButtons[i].setTextOn(hand.get(i).toString());
-        cardButtons[i].setChecked(false);
+        displayCards(i);
       }
     }
     if (debug) System.out.println(hand);
     if (debug) System.out.println(deck.size());
     if (debug) System.out.println(deck);
+  }
+
+  private void displayCards(int index) {
+    String resourceId = hand.get(index).getResourceId();
+    int identifier = getResources()
+        .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
+    System.out.println(resourceId);
+    System.out.println(Integer.toString(identifier));
+    if (images) {
+      cardButtons[index].setBackgroundDrawable(getDrawable(identifier));
+    }
+    else {
+      cardButtons[index].setTextOff(hand.get(index).toString());
+      cardButtons[index].setTextOn(hand.get(index).toString());
+      cardButtons[index].setChecked(false);
+    }
   }
 
   void updateWin() {
