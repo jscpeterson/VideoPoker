@@ -42,23 +42,21 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    // TODO Separate methods
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_game);
+    deck = new Deck(new SecureRandom());
+    hand = deck.deal(5);
+    setupButtons();
+    setupTextViews();
+  }
+
+  void setupButtons() {
     dealButton = findViewById(R.id.deal_button);
     dealButton.setEnabled(false);
     drawButton = findViewById(R.id.draw_button);
     drawButton.setEnabled(false);
     betOneButton = findViewById(R.id.bet1_button);
     betMaxButton = findViewById(R.id.bet5_button);
-    deck = new Deck(new SecureRandom());
-    hand = deck.deal(5);
-
-    winNotifier = findViewById(R.id.win_notifier);
-    winTotal = findViewById(R.id.win_total);
-    betTotal = findViewById(R.id.bet_total);
-    potTotal = findViewById(R.id.pot_total);
-
     cardButtons = new ToggleButton[]{
         findViewById(R.id.card1),
         findViewById(R.id.card2),
@@ -71,11 +69,6 @@ public class GameActivity extends AppCompatActivity {
       card.setVisibility(View.INVISIBLE);
       card.setEnabled(false);
     }
-
-    // initializes blank winNotifier
-    winNotifier.setText("");
-    // initializes as 0, assuming nothing else changes...
-    winTotal.setText(Integer.toString(win));
 
     betOneButton.setOnClickListener((v) -> {
       betOne();
@@ -98,11 +91,25 @@ public class GameActivity extends AppCompatActivity {
         firstDeal = false;
       }
       deal();
+      setupDraw();
     });
 
     drawButton.setOnClickListener((v) -> {
       draw();
+      updateWin();
+      resetGame();
     });
+  }
+
+  void setupTextViews() {
+    winNotifier = findViewById(R.id.win_notifier);
+    winTotal = findViewById(R.id.win_total);
+    betTotal = findViewById(R.id.bet_total);
+    potTotal = findViewById(R.id.pot_total);
+    winNotifier.setText("");
+    winTotal.setText(Integer.toString(win));
+    betTotal.setText(Integer.toString(bet));
+    potTotal.setText(Integer.toString(pot));
   }
 
   void betOne() {
@@ -126,7 +133,6 @@ public class GameActivity extends AppCompatActivity {
     pot -= bet;
     potTotal.setText(Integer.toString(pot));
     betTotal.setText(Integer.toString(bet));
-
     deck.shuffle();
     deck.dealAndReplace(hand);
     for (int i = 0; i < hand.size(); i++) {
@@ -138,6 +144,9 @@ public class GameActivity extends AppCompatActivity {
     }
     if (debug) System.out.println(deck.size());
     if (debug) System.out.println(deck);
+  }
+
+  void setupDraw() {
     dealButton.setEnabled(false);
     drawButton.setEnabled(true);
     betOneButton.setEnabled(false);
@@ -162,6 +171,20 @@ public class GameActivity extends AppCompatActivity {
     if (debug) System.out.println(hand);
     if (debug) System.out.println(deck.size());
     if (debug) System.out.println(deck);
+  }
+
+  void updateWin() {
+    win = hand.getHandScore(bet);
+    pot += win;
+    winNotifier.setText(hand.getBestHand());
+    winTotal.setText(Integer.toString(win));
+    potTotal.setText(Integer.toString(pot));
+  }
+
+  void resetGame() {
+    hand.clearWins();
+    bet = 0;
+    betTotal.setText(Integer.toString(bet));
     dealButton.setEnabled(false);
     drawButton.setEnabled(false);
     betOneButton.setEnabled(true);
@@ -169,18 +192,6 @@ public class GameActivity extends AppCompatActivity {
     for (ToggleButton card : cardButtons) {
       card.setEnabled(false);
     }
-
-    win = hand.getHandScore(bet);
-    pot += win;
-    winNotifier.setText(hand.getBestHand());
-    winTotal.setText(Integer.toString(win));
-    potTotal.setText(Integer.toString(pot));
-    hand.clearWins();
-
-    bet = 0;
-    betTotal.setText(Integer.toString(bet));
-
   }
-
 
 }
