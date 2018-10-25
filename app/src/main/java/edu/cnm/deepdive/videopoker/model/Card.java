@@ -52,7 +52,7 @@ public class Card implements Comparable <Card>{
         resId.append("s");
         break;
     }
-    resId.append(".png");
+//    resId.append(".png");
     return resId.toString();
   }
 

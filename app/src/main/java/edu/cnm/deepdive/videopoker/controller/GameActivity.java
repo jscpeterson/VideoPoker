@@ -137,16 +137,14 @@ public class GameActivity extends AppCompatActivity {
     deck.shuffle();
     deck.dealAndReplace(hand);
     for (int i = 0; i < hand.size(); i++) {
-//      TODO implement cardImage drawables
-//      String resourceId = hand.get(i).getResourceId();
-
       String resourceId = hand.get(i).getResourceId();
-      int identifier = Resources.getSystem().getIdentifier(resourceId, "drawable", getPackageName());
-      cardButtons[i].setButtonDrawable(identifier);
-
-      System.out.println(Integer.toString(identifier));
+      int identifier = getResources()
+          .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
       System.out.println(resourceId);
+      System.out.println(Integer.toString(identifier));
 
+      // FIXME rescale images
+      cardButtons[i].setBackgroundDrawable(getDrawable(identifier));
       cardButtons[i].setTextOff(hand.get(i).toString());
       cardButtons[i].setTextOn(hand.get(i).toString());
       cardButtons[i].setChecked(false); //probably poor way to update view
@@ -172,8 +170,11 @@ public class GameActivity extends AppCompatActivity {
         hand.set(i, deck.remove(0));
 //        TODO implement cardImage drawables
         String resourceId = hand.get(i).getResourceId();
-        int identifier = Resources.getSystem().getIdentifier(resourceId, "drawable", getPackageName());
-        cardButtons[i].setButtonDrawable(identifier);
+        int identifier = getResources().getIdentifier(resourceId, "drawable", getPackageName());
+//        cardButtons[i].setButtonDrawable(identifier);
+        System.out.println(resourceId);
+        System.out.println(identifier);
+        cardButtons[i].setBackgroundDrawable(getDrawable(identifier));
 
         cardButtons[i].setTextOff(hand.get(i).toString());
         cardButtons[i].setTextOn(hand.get(i).toString());
