@@ -135,6 +135,7 @@ public class Hand extends Stack<Card> {
   }
 
   boolean checkForThreeOfAKind() {
+    // FIXME Two Pair incorrectly returned as Three of a Kind ~10-24 23:40
     return rankMap.containsValue(3);
   }
 

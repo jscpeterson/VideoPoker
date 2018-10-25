@@ -65,6 +65,11 @@ public class GameActivity extends AppCompatActivity {
       card.setEnabled(false);
     }
 
+    // initializes blank winNotifier
+    winNotifier.setText("");
+    // initializes as 0, assuming nothing else changes...
+    winTotal.setText(Integer.toString(win));
+
     dealButton.setOnClickListener((v) -> {
       // special actions for the initial deal when the game first begins
       // activate and make cards visible
@@ -84,6 +89,7 @@ public class GameActivity extends AppCompatActivity {
   }
 
   void deal() {
+    winNotifier.setText("");
     pot -= bet;
     potTotal.setText(Integer.toString(pot));
     betTotal.setText(Integer.toString(bet));
@@ -128,6 +134,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     win = hand.getHandScore(bet);
+    pot += win;
     winNotifier.setText(hand.returnBestHand()); // FIXME inefficient - same method is run twice
     winTotal.setText(Integer.toString(win));
 
