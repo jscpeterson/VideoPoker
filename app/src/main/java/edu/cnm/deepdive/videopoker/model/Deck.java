@@ -43,7 +43,7 @@ public class Deck extends Stack<Card> {
    */
     public Hand deal(int numberOfCards) {
       Hand hand = new Hand();
-      for (int i=0; i<numberOfCards; i++){
+      for (int i = 0; i < numberOfCards; ++i){
         hand.push(this.remove(0));
       }
       return hand;
@@ -55,7 +55,7 @@ public class Deck extends Stack<Card> {
    * @param hand an existing hand of cards.
    */
   public void dealAndReplace(Hand hand) {
-      for (int i = 0; i < hand.size(); i++) {
+      for (int i = 0; i < hand.size(); ++i) {
         hand.push(this.remove(0));
         this.add(hand.remove(0));
       }
