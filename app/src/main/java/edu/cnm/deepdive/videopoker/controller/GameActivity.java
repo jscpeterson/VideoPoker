@@ -47,12 +47,15 @@ public class GameActivity extends AppCompatActivity {
         findViewById(R.id.card4),
         findViewById(R.id.card5),
     };
+    // cards start off disabled and invisible
     for (ToggleButton card : cardButtons) {
       card.setVisibility(View.INVISIBLE);
       card.setEnabled(false);
     }
 
     dealButton.setOnClickListener((v) -> {
+      // special actions for the initial deal when the game first begins
+      // activate and make cards visible
       if (firstDeal) {
         for (ToggleButton card : cardButtons) {
           card.setVisibility(View.VISIBLE);
