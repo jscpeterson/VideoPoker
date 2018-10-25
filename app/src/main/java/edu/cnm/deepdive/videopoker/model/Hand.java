@@ -15,7 +15,6 @@ public class Hand extends Stack<Card> {
   // TODO bring in unit tests
   // TODO optimize, especially Jacks or Better method
   // TODO separate paytable data from Hand
-  // TODO implement "best hand" field ready with an accessor
 
   private final String ROYAL_FLUSH = "Royal Flush";
   private boolean royalFlush;
@@ -35,6 +34,12 @@ public class Hand extends Stack<Card> {
   private boolean twopair;
   private final String JACKS_OR_BETTER = "Jacks or Better";
   private boolean jacksorbetter;
+
+  public String getBestHand() {
+    return bestHand;
+  }
+
+  private String bestHand;
   private Map<String, Integer> betOnePayTable = new Hashtable<>();
   private Map<String, Integer> betFivePayTable = new Hashtable<>();
   private Map<Rank, Integer> rankMap = new Hashtable<>();
@@ -55,7 +60,8 @@ public class Hand extends Stack<Card> {
   public int getHandScore(int bet) {
     evaluateHand();
     makePayTable();
-    return (bet*betOnePayTable.get(returnBestHand()));
+    this.bestHand = returnBestHand();
+    return (bet*betOnePayTable.get(bestHand));
   }
 
   void evaluateHand() {
@@ -79,6 +85,19 @@ public class Hand extends Stack<Card> {
     }
     twopair = checkForTwoPair();
     jacksorbetter = checkForJacksOrBetter();
+  }
+
+  public void clearWins() {
+    rankMap.clear();
+    royalFlush = false;
+    straightFlush = false;
+    flush = false;
+    straight = false;
+    fullhouse = false;
+    fourofakind = false;
+    threeofakind = false;
+    twopair = false;
+    jacksorbetter = false;
   }
 
   public String returnBestHand(){
@@ -135,7 +154,6 @@ public class Hand extends Stack<Card> {
   }
 
   boolean checkForThreeOfAKind() {
-    // FIXME Two Pair incorrectly returned as Three of a Kind ~10-24 23:40
     return rankMap.containsValue(3);
   }
 
@@ -166,7 +184,6 @@ public class Hand extends Stack<Card> {
   }
 
   Map mapLikeCards() {
-    rankMap.clear();
     for (Card card : this) {
       if (!rankMap.containsKey(card.getRank())) {
         rankMap.put(card.getRank(), 1);
@@ -176,7 +193,7 @@ public class Hand extends Stack<Card> {
         rankMap.put(card.getRank(), rankVal + 1);
       }
     }
-//    System.out.println(rankMap);
+    System.out.println(rankMap);
     return rankMap;
   }
 

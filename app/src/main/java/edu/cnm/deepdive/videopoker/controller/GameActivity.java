@@ -135,8 +135,9 @@ public class GameActivity extends AppCompatActivity {
 
     win = hand.getHandScore(bet);
     pot += win;
-    winNotifier.setText(hand.returnBestHand()); // FIXME inefficient - same method is run twice
+    winNotifier.setText(hand.getBestHand());
     winTotal.setText(Integer.toString(win));
+    hand.clearWins();
 
   }
 
