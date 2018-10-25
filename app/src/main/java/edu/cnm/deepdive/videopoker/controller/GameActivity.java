@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Deck;
@@ -20,13 +21,19 @@ public class GameActivity extends AppCompatActivity {
   Button drawButton;
   ToggleButton[] cardButtons;
 
+  TextView winNotifier;
+  TextView winTotal;
+  TextView betTotal;
+  TextView potTotal;
+
   boolean firstDeal = true;
+  boolean debug = true;
 
   Deck deck;
   Hand hand;
-  int credits;
-  int bet;
-  int win;
+  int pot = 50;
+  int bet = 1;
+  int win = 0;
 
 
   @Override
@@ -39,6 +46,11 @@ public class GameActivity extends AppCompatActivity {
     drawButton.setEnabled(false);
     deck = new Deck(new SecureRandom());
     hand = deck.deal(5);
+
+    winNotifier = findViewById(R.id.win_notifier);
+    winTotal = findViewById(R.id.win_total);
+    betTotal = findViewById(R.id.bet_total);
+    potTotal = findViewById(R.id.pot_total);
 
     cardButtons = new ToggleButton[]{
         findViewById(R.id.card1),
@@ -72,15 +84,21 @@ public class GameActivity extends AppCompatActivity {
   }
 
   void deal() {
+    pot -= bet;
+    potTotal.setText(Integer.toString(pot));
+    betTotal.setText(Integer.toString(bet));
+
     deck.shuffle();
     deck.dealAndReplace(hand);
     for (int i = 0; i < hand.size(); i++) {
-      cardButtons[i].setTextOff(hand.get(i).getResourceId());
-      cardButtons[i].setTextOn(hand.get(i).getResourceId());
-      cardButtons[i].setChecked(false);
+//      TODO implement cardImage drawables
+//      String resourceId = hand.get(i).getResourceId();
+      cardButtons[i].setTextOff(hand.get(i).toString());
+      cardButtons[i].setTextOn(hand.get(i).toString());
+      cardButtons[i].setChecked(false); //probably poor way to update view
     }
-    System.out.println(deck.size());
-    System.out.println(deck);
+    if (debug) System.out.println(deck.size());
+    if (debug) System.out.println(deck);
     dealButton.setEnabled(false);
     drawButton.setEnabled(true);
     for (ToggleButton card : cardButtons) {
@@ -93,18 +111,26 @@ public class GameActivity extends AppCompatActivity {
       if (!cardButtons[i].isChecked()) {
         deck.push(hand.get(i));
         hand.set(i, deck.remove(0));
-        cardButtons[i].setTextOff(hand.get(i).getResourceId());
-        cardButtons[i].setTextOn(hand.get(i).getResourceId());
+//        TODO implement cardImage drawables
+//        String resourceId = hand.get(i).getResourceId();
+        cardButtons[i].setTextOff(hand.get(i).toString());
+        cardButtons[i].setTextOn(hand.get(i).toString());
         cardButtons[i].setChecked(false);
       }
     }
-    System.out.println(deck.size());
-    System.out.println(deck);
+    if (debug) System.out.println(hand);
+    if (debug) System.out.println(deck.size());
+    if (debug) System.out.println(deck);
     dealButton.setEnabled(true);
     drawButton.setEnabled(false);
     for (ToggleButton card : cardButtons) {
       card.setEnabled(false);
     }
+
+    win = hand.getHandScore(bet);
+    winNotifier.setText(hand.returnBestHand()); // FIXME inefficient - same method is run twice
+    winTotal.setText(Integer.toString(win));
+
   }
 
 
