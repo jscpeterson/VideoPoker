@@ -76,7 +76,6 @@
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
       android:paddingRight="16dp"
-      
       android:scaleType="fitXY" />
 
     <ToggleButton
@@ -85,7 +84,6 @@
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
       android:paddingRight="16dp"
-      
       android:scaleType="fitXY"/>
 
     <ToggleButton
@@ -94,7 +92,6 @@
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
       android:paddingRight="16dp"
-      
       android:scaleType="fitXY"/>
 
     <ToggleButton
@@ -103,7 +100,6 @@
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
       android:paddingRight="16dp"
-      
       android:scaleType="fitXY"/>
 
     <ToggleButton
@@ -125,8 +121,7 @@
     <TextView
       android:id="@+id/win_notifier"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="WIN NOTIFIER"/>
+      android:layout_height="wrap_content"/>
 
   </LinearLayout>
 
@@ -138,12 +133,11 @@
       android:layout_width="0dp"
       android:layout_weight="1"
       android:layout_height="wrap_content"
-      android:gravity="left">
+      android:gravity="start">
     <TextView
-      android:id="@+id/win_total"
+      android:id="@+id/win_view"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="WIN"/>
+      android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
@@ -152,22 +146,20 @@
       android:layout_height="wrap_content"
       android:gravity="center">
     <TextView
-      android:id="@+id/bet_total"
+      android:id="@+id/bet_view"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="BET"/>
+      android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
       android:layout_width="0dp"
       android:layout_weight="1"
       android:layout_height="wrap_content"
-      android:gravity="right">
+      android:gravity="end">
     <TextView
-      android:id="@+id/pot_total"
+      android:id="@+id/purse_view"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="POT"/>
+      android:layout_height="wrap_content"/>
     </LinearLayout>
 
   </LinearLayout>
@@ -182,19 +174,17 @@
       android:layout_width="0dp"
       android:layout_weight="1"
       android:layout_height="wrap_content"
-      android:gravity="left">
+      android:gravity="start">
 
     <Button
       android:id="@+id/help_button"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="HELP"/>
+      android:layout_height="wrap_content"/>
 
     <Button
       android:id="@+id/main_button"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="MAIN"/>
+      android:layout_height="wrap_content"/>
     </LinearLayout>
 
 
@@ -208,13 +198,13 @@
       android:id="@+id/bet1_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="BET 1"/>
+      android:text="@string/bet_one_button_text"/>
 
       <Button
-        android:id="@+id/bet5_button"
+        android:id="@+id/bet_max_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MAX"/>
+        android:text="@string/bet_max_button_text"/>
 
     </LinearLayout>
 
@@ -222,19 +212,19 @@
       android:layout_width="0dp"
       android:layout_weight="1"
       android:layout_height="wrap_content"
-      android:gravity="right">
+      android:gravity="end">
 
       <Button
         android:id="@+id/deal_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DEAL"/>
+        android:text="@string/deal_button_text"/>
 
       <Button
       android:id="@+id/draw_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="DRAW"/>
+      android:text="@string/draw_button_text"/>
 
     </LinearLayout>
 

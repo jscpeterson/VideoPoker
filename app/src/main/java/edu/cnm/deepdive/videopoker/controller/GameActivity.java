@@ -1,6 +1,6 @@
 package edu.cnm.deepdive.videopoker.controller;
 
-import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,26 +21,26 @@ public class GameActivity extends AppCompatActivity {
   //    https://deckofcardsapi.com/api/deck/new/
   TableLayout payoutTable;
 
-  Button dealButton;
-  Button drawButton;
-  ToggleButton[] cardButtons;
-  Button betOneButton;
-  Button betMaxButton;
+  private Button dealButton;
+  private Button drawButton;
+  private ToggleButton[] cardButtons;
+  private Button betOneButton;
+  private Button betMaxButton;
 
-  TextView winNotifier;
-  TextView winTotal;
-  TextView betTotal;
-  TextView potTotal;
+  private TextView winningHandView;
+  private TextView winView;
+  private TextView betView;
+  private TextView purseView;
 
-  boolean firstDeal = true;
-  boolean debug = true;
-  boolean images = false;
+  private boolean firstDeal = true;
+  private boolean debug = true;
+  private boolean images = false;
 
-  Deck deck;
-  Hand hand;
-  int pot = 50;
-  int bet = 0;
-  int win = 0;
+  private Deck deck;
+  private Hand hand;
+  private int purse = 50;
+  private int bet = 0;
+  private int win = 0;
 
 
   @Override
@@ -53,13 +53,13 @@ public class GameActivity extends AppCompatActivity {
     setupTextViews();
   }
 
-  void setupButtons() {
+  private void setupButtons() {
     dealButton = findViewById(R.id.deal_button);
     dealButton.setEnabled(false);
     drawButton = findViewById(R.id.draw_button);
     drawButton.setEnabled(false);
     betOneButton = findViewById(R.id.bet1_button);
-    betMaxButton = findViewById(R.id.bet5_button);
+    betMaxButton = findViewById(R.id.bet_max_button);
     cardButtons = new ToggleButton[]{
         findViewById(R.id.card1),
         findViewById(R.id.card2),
@@ -104,38 +104,38 @@ public class GameActivity extends AppCompatActivity {
     });
   }
 
-  void setupTextViews() {
-    winNotifier = findViewById(R.id.win_notifier);
-    winTotal = findViewById(R.id.win_total);
-    betTotal = findViewById(R.id.bet_total);
-    potTotal = findViewById(R.id.pot_total);
-    winNotifier.setText("");
-    winTotal.setText(Integer.toString(win));
-    betTotal.setText(Integer.toString(bet));
-    potTotal.setText(Integer.toString(pot));
+  private void setupTextViews() {
+    winningHandView = findViewById(R.id.win_notifier);
+    winView = findViewById(R.id.win_view);
+    betView = findViewById(R.id.bet_view);
+    purseView = findViewById(R.id.purse_view);
+    winningHandView.setText("");
+    winView.setText(getString(R.string.win_text_format, win));
+    betView.setText(getString(R.string.bet_text_format, bet));
+    purseView.setText(getString(R.string.purse_text_format, purse));
   }
 
-  void betOne() {
+  private void betOne() {
     if (bet < BET_MAX) ++bet;
     if (bet == BET_MAX) {
       betOneButton.setEnabled(false);
       betMaxButton.setEnabled(false);
     }
-    betTotal.setText(Integer.toString(bet));
+    betView.setText(getString(R.string.bet_text_format, bet));
   }
 
-  void betMax() {
+  private void betMax() {
     bet = BET_MAX;
     betOneButton.setEnabled(false);
     betMaxButton.setEnabled(false);
-    betTotal.setText(Integer.toString(bet));
+    betView.setText(getString(R.string.bet_text_format, bet));
   }
 
-  void deal() {
-    winNotifier.setText("");
-    pot -= bet;
-    potTotal.setText(Integer.toString(pot));
-    betTotal.setText(Integer.toString(bet));
+  private void deal() {
+    winningHandView.setText("");
+    purse -= bet;
+    purseView.setText(getString(R.string.purse_text_format, purse));
+    betView.setText(getString(R.string.bet_text_format, bet));
     deck.shuffle();
     deck.dealAndReplace(hand);
     for (int i = 0; i < hand.size(); i++) {
@@ -145,7 +145,7 @@ public class GameActivity extends AppCompatActivity {
     if (debug) System.out.println(deck);
   }
 
-  void setupDraw() {
+  private void setupDraw() {
     dealButton.setEnabled(false);
     drawButton.setEnabled(true);
     betOneButton.setEnabled(false);
@@ -155,7 +155,7 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
-  void draw() {
+  private void draw() {
     for (int i = 0; i < HAND_SIZE; i++) {
       if (!cardButtons[i].isChecked()) {
         deck.push(hand.get(i));
@@ -174,8 +174,9 @@ public class GameActivity extends AppCompatActivity {
         .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
     System.out.println(resourceId);
     System.out.println(Integer.toString(identifier));
+    Drawable cardImage = getDrawable(identifier);
     if (images) {
-      cardButtons[index].setBackgroundDrawable(getDrawable(identifier));
+      cardButtons[index].setBackground(cardImage);
     }
     else {
       cardButtons[index].setTextOff(hand.get(index).toString());
@@ -184,18 +185,18 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
-  void updateWin() {
+  private void updateWin() {
     win = hand.getHandScore(bet);
-    pot += win;
-    winNotifier.setText(hand.getBestHand());
-    winTotal.setText(Integer.toString(win));
-    potTotal.setText(Integer.toString(pot));
+    purse += win;
+    winningHandView.setText(hand.getBestHand());
+    winView.setText(getString(R.string.win_text_format, win));
+    purseView.setText(getString(R.string.purse_text_format, purse));
   }
 
-  void resetGame() {
+  private void resetGame() {
     hand.clearWins();
     bet = 0;
-    betTotal.setText(Integer.toString(bet));
+    betView.setText(getString(R.string.bet_text_format, bet));
     dealButton.setEnabled(false);
     drawButton.setEnabled(false);
     betOneButton.setEnabled(true);
