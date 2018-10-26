@@ -3,9 +3,38 @@
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
+    <item name="android:background">@color/backgroundBlue</item>
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+  </style>
+
+  <style name="textView">
+    <item name="android:textColor">@color/textYellow</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:padding">8dp</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
+
+  <style name="winningHandView">
+    <item name="android:textColor">@color/textYellow</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:paddingBottom">0dp</item>
+    <item name="android:paddingTop">0dp</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
+
+  <style name="cardStyle">
+    <item name="android:layout_width">100dp</item>
+    <item name="android:layout_height">160dp</item>
+    <item name="android:padding">8dp</item>
+    <item name="android:paddingTop">24dp</item>
+    <item name="android:scaleType">fitCenter</item>
+    <item name="android:tint">@color/card</item>
   </style>
 
 </resources>

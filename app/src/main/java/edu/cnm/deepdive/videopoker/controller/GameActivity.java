@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.videopoker.controller;
 
+import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,7 +39,6 @@ public class GameActivity extends AppCompatActivity {
   private int bet = 0;
   private int win = 0;
 
-  // TODO Update styles - blue background, yellow text, buttons
   // TODO Implement settings menu with add to pot option
 
   @Override
@@ -112,6 +112,7 @@ public class GameActivity extends AppCompatActivity {
     purseView = findViewById(R.id.purse_view);
     winningHandView.setText(EMPTY_STRING);
     winView.setText(getString(R.string.win_text_format, win));
+    winView.setText(EMPTY_STRING);
     betView.setText(getString(R.string.bet_text_format, bet));
     purseView.setText(getString(R.string.purse_text_format, purse));
   }
