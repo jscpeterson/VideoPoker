@@ -148,7 +148,7 @@ public class GameActivity extends AppCompatActivity {
     hand.evaluateHand();
     String bestHand = hand.getBestHand();
     // Avoid returning bust string if the dealt hand is not a winning hand.
-    if (bestHand.equals(hand.getBustString())) winningHandView.setText(hand.getBestHand());
+    if (!bestHand.equals(hand.getBustString())) winningHandView.setText(hand.getBestHand());
     hand.clearWins();
     if (debug) System.out.println(deck.size());
     if (debug) System.out.println(deck);
