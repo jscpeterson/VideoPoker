@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import edu.cnm.deepdive.videopoker.R;
@@ -18,12 +17,9 @@ public class GameActivity extends AppCompatActivity {
   private static final int BET_MAX = 5;
   private static final int HAND_SIZE = 5;
 
-  //    https://deckofcardsapi.com/api/deck/new/
-  TableLayout payoutTable;
-
+  private ToggleButton[] cardButtons;
   private Button dealButton;
   private Button drawButton;
-  private ToggleButton[] cardButtons;
   private Button betOneButton;
   private Button betMaxButton;
 
@@ -99,7 +95,7 @@ public class GameActivity extends AppCompatActivity {
 
     drawButton.setOnClickListener((v) -> {
       draw();
-      updateWin();
+      collectWinnings();
       resetGame();
     });
   }
@@ -132,7 +128,7 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void deal() {
-    winningHandView.setText("");
+    winView.setText("");
     purse -= bet;
     purseView.setText(getString(R.string.purse_text_format, purse));
     betView.setText(getString(R.string.bet_text_format, bet));
@@ -141,6 +137,9 @@ public class GameActivity extends AppCompatActivity {
     for (int i = 0; i < hand.size(); i++) {
       displayCards(i);
     }
+    hand.evaluateHand();
+    winningHandView.setText(hand.getBestHand());
+    hand.clearWins();
     if (debug) System.out.println(deck.size());
     if (debug) System.out.println(deck);
   }
@@ -185,11 +184,12 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
-  private void updateWin() {
+  private void collectWinnings() {
+    hand.evaluateHand();
     win = hand.getHandScore(bet);
     purse += win;
     winningHandView.setText(hand.getBestHand());
-    winView.setText(getString(R.string.win_text_format, win));
+    if (win > 0) winView.setText(getString(R.string.win_text_format, win));
     purseView.setText(getString(R.string.purse_text_format, purse));
   }
 

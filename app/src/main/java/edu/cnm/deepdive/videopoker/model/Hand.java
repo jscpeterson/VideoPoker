@@ -13,7 +13,6 @@ import java.util.Stack;
 public class Hand extends Stack<Card> {
 
   // TODO bring in unit tests
-  // TODO optimize, especially Jacks or Better method
 
   private final String ROYAL_FLUSH = "Royal Flush";
   private boolean royalFlush;
@@ -33,22 +32,19 @@ public class Hand extends Stack<Card> {
   private boolean twopair;
   private final String JACKS_OR_BETTER = "Jacks or Better";
   private boolean jacksorbetter;
-
-  public String getBestHand() {
-    return bestHand;
-  }
+  private final String BUST = "";
 
   private String bestHand;
   private Map<String, Integer> betOnePayTable = new Hashtable<>();
   private Map<String, Integer> betFivePayTable = new Hashtable<>();
   private Map<Rank, Integer> rankMap = new Hashtable<>();
 
-  public Hand() {
+  Hand() {
     // TODO separate paytable data from Hand
     makePayTable();
   }
 
-  void makePayTable() {
+  private void makePayTable() {
     betOnePayTable.put(ROYAL_FLUSH, 800);
     betOnePayTable.put(STRAIGHT_FLUSH, 50);
     betOnePayTable.put(FOUR_OF_A_KIND, 25);
@@ -58,16 +54,10 @@ public class Hand extends Stack<Card> {
     betOnePayTable.put(THREE_OF_A_KIND, 3);
     betOnePayTable.put(TWO_PAIR, 2);
     betOnePayTable.put(JACKS_OR_BETTER, 1);
-    betOnePayTable.put("BUST", 0);
+    betOnePayTable.put(BUST, 0);
   }
 
-  public int getHandScore(int bet) {
-    evaluateHand();
-    this.bestHand = returnBestHand();
-    return (bet*betOnePayTable.get(bestHand));
-  }
-
-  void evaluateHand() {
+  public void evaluateHand() {
     rankMap = mapLikeCards();
     flush = checkForFlush();
     straight = checkForStraight();
@@ -90,6 +80,15 @@ public class Hand extends Stack<Card> {
     }
     twopair = checkForTwoPair();
     jacksorbetter = checkForJacksOrBetter();
+    this.bestHand = findBestHand();
+  }
+
+  public int getHandScore(int bet) {
+    return (bet*betOnePayTable.get(bestHand));
+  }
+
+  public String getBestHand() {
+    return bestHand;
   }
 
   public void clearWins() {
@@ -105,7 +104,7 @@ public class Hand extends Stack<Card> {
     jacksorbetter = false;
   }
 
-  public String returnBestHand(){
+  private String findBestHand() {
     if (royalFlush) return ROYAL_FLUSH;
     if (straightFlush) return STRAIGHT_FLUSH;
     if (fourofakind) return FOUR_OF_A_KIND;
@@ -115,20 +114,16 @@ public class Hand extends Stack<Card> {
     if (threeofakind) return THREE_OF_A_KIND;
     if (twopair) return TWO_PAIR;
     if (jacksorbetter) return JACKS_OR_BETTER;
-    return "BUST";
+    return BUST;
   }
 
-  boolean checkForRoyalFlush() {
+  private boolean checkForRoyalFlush() {
     Set<Rank> rankSet = rankMap.keySet();
     List<Rank> royalFlushValues = Arrays.asList(Rank.KING, Rank.QUEEN, Rank.ACE, Rank.JACK, Rank.TEN);
     return (rankSet.containsAll(royalFlushValues) && checkForFlush());
   }
 
-  boolean checkForStraightFlush() {
-    return (checkForStraight() && checkForFlush());
-  }
-
-  boolean checkForStraight() {
+  private boolean checkForStraight() {
     if (rankMap.values().size() < 5) {
       return false;
     }
@@ -138,10 +133,11 @@ public class Hand extends Stack<Card> {
     }
     Collections.sort(rankList);
 
+    // TODO Recognize aces high
     return (rankList.get(0).getValue() + 4 == rankList.get(4).getValue());
   }
 
-  boolean checkForFlush() {
+  private boolean checkForFlush() {
     Card cardToCheckSuit = this.get(0);
     for (Card card : this) {
       if (!card.getSuit().equals(cardToCheckSuit.getSuit())) return false;
@@ -149,20 +145,20 @@ public class Hand extends Stack<Card> {
     return true;
   }
 
-  boolean checkForFullHouse() {
+  private boolean checkForFullHouse() {
     Collection<Integer> rankValues = rankMap.values();
     return (rankValues.contains(2) && rankValues.contains(3));
   }
 
-  boolean checkForFourOfAKind() {
+  private boolean checkForFourOfAKind() {
     return rankMap.containsValue(4);
   }
 
-  boolean checkForThreeOfAKind() {
+  private boolean checkForThreeOfAKind() {
     return rankMap.containsValue(3);
   }
 
-  boolean checkForTwoPair() {
+  private boolean checkForTwoPair() {
     Collection<Integer> rankValues = rankMap.values();
     int pairsFound = 0;
     for (Integer value : rankValues) {
@@ -171,7 +167,7 @@ public class Hand extends Stack<Card> {
     return pairsFound == 2;
   }
 
-  boolean checkForJacksOrBetter() {
+  private boolean checkForJacksOrBetter() {
     //iterate over deck
     for (Card card : this) {
       //check if card is Jack or Better
@@ -188,12 +184,11 @@ public class Hand extends Stack<Card> {
     return false;
   }
 
-  Map mapLikeCards() {
+  private Map mapLikeCards() {
     for (Card card : this) {
       if (!rankMap.containsKey(card.getRank())) {
         rankMap.put(card.getRank(), 1);
-      }
-      else {
+      } else {
         int rankVal = rankMap.get(card.getRank());
         rankMap.put(card.getRank(), rankVal + 1);
       }
