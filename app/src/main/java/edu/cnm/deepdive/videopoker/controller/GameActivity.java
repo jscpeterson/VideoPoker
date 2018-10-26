@@ -17,7 +17,7 @@ public class GameActivity extends AppCompatActivity {
   private static final int BET_MAX = 5;
   private static final int HAND_SIZE = 5;
 
-  private ToggleButton[] cardButtons;
+  private CardButton[] cardButtons;
   private Button dealButton;
   private Button drawButton;
   private Button betOneButton;
@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity {
 
   private boolean firstDeal = true;
   private boolean debug = true;
-  private boolean images = false;
+  private boolean images = true;
 
   private Deck deck;
   private Hand hand;
@@ -38,6 +38,8 @@ public class GameActivity extends AppCompatActivity {
   private int bet = 0;
   private int win = 0;
 
+  // TODO Update styles - blue background, yellow text, buttons
+  // TODO Implement settings menu with add to pot option
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class GameActivity extends AppCompatActivity {
     drawButton.setEnabled(false);
     betOneButton = findViewById(R.id.bet1_button);
     betMaxButton = findViewById(R.id.bet_max_button);
-    cardButtons = new ToggleButton[]{
+    cardButtons = new CardButton[]{
         findViewById(R.id.card1),
         findViewById(R.id.card2),
         findViewById(R.id.card3),
@@ -64,9 +66,12 @@ public class GameActivity extends AppCompatActivity {
         findViewById(R.id.card5),
     };
     // cards start off disabled and invisible
-    for (ToggleButton card : cardButtons) {
+    for (CardButton card : cardButtons) {
       card.setVisibility(View.INVISIBLE);
       card.setEnabled(false);
+      card.setOnClickListener((v) -> {
+        card.toggle();
+      });
     }
 
     betOneButton.setOnClickListener((v) -> {
@@ -83,7 +88,7 @@ public class GameActivity extends AppCompatActivity {
       // special actions for the initial deal when the game first begins
       // activate and make cards visible
       if (firstDeal) {
-        for (ToggleButton card : cardButtons) {
+        for (CardButton card : cardButtons) {
           card.setVisibility(View.VISIBLE);
           card.setEnabled(true);
         }
@@ -149,7 +154,7 @@ public class GameActivity extends AppCompatActivity {
     drawButton.setEnabled(true);
     betOneButton.setEnabled(false);
     betMaxButton.setEnabled(false);
-    for (ToggleButton card : cardButtons) {
+    for (CardButton card : cardButtons) {
       card.setEnabled(true);
     }
   }
@@ -173,13 +178,12 @@ public class GameActivity extends AppCompatActivity {
         .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
     System.out.println(resourceId);
     System.out.println(Integer.toString(identifier));
-    Drawable cardImage = getDrawable(identifier);
     if (images) {
-      cardButtons[index].setBackground(cardImage);
+      cardButtons[index].setImageResource(identifier);
     }
     else {
-      cardButtons[index].setTextOff(hand.get(index).toString());
-      cardButtons[index].setTextOn(hand.get(index).toString());
+//      cardButtons[index].setTextOff(hand.get(index).toString());
+//      cardButtons[index].setTextOn(hand.get(index).toString());
       cardButtons[index].setChecked(false);
     }
   }
@@ -199,8 +203,9 @@ public class GameActivity extends AppCompatActivity {
     betView.setText(getString(R.string.bet_text_format, bet));
     dealButton.setEnabled(false);
     drawButton.setEnabled(false);
-    for (ToggleButton card : cardButtons) {
+    for (CardButton card : cardButtons) {
       card.setEnabled(false);
+      card.setChecked(false);
     }
     if (purse >= BET_MAX) {
       betMaxButton.setEnabled(true);

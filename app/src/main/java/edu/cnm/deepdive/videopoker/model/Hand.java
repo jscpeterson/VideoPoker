@@ -12,7 +12,7 @@ import java.util.Stack;
 
 public class Hand extends Stack<Card> {
 
-  // TODO bring in unit tests
+  // TODO Implement unit tests on hand evaluations
 
   private final String ROYAL_FLUSH = "Royal Flush";
   private boolean royalFlush;

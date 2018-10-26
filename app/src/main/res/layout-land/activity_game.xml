@@ -12,40 +12,36 @@
     android:layout_gravity="center"
     android:orientation="horizontal">
 
-    <ToggleButton
+    <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card1"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:paddingLeft="16dp"
-      android:paddingRight="16dp"/>
+      android:layout_width="60dp"
+      android:layout_height="100dp"
+      android:scaleType="fitCenter"
+      android:cropToPadding="true"/>
 
-    <ToggleButton
+    <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:paddingLeft="16dp"
-      android:paddingRight="16dp"/>
+      android:layout_width="60dp"
+      android:layout_height="100dp"
+      android:scaleType="fitCenter"/>
 
-    <ToggleButton
+    <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card3"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:paddingLeft="16dp"
-      android:paddingRight="16dp"/>
+      android:layout_width="60dp"
+      android:layout_height="100dp"
+      android:scaleType="fitCenter"/>
 
-    <ToggleButton
+    <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card4"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:paddingLeft="16dp"
-      android:paddingRight="16dp"/>
+      android:layout_width="60dp"
+      android:layout_height="100dp"
+      android:scaleType="fitCenter"/>
 
-    <ToggleButton
+    <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card5"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:paddingLeft="16dp"
-      android:paddingRight="16dp"/>
+      android:layout_width="60dp"
+      android:layout_height="100dp"
+      android:scaleType="fitCenter"/>
 
   </LinearLayout>
 
