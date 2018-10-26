@@ -1,13 +1,12 @@
 package edu.cnm.deepdive.videopoker.controller;
 
-import android.graphics.LightingColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Deck;
 import edu.cnm.deepdive.videopoker.model.Hand;
@@ -29,16 +28,17 @@ public class GameActivity extends AppCompatActivity {
   private TextView winView;
   private TextView betView;
   private TextView purseView;
-
+  
   private boolean firstDeal = true;
   private boolean debug = true;
-
+  private boolean viewAsDollars = false;
+  
   private Deck deck;
   private Hand hand;
   private int purse = 50;
   private int bet = 0;
   private int win = 0;
-
+  
   // TODO Implement settings menu with add to pot option
 
   @Override
@@ -49,6 +49,45 @@ public class GameActivity extends AppCompatActivity {
     hand = deck.deal(HAND_SIZE);
     setupButtons();
     setupTextViews();
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    super.onCreateOptionsMenu(menu);
+    getMenuInflater().inflate(R.menu.options, menu);
+    return true;
+  }
+
+  public String getWinString(int win, boolean viewAsDollars) {
+    if (viewAsDollars) return getString(R.string.win_text_dollar_format, (double) win*0.25);
+    else return getString(R.string.win_text_credits_format, win);
+  }
+
+  public String getPurseString(int purse, boolean viewAsDollars) {
+    if (viewAsDollars) return getString(R.string.purse_text_dollar_format, (double) purse*0.25);
+    return getString(R.string.purse_text_credits_format, purse);
+  }
+
+  public String getBetString(int bet, boolean viewAsDollars) {
+    if (viewAsDollars) return getString(R.string.bet_text_dollar_format, (double) bet*0.25);
+    else return getString(R.string.bet_text_credits_format, bet);
+  }
+
+  
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    boolean handled = true;
+    switch (item.getItemId()) {
+      case R.id.switch_currency_view:
+        viewAsDollars = !viewAsDollars;
+        winView.setText(getWinString(win, viewAsDollars));
+        purseView.setText(getPurseString(purse, viewAsDollars));
+        betView.setText(getBetString(bet, viewAsDollars));
+        break;
+      default:
+        handled = super.onOptionsItemSelected(item);
+    }
+    return handled;
   }
 
   private void setupButtons() {
@@ -111,10 +150,10 @@ public class GameActivity extends AppCompatActivity {
     betView = findViewById(R.id.bet_view);
     purseView = findViewById(R.id.purse_view);
     winningHandView.setText(EMPTY_STRING);
-    winView.setText(getString(R.string.win_text_format, win));
-    winView.setText(EMPTY_STRING);
-    betView.setText(getString(R.string.bet_text_format, bet));
-    purseView.setText(getString(R.string.purse_text_format, purse));
+    winView.setText(getWinString(win, viewAsDollars));
+    winView.setVisibility(View.INVISIBLE);
+    betView.setText(getBetString(bet, viewAsDollars));
+    purseView.setText(getPurseString(purse, viewAsDollars));
   }
 
   private void betOne() {
@@ -123,22 +162,22 @@ public class GameActivity extends AppCompatActivity {
       betOneButton.setEnabled(false);
       betMaxButton.setEnabled(false);
     }
-    betView.setText(getString(R.string.bet_text_format, bet));
+    betView.setText(getBetString(bet, viewAsDollars));
   }
 
   private void betMax() {
     bet = BET_MAX;
     betOneButton.setEnabled(false);
     betMaxButton.setEnabled(false);
-    betView.setText(getString(R.string.bet_text_format, bet));
+    betView.setText(getBetString(bet, viewAsDollars));
   }
 
   private void deal() {
-    winView.setText(EMPTY_STRING);
+    winView.setVisibility(View.INVISIBLE);
     winningHandView.setText(EMPTY_STRING);
     purse -= bet;
-    purseView.setText(getString(R.string.purse_text_format, purse));
-    betView.setText(getString(R.string.bet_text_format, bet));
+    purseView.setText(getPurseString(purse, viewAsDollars));
+    betView.setText(getBetString(bet, viewAsDollars));
     deck.shuffle();
     deck.dealAndReplace(hand);
     for (int i = 0; i < hand.size(); i++) {
@@ -192,14 +231,17 @@ public class GameActivity extends AppCompatActivity {
     win = hand.getHandScore(bet);
     purse += win;
     winningHandView.setText(hand.getBestHand());
-    if (win > 0) winView.setText(getString(R.string.win_text_format, win));
-    purseView.setText(getString(R.string.purse_text_format, purse));
+    if (win > 0) {
+      winView.setText(getWinString(win, viewAsDollars));
+      winView.setVisibility(View.VISIBLE);
+    }
+    purseView.setText(getPurseString(purse, viewAsDollars));
   }
 
   private void resetGame() {
     hand.clearWins();
     bet = 0;
-    betView.setText(getString(R.string.bet_text_format, bet));
+    betView.setText(getBetString(bet, viewAsDollars));
     dealButton.setEnabled(false);
     drawButton.setEnabled(false);
     for (CardButton card : cardButtons) {
