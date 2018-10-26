@@ -6,5 +6,5 @@
   <color name="backgroundBlue">#FF0044CC</color>
   <color name="textYellow">#FFFFFF00</color>
   <color name="textWhite">#FFFFFFFF</color>
-  <color name="heldTint">#75FFFF00</color>
+  <color name="heldTint">#55FFFF00</color>
 </resources>

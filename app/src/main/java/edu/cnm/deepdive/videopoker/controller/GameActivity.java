@@ -32,14 +32,16 @@ public class GameActivity extends AppCompatActivity {
   private boolean firstDeal = true;
   private boolean debug = true;
   private boolean viewAsDollars = false;
-  
+
   private Deck deck;
   private Hand hand;
   private int purse = 50;
+  private double creditValue = 0.25;
   private int bet = 0;
   private int win = 0;
-  
-  // TODO Implement settings menu with add to pot option
+
+  // TODO Move game functions to game method.
+  // TODO Add splash screen.
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +61,17 @@ public class GameActivity extends AppCompatActivity {
   }
 
   public String getWinString(int win, boolean viewAsDollars) {
-    if (viewAsDollars) return getString(R.string.win_text_dollar_format, (double) win*0.25);
+    if (viewAsDollars) return getString(R.string.win_text_dollar_format, (double) win*creditValue);
     else return getString(R.string.win_text_credits_format, win);
   }
 
   public String getPurseString(int purse, boolean viewAsDollars) {
-    if (viewAsDollars) return getString(R.string.purse_text_dollar_format, (double) purse*0.25);
+    if (viewAsDollars) return getString(R.string.purse_text_dollar_format, (double) purse*creditValue);
     return getString(R.string.purse_text_credits_format, purse);
   }
 
   public String getBetString(int bet, boolean viewAsDollars) {
-    if (viewAsDollars) return getString(R.string.bet_text_dollar_format, (double) bet*0.25);
+    if (viewAsDollars) return getString(R.string.bet_text_dollar_format, (double) bet*creditValue);
     else return getString(R.string.bet_text_credits_format, bet);
   }
 
@@ -78,14 +80,17 @@ public class GameActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     boolean handled = true;
     switch (item.getItemId()) {
+      default:
+        handled = super.onOptionsItemSelected(item);
+        break;
       case R.id.switch_currency_view:
         viewAsDollars = !viewAsDollars;
         winView.setText(getWinString(win, viewAsDollars));
         purseView.setText(getPurseString(purse, viewAsDollars));
         betView.setText(getBetString(bet, viewAsDollars));
         break;
-      default:
-        handled = super.onOptionsItemSelected(item);
+      case R.id.exit:
+        System.exit(0);
     }
     return handled;
   }
