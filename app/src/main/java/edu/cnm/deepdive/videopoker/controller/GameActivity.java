@@ -210,7 +210,7 @@ public class GameActivity extends AppCompatActivity {
       betOneButton.setEnabled(true);
     }
     else {
-      winningHandView.setText("Game over, loser");
+      winningHandView.setText(R.string.purse_empty_text);
     }
   }
 

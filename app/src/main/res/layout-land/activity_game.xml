@@ -4,64 +4,6 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <ListView
-    android:id="@+id/payout_list"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-  </ListView>
-
-  <TableLayout
-    android:layout_marginTop="10dp"
-    android:id="@+id/payout_table"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TableRow
-      android:layout_height="wrap_content"
-      android:layout_width="match_parent"
-      android:id="@+id/payout_table_row1"
-      android:padding="10dp">
-      <TextView
-        android:id="@+id/hand_column"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:text="Hand"/>
-      <TextView
-        android:id="@+id/bet1_column"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:text="Bet 1"/>
-      <TextView
-        android:id="@+id/bet2_column"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:text="Bet 2"/>
-      <TextView
-        android:id="@+id/bet3_column"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:text="Bet 3"/>
-      <TextView
-        android:id="@+id/bet4_column"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:text="Bet 4"/>
-      <TextView
-        android:id="@+id/bet5_column"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:text="Bet 5"/>
-    </TableRow>
-
-  </TableLayout>
-
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -75,41 +17,35 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
-      android:paddingRight="16dp"
-      android:scaleType="fitXY" />
+      android:paddingRight="16dp"/>
 
     <ToggleButton
       android:id="@+id/card2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
-      android:paddingRight="16dp"
-      android:scaleType="fitXY"/>
+      android:paddingRight="16dp"/>
 
     <ToggleButton
       android:id="@+id/card3"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
-      android:paddingRight="16dp"
-      android:scaleType="fitXY"/>
+      android:paddingRight="16dp"/>
 
     <ToggleButton
       android:id="@+id/card4"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
-      android:paddingRight="16dp"
-      android:scaleType="fitXY"/>
+      android:paddingRight="16dp"/>
 
     <ToggleButton
       android:id="@+id/card5"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingLeft="16dp"
-      android:paddingRight="16dp"
-      
-      android:scaleType="fitXY"/>
+      android:paddingRight="16dp"/>
 
   </LinearLayout>
 
@@ -127,17 +63,18 @@
 
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:baselineAligned="false">
 
     <LinearLayout
       android:layout_width="0dp"
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:gravity="start">
-    <TextView
-      android:id="@+id/win_view"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      <TextView
+        android:id="@+id/win_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
@@ -145,10 +82,10 @@
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:gravity="center">
-    <TextView
-      android:id="@+id/bet_view"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      <TextView
+        android:id="@+id/bet_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
@@ -156,18 +93,18 @@
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:gravity="end">
-    <TextView
-      android:id="@+id/purse_view"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      <TextView
+        android:id="@+id/purse_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     </LinearLayout>
 
   </LinearLayout>
 
-
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:baselineAligned="false"
     android:gravity="bottom|center_horizontal">
 
     <LinearLayout
@@ -176,17 +113,19 @@
       android:layout_height="wrap_content"
       android:gravity="start">
 
-    <Button
-      android:id="@+id/help_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      <Button
+        android:id="@+id/help_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/buttonBarButtonStyle"/>
 
-    <Button
-      android:id="@+id/main_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      <Button
+        android:id="@+id/main_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/buttonBarButtonStyle"/>
+
     </LinearLayout>
-
 
     <LinearLayout
       android:layout_width="0dp"
@@ -194,16 +133,18 @@
       android:layout_height="wrap_content"
       android:gravity="center">
 
-    <Button
-      android:id="@+id/bet1_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/bet_one_button_text"/>
+      <Button
+        android:id="@+id/bet1_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="@string/bet_one_button_text"/>
 
       <Button
         android:id="@+id/bet_max_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="?android:attr/buttonBarButtonStyle"
         android:text="@string/bet_max_button_text"/>
 
     </LinearLayout>
@@ -218,18 +159,20 @@
         android:id="@+id/deal_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="?android:attr/buttonBarButtonStyle"
         android:text="@string/deal_button_text"/>
 
       <Button
-      android:id="@+id/draw_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/draw_button_text"/>
+        android:id="@+id/draw_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="@string/draw_button_text"/>
 
     </LinearLayout>
 
 
-</LinearLayout>
+  </LinearLayout>
 
 
 </LinearLayout>

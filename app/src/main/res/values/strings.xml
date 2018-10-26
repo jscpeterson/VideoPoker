@@ -7,4 +7,5 @@
   <string name="bet_max_button_text">MAX</string>
   <string name="deal_button_text">DEAL</string>
   <string name="draw_button_text">DRAW</string>
+  <string name="purse_empty_text">Game Over</string>
 </resources>
