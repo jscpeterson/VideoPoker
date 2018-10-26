@@ -15,35 +15,40 @@
       android:layout_width="80dp"
       android:layout_height="122dp"
       android:padding="8dp"
-      android:scaleType="fitCenter"/>
+      android:scaleType="fitCenter"
+      android:tint="@color/card"/>
 
     <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card2"
       android:layout_width="80dp"
       android:layout_height="122dp"
       android:padding="8dp"
-      android:scaleType="fitCenter"/>
+      android:scaleType="fitCenter"
+      android:tint="@color/card"/>
 
     <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card3"
       android:layout_width="80dp"
       android:layout_height="122dp"
       android:padding="8dp"
-      android:scaleType="fitCenter"/>
+      android:scaleType="fitCenter"
+      android:tint="@color/card"/>
 
     <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card4"
       android:layout_width="80dp"
       android:layout_height="122dp"
       android:padding="8dp"
-      android:scaleType="fitCenter"/>
+      android:scaleType="fitCenter"
+      android:tint="@color/card"/>
 
     <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card5"
       android:layout_width="80dp"
       android:layout_height="122dp"
       android:padding="8dp"
-      android:scaleType="fitCenter"/>
+      android:scaleType="fitCenter"
+      android:tint="@color/card"/>
 
   </LinearLayout>
 
