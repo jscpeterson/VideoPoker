@@ -117,7 +117,7 @@ public class GameActivity extends AppCompatActivity {
 
   private void betOne() {
     if (bet < BET_MAX) ++bet;
-    if (bet == BET_MAX) {
+    if (bet == BET_MAX || bet >= purse) {
       betOneButton.setEnabled(false);
       betMaxButton.setEnabled(false);
     }
@@ -199,10 +199,18 @@ public class GameActivity extends AppCompatActivity {
     betView.setText(getString(R.string.bet_text_format, bet));
     dealButton.setEnabled(false);
     drawButton.setEnabled(false);
-    betOneButton.setEnabled(true);
-    betMaxButton.setEnabled(true);
     for (ToggleButton card : cardButtons) {
       card.setEnabled(false);
+    }
+    if (purse >= BET_MAX) {
+      betMaxButton.setEnabled(true);
+      betOneButton.setEnabled(true);
+    }
+    else if (purse > 0) {
+      betOneButton.setEnabled(true);
+    }
+    else {
+      winningHandView.setText("Game over, loser");
     }
   }
 
