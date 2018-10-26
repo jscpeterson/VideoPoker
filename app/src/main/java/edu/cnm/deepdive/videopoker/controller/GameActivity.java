@@ -16,6 +16,7 @@ public class GameActivity extends AppCompatActivity {
 
   private static final int BET_MAX = 5;
   private static final int HAND_SIZE = 5;
+  private static final String EMPTY_STRING = "";
 
   private CardButton[] cardButtons;
   private Button dealButton;
@@ -30,7 +31,6 @@ public class GameActivity extends AppCompatActivity {
 
   private boolean firstDeal = true;
   private boolean debug = true;
-  private boolean images = true;
 
   private Deck deck;
   private Hand hand;
@@ -110,7 +110,7 @@ public class GameActivity extends AppCompatActivity {
     winView = findViewById(R.id.win_view);
     betView = findViewById(R.id.bet_view);
     purseView = findViewById(R.id.purse_view);
-    winningHandView.setText("");
+    winningHandView.setText(EMPTY_STRING);
     winView.setText(getString(R.string.win_text_format, win));
     betView.setText(getString(R.string.bet_text_format, bet));
     purseView.setText(getString(R.string.purse_text_format, purse));
@@ -133,7 +133,8 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void deal() {
-    winView.setText("");
+    winView.setText(EMPTY_STRING);
+    winningHandView.setText(EMPTY_STRING);
     purse -= bet;
     purseView.setText(getString(R.string.purse_text_format, purse));
     betView.setText(getString(R.string.bet_text_format, bet));
@@ -142,8 +143,12 @@ public class GameActivity extends AppCompatActivity {
     for (int i = 0; i < hand.size(); i++) {
       displayCards(i);
     }
+
+    // Evaluate hand to display if the player was dealt a winning hand.
     hand.evaluateHand();
-    winningHandView.setText(hand.getBestHand());
+    String bestHand = hand.getBestHand();
+    // Avoid returning bust string if the dealt hand is not a winning hand.
+    if (bestHand.equals(hand.getBustString())) winningHandView.setText(hand.getBestHand());
     hand.clearWins();
     if (debug) System.out.println(deck.size());
     if (debug) System.out.println(deck);
@@ -178,14 +183,7 @@ public class GameActivity extends AppCompatActivity {
         .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
     System.out.println(resourceId);
     System.out.println(Integer.toString(identifier));
-    if (images) {
-      cardButtons[index].setImageResource(identifier);
-    }
-    else {
-//      cardButtons[index].setTextOff(hand.get(index).toString());
-//      cardButtons[index].setTextOn(hand.get(index).toString());
-      cardButtons[index].setChecked(false);
-    }
+    cardButtons[index].setImageResource(identifier);
   }
 
   private void collectWinnings() {

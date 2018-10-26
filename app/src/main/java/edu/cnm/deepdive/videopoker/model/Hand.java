@@ -32,7 +32,11 @@ public class Hand extends Stack<Card> {
   private boolean twopair;
   private final String JACKS_OR_BETTER = "Jacks or Better";
   private boolean jacksorbetter;
-  private final String BUST = "";
+  private final String BUST = "\u2639";
+
+  public String getBustString() {
+    return BUST;
+  }
 
   private String bestHand;
   private Map<String, Integer> betOnePayTable = new Hashtable<>();
