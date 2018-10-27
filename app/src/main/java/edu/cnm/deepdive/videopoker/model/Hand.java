@@ -82,7 +82,9 @@ public class Hand extends Stack<Card> {
     else if (checkForThreeOfAKind()) {
       threeofakind = true;
     }
-    twopair = checkForTwoPair();
+    else if (checkForTwoPair()) {
+      twopair = true;
+    }
     jacksorbetter = checkForJacksOrBetter();
     this.bestHand = findBestHand();
   }
@@ -131,6 +133,7 @@ public class Hand extends Stack<Card> {
     if (rankMap.values().size() < 5) {
       return false;
     }
+    // TODO is ArrayList the most efficient type?
     List<Rank> rankList = new ArrayList<>();
     for (Card card : this) {
       rankList.add(card.getRank());
@@ -141,6 +144,7 @@ public class Hand extends Stack<Card> {
     // Tested in playing-cards repository 10-26-2018
     return (rankList.get(0).getValue() + 4 == rankList.get(4).getValue()
         || (rankList.get(0).getValue() == 1
+        && rankList.get(1).getValue() == 10
         && (rankList.get(1).getValue() + 3 == rankList.get(4).getValue())));
   }
 
@@ -183,7 +187,8 @@ public class Hand extends Stack<Card> {
         for (Card comparisonCard : this) {
           //if one rank matches original card, return true
           //also check to make sure card is not the original card itself
-          if (!card.equals(comparisonCard) && card.getRank().equals(comparisonCard.getRank())) return true;
+          if (!card.equals(comparisonCard) && card.getRank().equals(comparisonCard.getRank()))
+            return true;
         }
       }
     }
