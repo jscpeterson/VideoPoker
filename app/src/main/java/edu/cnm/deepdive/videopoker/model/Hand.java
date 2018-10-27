@@ -62,7 +62,7 @@ public class Hand extends Stack<Card> {
   }
 
   public void evaluateHand() {
-    rankMap = mapLikeCards();
+    mapLikeCards();
     flush = checkForFlush();
     straight = checkForStraight();
     if (flush && straight) {
@@ -137,8 +137,11 @@ public class Hand extends Stack<Card> {
     }
     Collections.sort(rankList);
 
-    // TODO Recognize aces high
-    return (rankList.get(0).getValue() + 4 == rankList.get(4).getValue());
+    // Cheap but efficient way of checking for an aces high straight
+    // Tested in playing-cards repository 10-26-2018
+    return (rankList.get(0).getValue() + 4 == rankList.get(4).getValue()
+        || (rankList.get(0).getValue() == 1
+        && (rankList.get(1).getValue() + 3 == rankList.get(4).getValue())));
   }
 
   private boolean checkForFlush() {
@@ -188,7 +191,7 @@ public class Hand extends Stack<Card> {
     return false;
   }
 
-  private Map mapLikeCards() {
+  private void mapLikeCards() {
     for (Card card : this) {
       if (!rankMap.containsKey(card.getRank())) {
         rankMap.put(card.getRank(), 1);
@@ -198,7 +201,6 @@ public class Hand extends Stack<Card> {
       }
     }
     System.out.println(rankMap);
-    return rankMap;
   }
 
 }

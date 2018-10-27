@@ -60,17 +60,17 @@ public class GameActivity extends AppCompatActivity {
     return true;
   }
 
-  public String getWinString(int win, boolean viewAsDollars) {
+  private String getWinString(int win, boolean viewAsDollars) {
     if (viewAsDollars) return getString(R.string.win_text_dollar_format, (double) win*creditValue);
     else return getString(R.string.win_text_credits_format, win);
   }
 
-  public String getPurseString(int purse, boolean viewAsDollars) {
+  private String getPurseString(int purse, boolean viewAsDollars) {
     if (viewAsDollars) return getString(R.string.purse_text_dollar_format, (double) purse*creditValue);
     return getString(R.string.purse_text_credits_format, purse);
   }
 
-  public String getBetString(int bet, boolean viewAsDollars) {
+  private String getBetString(int bet, boolean viewAsDollars) {
     if (viewAsDollars) return getString(R.string.bet_text_dollar_format, (double) bet*creditValue);
     else return getString(R.string.bet_text_credits_format, bet);
   }
@@ -79,6 +79,7 @@ public class GameActivity extends AppCompatActivity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     boolean handled = true;
+    // TODO rig hand menu option for testing/future potential
     switch (item.getItemId()) {
       default:
         handled = super.onOptionsItemSelected(item);
@@ -113,9 +114,7 @@ public class GameActivity extends AppCompatActivity {
     for (CardButton card : cardButtons) {
       card.setVisibility(View.INVISIBLE);
       card.setEnabled(false);
-      card.setOnClickListener((v) -> {
-        card.toggle();
-      });
+      card.setOnClickListener((v) -> card.toggle());
     }
 
     betOneButton.setOnClickListener((v) -> {
