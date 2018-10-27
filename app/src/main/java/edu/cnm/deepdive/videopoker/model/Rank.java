@@ -1,7 +1,5 @@
 package edu.cnm.deepdive.videopoker.model;
 
-// TODO Recognize Rank as 14 or 1
-
 public enum Rank {
   ACE(1, "A"),
   TWO(2, "2"),
