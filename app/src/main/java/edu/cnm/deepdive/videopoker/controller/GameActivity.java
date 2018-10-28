@@ -226,9 +226,9 @@ public class GameActivity extends AppCompatActivity {
       for (int i = 0; i < game.getWin(); ++i) {
         // TODO Slow down count for a better "animation"
         winView.setText(getWinString(i + 1, game.getCreditValue(), viewAsDollars));
-        purseView.setText(getPurseString(game.getPurse() + 1, game.getCreditValue(), viewAsDollars));
+        game.setPurse(game.getPurse() + 1);
+        purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
       }
-      game.addWinToPurse();
     }
   }
 
