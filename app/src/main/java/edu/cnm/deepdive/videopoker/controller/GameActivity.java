@@ -60,6 +60,7 @@ public class GameActivity extends AppCompatActivity {
       default:
         handled = super.onOptionsItemSelected(item);
         break;
+        //TODO Add case to toggle fast win display vs accumulation
       case R.id.switch_currency_view:
         viewAsDollars = !viewAsDollars;
         winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
@@ -134,11 +135,7 @@ public class GameActivity extends AppCompatActivity {
 
     drawButton.setOnClickListener((v) -> {
       draw();
-      try {
-        collectWinnings();
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
+      collectWinnings();
       resetGame();
     });
   }
@@ -218,11 +215,11 @@ public class GameActivity extends AppCompatActivity {
     cardButtons[index].setImageResource(identifier);
   }
 
-  private void collectWinnings() throws InterruptedException {
+  private void collectWinnings() {
     game.evaluateWin();
     winningHandView.setText(game.getHand().getBestHand());
-    winView.setVisibility(View.VISIBLE);
     if (game.getWin() > 0) {
+      winView.setVisibility(View.VISIBLE);
       for (int i = 0; i < game.getWin(); ++i) {
         // TODO Slow down count for a better "animation"
         winView.setText(getWinString(i + 1, game.getCreditValue(), viewAsDollars));
