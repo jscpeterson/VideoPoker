@@ -133,7 +133,6 @@ public class Hand extends Stack<Card> {
     if (rankMap.values().size() < 5) {
       return false;
     }
-    // TODO is ArrayList the most efficient type?
     List<Rank> rankList = new ArrayList<>();
     for (Card card : this) {
       rankList.add(card.getRank());

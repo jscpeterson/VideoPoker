@@ -220,6 +220,7 @@ public class GameActivity extends AppCompatActivity {
     game.evaluateWin();
     winningHandView.setText(game.getHand().getBestHand());
     if (game.getWin() > 0) {
+      // TODO Make possibly timed counter "animation" showing win and purse accumulating
       winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
       winView.setVisibility(View.VISIBLE);
     }
