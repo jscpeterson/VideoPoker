@@ -61,7 +61,10 @@ public class Game {
   public void evaluateWin() {
     hand.evaluateHand();
     win = hand.getHandScore(bet);
-    purse += win;
+  }
+
+  public void addWinToPurse() {
+    this.purse += this.win;
   }
 
   public enum State {

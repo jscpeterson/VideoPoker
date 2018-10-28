@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
   private boolean viewAsDollars = false;
 
   private Game game;
-  
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -134,7 +134,11 @@ public class GameActivity extends AppCompatActivity {
 
     drawButton.setOnClickListener((v) -> {
       draw();
-      collectWinnings();
+      try {
+        collectWinnings();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
       resetGame();
     });
   }
@@ -214,15 +218,18 @@ public class GameActivity extends AppCompatActivity {
     cardButtons[index].setImageResource(identifier);
   }
 
-  private void collectWinnings() {
+  private void collectWinnings() throws InterruptedException {
     game.evaluateWin();
     winningHandView.setText(game.getHand().getBestHand());
+    winView.setVisibility(View.VISIBLE);
     if (game.getWin() > 0) {
-      // TODO Make possibly timed counter "animation" showing win and purse accumulating
-      winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
-      winView.setVisibility(View.VISIBLE);
+      for (int i = 0; i < game.getWin(); ++i) {
+        // TODO Slow down count for a better "animation"
+        winView.setText(getWinString(i + 1, game.getCreditValue(), viewAsDollars));
+        purseView.setText(getPurseString(game.getPurse() + 1, game.getCreditValue(), viewAsDollars));
+      }
+      game.addWinToPurse();
     }
-    purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
   }
 
   private void resetGame() {
