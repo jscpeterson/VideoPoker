@@ -35,9 +35,7 @@ public class GameActivity extends AppCompatActivity {
   private boolean viewAsDollars = false;
 
   private Game game;
-
-  // TODO Add splash screen.
-
+  
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
