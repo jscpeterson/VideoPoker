@@ -29,10 +29,11 @@ public class GameActivity extends AppCompatActivity {
   private TextView winView;
   private TextView betView;
   private TextView purseView;
-  
+
   private boolean firstDeal = true;
   private boolean debug = true;
   private boolean viewAsDollars = false;
+  private boolean fastDisplay = true;
 
   private Game game;
 
@@ -60,7 +61,9 @@ public class GameActivity extends AppCompatActivity {
       default:
         handled = super.onOptionsItemSelected(item);
         break;
-        //TODO Add case to toggle fast win display vs accumulation
+      case R.id.fast_display:
+        fastDisplay = !fastDisplay;
+        break;
       case R.id.switch_currency_view:
         viewAsDollars = !viewAsDollars;
         winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
@@ -74,18 +77,26 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private String getWinString(int win, double creditValue, boolean viewAsDollars) {
-    if (viewAsDollars) return getString(R.string.win_text_dollar_format, (double) win*creditValue);
-    else return getString(R.string.win_text_credits_format, win);
+    if (viewAsDollars) {
+      return getString(R.string.win_text_dollar_format, (double) win * creditValue);
+    } else {
+      return getString(R.string.win_text_credits_format, win);
+    }
   }
 
   private String getPurseString(int purse, double creditValue, boolean viewAsDollars) {
-    if (viewAsDollars) return getString(R.string.purse_text_dollar_format, (double) purse*creditValue);
+    if (viewAsDollars) {
+      return getString(R.string.purse_text_dollar_format, (double) purse * creditValue);
+    }
     return getString(R.string.purse_text_credits_format, purse);
   }
 
   private String getBetString(int bet, double creditValue, boolean viewAsDollars) {
-    if (viewAsDollars) return getString(R.string.bet_text_dollar_format, (double) bet*creditValue);
-    else return getString(R.string.bet_text_credits_format, bet);
+    if (viewAsDollars) {
+      return getString(R.string.bet_text_dollar_format, (double) bet * creditValue);
+    } else {
+      return getString(R.string.bet_text_credits_format, bet);
+    }
   }
 
   private void setupButtons() {
@@ -153,7 +164,9 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void betOne() {
-    if (game.getBet() < BET_MAX) game.setBet(game.getBet()+1);
+    if (game.getBet() < BET_MAX) {
+      game.setBet(game.getBet() + 1);
+    }
     if (game.getBet() == BET_MAX || game.getBet() >= game.getPurse()) {
       betOneButton.setEnabled(false);
       betMaxButton.setEnabled(false);
@@ -184,7 +197,9 @@ public class GameActivity extends AppCompatActivity {
     game.getHand().evaluateHand();
     String bestHand = game.getHand().getBestHand();
     // Avoid returning bust string if the dealt hand is not a winning hand.
-    if (!bestHand.equals(game.getHand().getBustString())) winningHandView.setText(game.getHand().getBestHand());
+    if (!bestHand.equals(game.getHand().getBustString())) {
+      winningHandView.setText(game.getHand().getBestHand());
+    }
     game.getHand().clearWins();
   }
 
@@ -220,11 +235,17 @@ public class GameActivity extends AppCompatActivity {
     winningHandView.setText(game.getHand().getBestHand());
     if (game.getWin() > 0) {
       winView.setVisibility(View.VISIBLE);
-      for (int i = 0; i < game.getWin(); ++i) {
-        // TODO Slow down count for a better "animation"
-        winView.setText(getWinString(i + 1, game.getCreditValue(), viewAsDollars));
-        game.setPurse(game.getPurse() + 1);
+      if (fastDisplay) {
+        winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
+        game.setPurse(game.getPurse() + game.getWin());
         purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
+      } else {
+        for (int i = 0; i < game.getWin(); ++i) {
+          // TODO Slow down point accumulation display
+          winView.setText(getWinString(i + 1, game.getCreditValue(), viewAsDollars));
+          game.setPurse(game.getPurse() + 1);
+          purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
+        }
       }
     }
   }
@@ -242,11 +263,9 @@ public class GameActivity extends AppCompatActivity {
     if (game.getPurse() >= BET_MAX) {
       betMaxButton.setEnabled(true);
       betOneButton.setEnabled(true);
-    }
-    else if (game.getPurse() > 0) {
+    } else if (game.getPurse() > 0) {
       betOneButton.setEnabled(true);
-    }
-    else {
+    } else {
       winningHandView.setText(R.string.purse_empty_text);
     }
   }

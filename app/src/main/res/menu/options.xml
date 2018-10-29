@@ -8,6 +8,12 @@
     app:showAsAction="never"/>
 
   <item
+    android:id="@+id/fast_display"
+    android:title="@string/options_fast_display"
+    android:icon="@drawable/ic_attach_money_black_24dp"
+    app:showAsAction="never"/>
+
+  <item
     android:id="@+id/exit"
     android:title="@string/options_exit"
     android:icon="@drawable/ic_attach_money_black_24dp"
