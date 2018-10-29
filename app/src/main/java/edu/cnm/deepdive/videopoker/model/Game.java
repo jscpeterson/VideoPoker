@@ -8,7 +8,7 @@ public class Game {
   private static final int HAND_SIZE = 5;
 
   private Deck deck;
-  private Hand hand;
+  private PlayerHand playerHand;
   private double creditValue;
   private int purse;
 
@@ -19,15 +19,15 @@ public class Game {
     this.purse = purse;
     this.creditValue = creditValue;
     this.deck = new Deck(new SecureRandom());
-    this.hand = deck.deal(HAND_SIZE);
+    this.playerHand = deck.deal(HAND_SIZE);
   }
 
   public Deck getDeck() {
     return deck;
   }
 
-  public Hand getHand() {
-    return hand;
+  public PlayerHand getPlayerHand() {
+    return playerHand;
   }
 
   public double getCreditValue() {
@@ -59,8 +59,8 @@ public class Game {
   }
 
   public void evaluateWin() {
-    hand.evaluateHand();
-    win = hand.getHandScore(bet);
+    playerHand.evaluateHand();
+    win = playerHand.getHandScore(bet);
   }
 
   public void addWinToPurse() {

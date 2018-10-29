@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-public class Hand extends Stack<Card> {
+public class PlayerHand extends Stack<Card> {
 
   // TODO Implement unit tests on hand evaluations
 
@@ -43,8 +43,8 @@ public class Hand extends Stack<Card> {
   private Map<String, Integer> betFivePayTable = new Hashtable<>();
   private Map<Rank, Integer> rankMap = new Hashtable<>();
 
-  Hand() {
-    // TODO separate paytable data from Hand
+  PlayerHand() {
+    // TODO separate paytable data from PlayerHand
     makePayTable();
   }
 

@@ -1,6 +1,5 @@
 package edu.cnm.deepdive.videopoker.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Stack;
@@ -41,23 +40,23 @@ public class Deck extends Stack<Card> {
    * @param numberOfCards the size of the hand to be dealt.
    * @return a new hand of numberOfCards length.
    */
-    public Hand deal(int numberOfCards) {
-      Hand hand = new Hand();
+    public PlayerHand deal(int numberOfCards) {
+      PlayerHand playerHand = new PlayerHand();
       for (int i = 0; i < numberOfCards; ++i){
-        hand.push(this.remove(0));
+        playerHand.push(this.remove(0));
       }
-      return hand;
+      return playerHand;
     }
 
   /**
-   * Using an existing hand, adds cards from the start of the deck to end the hand while taking cards
-   * from start of the hand and returning them to end of the deck.
-   * @param hand an existing hand of cards.
+   * Using an existing playerHand, adds cards from the start of the deck to end the playerHand while taking cards
+   * from start of the playerHand and returning them to end of the deck.
+   * @param playerHand an existing playerHand of cards.
    */
-  public void dealAndReplace(Hand hand) {
-      for (int i = 0; i < hand.size(); ++i) {
-        hand.push(this.remove(0));
-        this.add(hand.remove(0));
+  public void dealAndReplace(PlayerHand playerHand) {
+      for (int i = 0; i < playerHand.size(); ++i) {
+        playerHand.push(this.remove(0));
+        this.add(playerHand.remove(0));
       }
     }
 

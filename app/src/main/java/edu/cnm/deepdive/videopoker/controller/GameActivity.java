@@ -8,10 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import edu.cnm.deepdive.videopoker.R;
-import edu.cnm.deepdive.videopoker.model.Deck;
 import edu.cnm.deepdive.videopoker.model.Game;
-import edu.cnm.deepdive.videopoker.model.Hand;
-import java.security.SecureRandom;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -188,19 +185,19 @@ public class GameActivity extends AppCompatActivity {
     purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
     betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
     game.getDeck().shuffle();
-    game.getDeck().dealAndReplace(game.getHand());
-    for (int i = 0; i < game.getHand().size(); i++) {
+    game.getDeck().dealAndReplace(game.getPlayerHand());
+    for (int i = 0; i < game.getPlayerHand().size(); i++) {
       displayCards(i);
     }
 
     // Evaluate hand to display if the player was dealt a winning hand.
-    game.getHand().evaluateHand();
-    String bestHand = game.getHand().getBestHand();
+    game.getPlayerHand().evaluateHand();
+    String bestHand = game.getPlayerHand().getBestHand();
     // Avoid returning bust string if the dealt hand is not a winning hand.
-    if (!bestHand.equals(game.getHand().getBustString())) {
-      winningHandView.setText(game.getHand().getBestHand());
+    if (!bestHand.equals(game.getPlayerHand().getBustString())) {
+      winningHandView.setText(game.getPlayerHand().getBestHand());
     }
-    game.getHand().clearWins();
+    game.getPlayerHand().clearWins();
   }
 
   private void setupDraw() {
@@ -216,15 +213,15 @@ public class GameActivity extends AppCompatActivity {
   private void draw() {
     for (int i = 0; i < HAND_SIZE; i++) {
       if (!cardButtons[i].isChecked()) {
-        game.getDeck().push(game.getHand().get(i));
-        game.getHand().set(i, game.getDeck().remove(0));
+        game.getDeck().push(game.getPlayerHand().get(i));
+        game.getPlayerHand().set(i, game.getDeck().remove(0));
         displayCards(i);
       }
     }
   }
 
   private void displayCards(int index) {
-    String resourceId = game.getHand().get(index).getResourceId();
+    String resourceId = game.getPlayerHand().get(index).getResourceId();
     int identifier = getResources()
         .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
     cardButtons[index].setImageResource(identifier);
@@ -232,7 +229,7 @@ public class GameActivity extends AppCompatActivity {
 
   private void collectWinnings() {
     game.evaluateWin();
-    winningHandView.setText(game.getHand().getBestHand());
+    winningHandView.setText(game.getPlayerHand().getBestHand());
     if (game.getWin() > 0) {
       winView.setVisibility(View.VISIBLE);
       if (fastDisplay) {
@@ -251,7 +248,7 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void resetGame() {
-    game.getHand().clearWins();
+    game.getPlayerHand().clearWins();
     game.setBet(0);
     betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
     dealButton.setEnabled(false);

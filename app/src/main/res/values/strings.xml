@@ -16,5 +16,5 @@
   <string name="options_fast_display">Fast display</string>
   <string name="splash_title">Video Poker</string>
   <string name="splash_play">Play!</string>
-  <string name="splash_image_content_description">A hand of cards.</string>
+  <string name="splash_image_content_description">A playerHand of cards.</string>
 </resources>
