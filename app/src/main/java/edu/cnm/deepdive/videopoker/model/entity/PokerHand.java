@@ -4,6 +4,9 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.support.annotation.NonNull;
 import edu.cnm.deepdive.videopoker.model.Card;
+import edu.cnm.deepdive.videopoker.model.PlayerHand;
+import edu.cnm.deepdive.videopoker.model.Rank;
+import edu.cnm.deepdive.videopoker.model.Suit;
 
 @Entity
 public class PokerHand {
@@ -54,12 +57,36 @@ public class PokerHand {
     //RANK (first char set) is irrelevant, all wildcard matches
     //SUIT requires a rule on each so that the first item matches the next item
 
+    //A hand is represented by a string of values,
+
+    PlayerHand flush = new PlayerHand();
+
     String exampleRules = "**,=*;**,=*;**,=*;**,=*;**,=*";
 
-    boolean checkHandAgainstRules(String rules, Card[] hand) {
-       for (String cardRules : rules.split(";")) {
-         String rankRules = cardRules.split(",")[0];
-         String suitRules = cardRules.split(",")[1];
+    public boolean checkHandAgainstRules(String rules, PlayerHand hand) {
+      flush.add(new Card(Rank.ACE, Suit.CLUBS));
+      flush.add(new Card(Rank.THREE, Suit.CLUBS));
+      flush.add(new Card(Rank.FOUR, Suit.CLUBS));
+      flush.add(new Card(Rank.FIVE, Suit.CLUBS));
+      flush.add(new Card(Rank.EIGHT, Suit.CLUBS));
+      for (String cardRules : rules.split(";")) {
+        String rankRules = cardRules.split(",")[0];
+        String suitRules = cardRules.split(",")[1];
+        switch (rankRules.charAt(0)) {
+          case '=':
+          case '*':
+          default:
+            break;
+        }
+        switch (suitRules.charAt(0)) {
+          case '=':
+            return (hand.get(0).getSuit().equals(hand.get(1).getSuit())) &&
+                checkHandAgainstRules(rules.substring(1), (PlayerHand) hand.subList(1, hand.size()));
+          case '*':
+            return true;
+          default:
+            break;
+        }
       }
       return false;
 

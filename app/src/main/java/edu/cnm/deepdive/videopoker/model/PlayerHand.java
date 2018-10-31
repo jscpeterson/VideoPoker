@@ -43,9 +43,12 @@ public class PlayerHand extends Stack<Card> {
   private Map<String, Integer> betFivePayTable = new Hashtable<>();
   private Map<Rank, Integer> rankMap = new Hashtable<>();
 
-  PlayerHand() {
+  public PlayerHand(Card... cards) {
     // TODO separate paytable data from PlayerHand
     makePayTable();
+    for (Card card : cards) {
+      this.add(card);
+    }
   }
 
   private void makePayTable() {
