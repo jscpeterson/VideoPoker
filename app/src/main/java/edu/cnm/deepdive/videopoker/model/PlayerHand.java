@@ -45,7 +45,7 @@ public class PlayerHand extends Stack<Card> {
 
   public PlayerHand(Card... cards) {
     // TODO separate paytable data from PlayerHand
-    makePayTable();
+//    makePayTable();
     for (Card card : cards) {
       this.add(card);
     }
@@ -133,9 +133,11 @@ public class PlayerHand extends Stack<Card> {
   }
 
   private boolean checkForStraight() {
+
     if (rankMap.values().size() < 5) {
       return false;
     }
+
     List<Rank> rankList = new ArrayList<>();
     for (Card card : this) {
       rankList.add(card.getRank());

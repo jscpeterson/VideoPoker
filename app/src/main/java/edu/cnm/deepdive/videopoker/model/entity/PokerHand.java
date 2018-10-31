@@ -7,6 +7,10 @@ import edu.cnm.deepdive.videopoker.model.Card;
 import edu.cnm.deepdive.videopoker.model.PlayerHand;
 import edu.cnm.deepdive.videopoker.model.Rank;
 import edu.cnm.deepdive.videopoker.model.Suit;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
 
 @Entity
 public class PokerHand {
@@ -30,6 +34,51 @@ public class PokerHand {
   @NonNull
   @ColumnInfo
   private int betFiveValue;
+
+  PlayerHand flush = new PlayerHand();
+
+  String exampleRules = "**,=*;**,=*;**,=*;**,=*;**,=*";
+
+  /**
+   * This will check a PlayerHand against a ruleSet and return TRUE if the hand matches the rules
+   * provided.
+   * @param rules
+   * @param hand
+   * @return
+   */
+  public boolean checkHandAgainstRules(String rules, List<Card> hand) {
+    List<Rank> rankList = new ArrayList<>();
+    List<Suit> suitList = new ArrayList<>();
+    if (hand.size() == 1) return true;
+    for (Card card : hand) {
+      rankList.add(card.getRank());
+      suitList.add(card.getSuit());
+    }
+    Collections.sort(rankList);
+    Collections.sort(suitList);
+    for (String cardRules : rules.split(";")) {
+      String rankRules = cardRules.split(",")[0];
+      String suitRules = cardRules.split(",")[1];
+      switch (rankRules.charAt(0)) {
+        case '=':
+        case '*':
+        default:
+          break;
+      }
+      switch (suitRules.charAt(0)) {
+        case '=':
+          System.out.println(hand);
+          return hand.get(0).getSuit().equals(hand.get(1).getSuit()) &&
+              checkHandAgainstRules(rules.substring(6), (List<Card>) hand.subList(1, hand.size()));
+        case '*':
+          return true;
+        default:
+          break;
+      }
+    }
+    return false;
+
+  }
 
   public class PokerHandRuleConverter {
     /*
@@ -59,38 +108,7 @@ public class PokerHand {
 
     //A hand is represented by a string of values,
 
-    PlayerHand flush = new PlayerHand();
 
-    String exampleRules = "**,=*;**,=*;**,=*;**,=*;**,=*";
-
-    public boolean checkHandAgainstRules(String rules, PlayerHand hand) {
-      flush.add(new Card(Rank.ACE, Suit.CLUBS));
-      flush.add(new Card(Rank.THREE, Suit.CLUBS));
-      flush.add(new Card(Rank.FOUR, Suit.CLUBS));
-      flush.add(new Card(Rank.FIVE, Suit.CLUBS));
-      flush.add(new Card(Rank.EIGHT, Suit.CLUBS));
-      for (String cardRules : rules.split(";")) {
-        String rankRules = cardRules.split(",")[0];
-        String suitRules = cardRules.split(",")[1];
-        switch (rankRules.charAt(0)) {
-          case '=':
-          case '*':
-          default:
-            break;
-        }
-        switch (suitRules.charAt(0)) {
-          case '=':
-            return (hand.get(0).getSuit().equals(hand.get(1).getSuit())) &&
-                checkHandAgainstRules(rules.substring(1), (PlayerHand) hand.subList(1, hand.size()));
-          case '*':
-            return true;
-          default:
-            break;
-        }
-      }
-      return false;
-
-    }
 
   }
 
