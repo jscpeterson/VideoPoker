@@ -54,8 +54,15 @@ public class PokerHand {
     //RANK (first char set) is irrelevant, all wildcard matches
     //SUIT requires a rule on each so that the first item matches the next item
 
+    String exampleRules = "**,=*;**,=*;**,=*;**,=*;**,=*";
+
     boolean checkHandAgainstRules(String rules, Card[] hand) {
-       return false;
+       for (String cardRules : rules.split(";")) {
+         String rankRules = cardRules.split(",")[0];
+         String suitRules = cardRules.split(",")[1];
+      }
+      return false;
+
     }
 
   }
