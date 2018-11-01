@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="apk" name="video-poker">
+    <output-path>$PROJECT_DIR$/build/classes/artifacts/video_poker</output-path>
+    <properties id="android-properties">
+      <options>
+        <option name="keyStoreUrl" value="file://" />
+      </options>
+    </properties>
+    <root id="archive" name="video-poker.apk">
+      <element id="android-final-package" facet="app/android/Android" />
+    </root>
+  </artifact>
+</component>

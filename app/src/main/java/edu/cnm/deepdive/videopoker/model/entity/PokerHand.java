@@ -8,6 +8,8 @@ import edu.cnm.deepdive.videopoker.model.PlayerHand;
 import edu.cnm.deepdive.videopoker.model.Rank;
 import edu.cnm.deepdive.videopoker.model.Suit;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
@@ -37,51 +39,8 @@ public class PokerHand {
 
   PlayerHand flush = new PlayerHand();
 
-  String exampleRules = "**,=*;**,=*;**,=*;**,=*;**,=*";
 
-  /**
-   * This will check a PlayerHand against a ruleSet and return TRUE if the hand matches the rules
-   * provided.
-   * @param rules
-   * @param hand
-   * @return
-   */
-  public boolean checkHandAgainstRules(String rules, List<Card> hand) {
-    List<Rank> rankList = new ArrayList<>();
-    List<Suit> suitList = new ArrayList<>();
-    if (hand.size() == 1) return true;
-    for (Card card : hand) {
-      rankList.add(card.getRank());
-      suitList.add(card.getSuit());
-    }
-    Collections.sort(rankList);
-    Collections.sort(suitList);
-    for (String cardRules : rules.split(";")) {
-      String rankRules = cardRules.split(",")[0];
-      String suitRules = cardRules.split(",")[1];
-      switch (rankRules.charAt(0)) {
-        case '=':
-        case '*':
-        default:
-          break;
-      }
-      switch (suitRules.charAt(0)) {
-        case '=':
-          System.out.println(hand);
-          return hand.get(0).getSuit().equals(hand.get(1).getSuit()) &&
-              checkHandAgainstRules(rules.substring(6), (List<Card>) hand.subList(1, hand.size()));
-        case '*':
-          return true;
-        default:
-          break;
-      }
-    }
-    return false;
-
-  }
-
-  public class PokerHandRuleConverter {
-    /*
+      /*
     Card:: = suit, rank
     Suit::= wildcard | suit literal | carry
     Suit literal ::= C|D|H|S
@@ -92,22 +51,96 @@ public class PokerHand {
     Rank.literal::= 2|3|4|5|6|7|8|9|T|J|Q|K|A
     */
 
-    //Cards sort first by rank then suit
+  //Cards sort first by rank then suit
 
-    //Rules string format
-    //For cards a two char string represents a char - A♠ is Ace of Spades
-    //For the rules set each two char string represents a matching rule
-    // - a card would be represented by two matching rules for a suit matching rule and a rank matching rule
+  //Rules string format
+  //For cards a two char string represents a char - A♠ is Ace of Spades
+  // - a card would be represented by two matching rules for a suit matching rule and a rank matching rule
 
-    //char 0 being the first card, char 1 being the following card to compare against char 0
+  //RANK (first char set) is irrelevant, all wildcard matches
+  //SUIT requires a rule on each so that the first item matches the next item
 
-    //A flush for example might be
-    //**,=*;**,=*;**,=*;**,=*;**,=*;
-    //RANK (first char set) is irrelevant, all wildcard matches
-    //SUIT requires a rule on each so that the first item matches the next item
+  //A hand is represented by a string of values,
 
-    //A hand is represented by a string of values,
+  String flushSequence = "**,*=,*=,*=,*=";
 
+  /**
+   * This will check a PlayerHand against a ruleSet and return TRUE if the hand matches the rules
+   * provided.
+   */
+  public boolean parseRuleSequence(String ruleSequence, List<Card> hand) {
+    //initalize hand index outside of loop so that multiple patterns do not throw it off
+    int handIndex = 0;
+    boolean patternMatched = false;
+    //split delimiter by semicolons to get rule patterns
+    String[] patterns = ruleSequence.split(";");
+    //iterate over each pattern
+    for (String pattern : patterns) {
+      patternMatched = false;
+      //split delimiter by commas to get pattern elements
+      String[] patternElements = pattern.split(",");
+      //sort hand by rank
+      Collections.sort(hand);
+      //for each pattern, iterate over the hand for the length of the pattern
+      //a pattern of 2 should iterate only up to the fourth card to prevent an exce ption
+      hand:
+      for (handIndex = handIndex; handIndex <= hand.size() - patternElements.length; ++handIndex) {
+        pattern:
+        for (int patternIndex = 0; handIndex <= patternElements.length; ++patternIndex) {
+          //check if the card in the hand matches the first pattern element
+          //if the pattern element does not match, break out of the loop
+          //otherwise, continue checking if the next card from the first matches the next pattern element
+          //switch case for ranks
+          switch (patternElements[patternIndex].charAt(0)) {
+            case '*':
+              break;
+            case '+':
+              System.out.println(hand.get(handIndex).getRank().getValue() + patternIndex);
+              System.out.println(hand.get(handIndex + patternIndex).getRank().getValue());
+              if (!(hand.get(handIndex).getRank().getValue() + patternIndex == hand
+                  .get(handIndex + patternIndex).getRank().getValue())) {
+                break pattern;
+              }
+              break;
+            case '=':
+              if (!(hand.get(handIndex).getRank() == hand.get(handIndex + patternIndex)
+                  .getRank())) {
+                break pattern;
+              }
+              break;
+            default:
+              break pattern;
+          }
+          //switch case for suits - limited flexibility as suits are unsorted
+          switch (patternElements[patternIndex].charAt(1)) {
+            case '*':
+              break;
+            case '=':
+              if (!(hand.get(handIndex).getSuit() == hand.get(handIndex + patternIndex)
+                  .getSuit())) {
+                break pattern;
+              }
+              break;
+            default:
+              break pattern;
+          }
+          //if pattern reaches end of loop without a failure indicate a success and break the greater loop
+          if (patternIndex + 1 == patternElements.length) {
+            patternMatched = true;
+            //handIndex does not update when the hand is broken so it increments here.
+            ++handIndex;
+            break hand;
+          }
+        }
+      }
+      //if the hand loop completes without finding a match, return a failure
+//      if (!patternMatched) return false;
+    }
+    //if the method completes without encountering a failure, the hand matches the rule sequence
+    return patternMatched;
+  }
+
+  public class PokerHandRuleConverter {
 
 
   }
