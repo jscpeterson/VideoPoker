@@ -111,7 +111,7 @@ public class PokerHandTest {
   @Test
   public void testTwoPair() {
     assertTrue(hand.parseRuleSequence(twoPairSequence, twoPair1));
-    assertTrue(hand.parseRuleSequence(twoPairSequence, twoPair2)); //FIXME
+    assertTrue(hand.parseRuleSequence(twoPairSequence, twoPair2));
     assertFalse(hand.parseRuleSequence(twoPairSequence, threeOfAKindLow));
     assertFalse(hand.parseRuleSequence(twoPairSequence, threeOfAKindHigh));
     assertFalse(hand.parseRuleSequence(twoPairSequence, crap));
@@ -126,8 +126,9 @@ public class PokerHandTest {
     assertFalse(hand.parseRuleSequence(straightSequence, crap));
   }
 
+  //Highest card value must be first, otherwise two of a three of a kind will be removed!
   String fullHouseSequence = "**,=*,=*;**,=*";
-  String fullHouseSequence = "**,=*;**,=*,=*";
+//  String fullHouseSequence = "**,=*;**,=*,=*";
 
   PlayerHand fullHouse = new PlayerHand(
       new Card(Rank.TWO, Suit.SPADES),
@@ -144,8 +145,8 @@ public class PokerHandTest {
 
   @Test
   public void testFullHouse() {
-    assertTrue(hand.parseRuleSequence(fullHouseSequence, fullHouse));
     assertTrue(hand.parseRuleSequence(fullHouseSequence, fullHouse2));
+    assertTrue(hand.parseRuleSequence(fullHouseSequence, fullHouse));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, crap));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, twoPair1));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, twoPair2));

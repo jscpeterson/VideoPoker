@@ -69,7 +69,6 @@ public class PokerHand {
    */
   public boolean parseRuleSequence(String ruleSequence, List<Card> hand) {
     //initialize hand index outside of loop so that multiple patterns do not throw it off
-    int handIndex = 0;
     boolean patternMatched = false;
     //split delimiter by semicolons to get rule patterns
     String[] patterns = ruleSequence.split(";");
@@ -83,7 +82,7 @@ public class PokerHand {
       //for each pattern, iterate over the hand for the length of the pattern
       //a pattern of 2 should iterate only up to the fourth card to prevent an exception
       hand:
-      for (handIndex = handIndex; handIndex <= hand.size() - patternElements.length; ++handIndex) {
+      for (int handIndex = 0; handIndex <= hand.size() - patternElements.length; ++handIndex) {
         pattern:
         for (int patternIndex = 0; true; ++patternIndex) {
           //check if the card in the hand matches the first pattern element
@@ -124,14 +123,19 @@ public class PokerHand {
           //if pattern reaches end of loop without a failure indicate a success and break the greater loop
           if (patternIndex + 1 == patternElements.length) {
             patternMatched = true;
-            //handIndex does not update when the hand is broken so it increments here for the length of the sequence.
-            handIndex += patternElements.length;
+//            //handIndex does not update when the hand is broken so it increments here for the length of the sequence.
+//            handIndex += patternElements.length;
+
+            //WHEN THERE IS A SUCCESS REMOVE ALL MATCHING CARDS FROM THE HAND
+            for (int i = handIndex; i < handIndex+patternElements.length; ++i){
+              hand.remove(handIndex);
+            }
             break hand;
           }
         }
       }
       //if the hand loop completes without finding a match, return a failure
-//      if (!patternMatched) return false;
+      if (!patternMatched) return false;
     }
     //if the method completes without encountering a failure, the hand matches the rule sequence
     return patternMatched;
