@@ -69,7 +69,7 @@ public class PokerHand {
    * provided.
    */
   public boolean parseRuleSequence(String ruleSequence, List<Card> hand) {
-    //initalize hand index outside of loop so that multiple patterns do not throw it off
+    //initialize hand index outside of loop so that multiple patterns do not throw it off
     int handIndex = 0;
     boolean patternMatched = false;
     //split delimiter by semicolons to get rule patterns
@@ -82,7 +82,7 @@ public class PokerHand {
       //sort hand by rank
       Collections.sort(hand);
       //for each pattern, iterate over the hand for the length of the pattern
-      //a pattern of 2 should iterate only up to the fourth card to prevent an exce ption
+      //a pattern of 2 should iterate only up to the fourth card to prevent an exception
       hand:
       for (handIndex = handIndex; handIndex <= hand.size() - patternElements.length; ++handIndex) {
         pattern:

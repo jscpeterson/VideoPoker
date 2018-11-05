@@ -23,18 +23,30 @@ public class PokerHandTest {
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.ACE, Suit.SPADES));
-  PlayerHand threeOfAKind = new PlayerHand(
-      new Card(Rank.ACE, Suit.SPADES),
+  PlayerHand threeOfAKindHigh = new PlayerHand(
+      new Card(Rank.KING, Suit.SPADES),
       new Card(Rank.TWO, Suit.SPADES),
-      new Card(Rank.ACE, Suit.HEARTS),
+      new Card(Rank.KING, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
-      new Card(Rank.ACE, Suit.DIAMONDS));
-  PlayerHand fourOfAKind = new PlayerHand(
-      new Card(Rank.ACE, Suit.SPADES),
-      new Card(Rank.ACE, Suit.CLUBS),
-      new Card(Rank.ACE, Suit.HEARTS),
+      new Card(Rank.KING, Suit.DIAMONDS));
+  PlayerHand threeOfAKindLow = new PlayerHand(
+      new Card(Rank.TWO, Suit.SPADES),
+      new Card(Rank.TWO, Suit.HEARTS),
+      new Card(Rank.KING, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
-      new Card(Rank.ACE, Suit.DIAMONDS));
+      new Card(Rank.TWO, Suit.DIAMONDS));
+  PlayerHand fourOfAKindLow = new PlayerHand(
+      new Card(Rank.TWO, Suit.SPADES),
+      new Card(Rank.TWO, Suit.CLUBS),
+      new Card(Rank.TWO, Suit.HEARTS),
+      new Card(Rank.FOUR, Suit.SPADES),
+      new Card(Rank.TWO, Suit.DIAMONDS));
+  PlayerHand fourOfAKindHigh = new PlayerHand(
+      new Card(Rank.KING, Suit.SPADES),
+      new Card(Rank.KING, Suit.CLUBS),
+      new Card(Rank.KING, Suit.HEARTS),
+      new Card(Rank.FOUR, Suit.SPADES),
+      new Card(Rank.KING, Suit.DIAMONDS));
   PlayerHand twoPair = new PlayerHand(
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.ACE, Suit.CLUBS),
@@ -76,14 +88,17 @@ public class PokerHandTest {
 
   @Test
   public void testThreeOfAKind() {
-  assertTrue(hand.parseRuleSequence(threeOfAKindSequence, threeOfAKind));
-  assertFalse(hand.parseRuleSequence(threeOfAKindSequence, crap));
+  assertTrue(hand.parseRuleSequence(threeOfAKindSequence, threeOfAKindLow));
+    assertTrue(hand.parseRuleSequence(threeOfAKindSequence, threeOfAKindHigh));
+    assertFalse(hand.parseRuleSequence(threeOfAKindSequence, crap));
 }
 
   @Test
   public void testFourOfAKind() {
-    assertTrue(hand.parseRuleSequence(fourOfAKindSequence, fourOfAKind));
-    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, threeOfAKind));
+    assertTrue(hand.parseRuleSequence(fourOfAKindSequence, fourOfAKindLow));
+    assertTrue(hand.parseRuleSequence(fourOfAKindSequence, fourOfAKindHigh));
+    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, threeOfAKindLow));
+    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, threeOfAKindHigh));
     assertFalse(hand.parseRuleSequence(fourOfAKindSequence, twoPair));
     assertFalse(hand.parseRuleSequence(fourOfAKindSequence, crap));
   }
@@ -91,7 +106,8 @@ public class PokerHandTest {
   @Test
   public void testTwoPair() {
     assertTrue(hand.parseRuleSequence(twoPairSequence, twoPair));
-    assertFalse(hand.parseRuleSequence(twoPairSequence, threeOfAKind));
+    assertFalse(hand.parseRuleSequence(twoPairSequence, threeOfAKindLow));
+    assertFalse(hand.parseRuleSequence(twoPairSequence, threeOfAKindHigh));
     assertFalse(hand.parseRuleSequence(twoPairSequence, crap));
   }
 
@@ -107,7 +123,8 @@ public class PokerHandTest {
     assertTrue(hand.parseRuleSequence(fullHouseSequence, fullHouse2));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, crap));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, twoPair));
-    assertFalse(hand.parseRuleSequence(fullHouseSequence, threeOfAKind));
+    assertFalse(hand.parseRuleSequence(fullHouseSequence, threeOfAKindLow));
+    assertFalse(hand.parseRuleSequence(fullHouseSequence, threeOfAKindHigh));
   }
 
 }
