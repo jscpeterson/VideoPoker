@@ -129,6 +129,8 @@ public class PokerHand {
             patternMatched = true;
             //handIndex does not update when the hand is broken so it increments here.
             ++handIndex;
+            //increments twice to not check the card in a completed pattern again
+            ++handIndex;
             break hand;
           }
         }

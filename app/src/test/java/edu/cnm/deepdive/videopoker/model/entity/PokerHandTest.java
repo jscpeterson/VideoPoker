@@ -35,13 +35,13 @@ public class PokerHandTest {
       new Card(Rank.ACE, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.ACE, Suit.DIAMONDS));
-      PlayerHand twoPair = new PlayerHand(
+  PlayerHand twoPair = new PlayerHand(
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.ACE, Suit.CLUBS),
       new Card(Rank.FOUR, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.KING, Suit.DIAMONDS));
-      PlayerHand fullHouse = new PlayerHand(
+  PlayerHand fullHouse = new PlayerHand(
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.ACE, Suit.CLUBS),
       new Card(Rank.TWO, Suit.HEARTS),
@@ -68,32 +68,46 @@ public class PokerHandTest {
 //  String fullHouseSequence = "**,=*,=*;**,=*";
   String fullHouseSequence = "**,=*;**,=*,=*";
 
-
-
   @Test
   public void testFlush() {
     assertTrue(hand.parseRuleSequence(flushSequence, flush));
     assertFalse(hand.parseRuleSequence(flushSequence, crap));
+  }
 
-    assertTrue(hand.parseRuleSequence(threeOfAKindSequence, threeOfAKind));
-    assertFalse(hand.parseRuleSequence(threeOfAKindSequence, crap));
+  @Test
+  public void testThreeOfAKind() {
+  assertTrue(hand.parseRuleSequence(threeOfAKindSequence, threeOfAKind));
+  assertFalse(hand.parseRuleSequence(threeOfAKindSequence, crap));
+}
 
+  @Test
+  public void testFourOfAKind() {
     assertTrue(hand.parseRuleSequence(fourOfAKindSequence, fourOfAKind));
     assertFalse(hand.parseRuleSequence(fourOfAKindSequence, threeOfAKind));
+    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, twoPair));
     assertFalse(hand.parseRuleSequence(fourOfAKindSequence, crap));
+  }
 
+  @Test
+  public void testTwoPair() {
     assertTrue(hand.parseRuleSequence(twoPairSequence, twoPair));
+    assertFalse(hand.parseRuleSequence(twoPairSequence, threeOfAKind));
     assertFalse(hand.parseRuleSequence(twoPairSequence, crap));
+  }
 
+  @Test
+  public void testStraight() {
     assertTrue(hand.parseRuleSequence(straightSequence, straight));
     assertFalse(hand.parseRuleSequence(straightSequence, crap));
+  }
 
+  @Test
+  public void testFullHouse() {
     assertTrue(hand.parseRuleSequence(fullHouseSequence, fullHouse));
     assertTrue(hand.parseRuleSequence(fullHouseSequence, fullHouse2));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, crap));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, twoPair));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, threeOfAKind));
   }
-
 
 }
