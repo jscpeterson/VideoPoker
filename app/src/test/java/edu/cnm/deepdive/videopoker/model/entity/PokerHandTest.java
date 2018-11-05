@@ -118,16 +118,23 @@ public class PokerHandTest {
       new Card(Rank.THREE, Suit.DIAMONDS));
 
   //Longest pattern sequence must be first, otherwise two of a three of a kind will be removed!
-  String royalFlushSequence = "T=,J=,Q=,K=,A=";
+  String royalFlushSequence = "A=,T=,J=,Q=,K=";
   String straightFlushSequence = "**,+=,+=,+=,+=";
   String fourOfAKindSequence = "**,=*,=*,=*";
   String fullHouseSequence = "**,=*,=*;**,=*";
   String flushSequence = "**,*=,*=,*=,*=";
+  String straightSequenceAceHigh = "A*,T*,J*,Q*,K*";
   String straightSequence = "**,+*,+*,+*,+*";
-  String straightSequenceAceHigh;
   String threeOfAKindSequence = "**,=*,=*";
   String twoPairSequence = "**,=*;**,=*";
-  String jacksOrBetter;
+  String jacksOrBetterSequence = "F*,=*";
+
+  @Test
+  public void testJacksOrBetter() {
+    assertTrue(hand.parseRuleSequence(jacksOrBetterSequence, jacks));
+    assertTrue(hand.parseRuleSequence(jacksOrBetterSequence, aces));
+    assertFalse(hand.parseRuleSequence(jacksOrBetterSequence, crap));
+  }
 
   @Test
   public void testFlush() {
@@ -174,9 +181,9 @@ public class PokerHandTest {
   @Test
   public void testStraight() {
     assertTrue(hand.parseRuleSequence(straightSequence, straight));
-    assertTrue(hand.parseRuleSequence(straightSequence, aceHighStraight));
-    //TODO Fix ace low straight or change to Ace High
-//    assertTrue(hand.parseRuleSequence(straightSequence, aceLowStraight));
+    assertTrue(hand.parseRuleSequence(straightSequenceAceHigh, aceHighStraight));
+    assertTrue(hand.parseRuleSequence(straightSequence, aceLowStraight));
+    assertFalse(hand.parseRuleSequence(straightSequenceAceHigh, crap));
     assertFalse(hand.parseRuleSequence(straightSequence, crap));
   }
 

@@ -19,6 +19,7 @@ public class PokerHand {
 
   public static final int DEFAULT_VALUE = 0;
   public static final int MAX_BET = 5;
+  public static final int FACE_CARD_LOWEST_VALUE = 10;
 
   @NonNull
   @ColumnInfo
@@ -99,6 +100,13 @@ public class PokerHand {
             case '=':
               if (!(hand.get(handIndex).getRank() == hand.get(handIndex + patternIndex)
                   .getRank())) {
+                break pattern;
+              }
+              break;
+            //Face card
+            case 'F':
+              if (!(hand.get(handIndex+patternIndex).getRank().getValue() > FACE_CARD_LOWEST_VALUE ||
+                  hand.get(handIndex+patternIndex).getRank().getSymbol().equals("A"))) {
                 break pattern;
               }
               break;
