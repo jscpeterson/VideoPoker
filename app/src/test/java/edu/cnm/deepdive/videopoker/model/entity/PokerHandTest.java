@@ -2,18 +2,17 @@ package edu.cnm.deepdive.videopoker.model.entity;
 
 import static org.junit.Assert.*;
 
-import android.annotation.SuppressLint;
 import edu.cnm.deepdive.videopoker.model.Card;
+import edu.cnm.deepdive.videopoker.model.Converter;
 import edu.cnm.deepdive.videopoker.model.PlayerHand;
 import edu.cnm.deepdive.videopoker.model.Rank;
 import edu.cnm.deepdive.videopoker.model.Suit;
-import java.util.DuplicateFormatFlagsException;
 import org.junit.Test;
 
 @SuppressWarnings("Duplicates")
 public class PokerHandTest {
 
-  PokerHand hand = new PokerHand();
+  Converter converter = new Converter();
   PlayerHand crap = new PlayerHand(
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.TWO, Suit.SPADES),
@@ -131,79 +130,79 @@ public class PokerHandTest {
 
   @Test
   public void testJacksOrBetter() {
-    assertTrue(hand.parseRuleSequence(jacksOrBetterSequence, jacks));
-    assertTrue(hand.parseRuleSequence(jacksOrBetterSequence, aces));
-    assertFalse(hand.parseRuleSequence(jacksOrBetterSequence, crap));
+    assertTrue(converter.parseRuleSequence(jacksOrBetterSequence, jacks));
+    assertTrue(converter.parseRuleSequence(jacksOrBetterSequence, aces));
+    assertFalse(converter.parseRuleSequence(jacksOrBetterSequence, crap));
   }
 
   @Test
   public void testFlush() {
-    assertTrue(hand.parseRuleSequence(flushSequence, flush));
-    assertFalse(hand.parseRuleSequence(flushSequence, crap));
+    assertTrue(converter.parseRuleSequence(flushSequence, flush));
+    assertFalse(converter.parseRuleSequence(flushSequence, crap));
   }
 
   @Test
   public void testRoyalFlush() {
-    assertTrue(hand.parseRuleSequence(royalFlushSequence, royalFlush));
-    assertFalse(hand.parseRuleSequence(royalFlushSequence, straightFlush));
-    assertFalse(hand.parseRuleSequence(royalFlushSequence, flush));
-    assertFalse(hand.parseRuleSequence(royalFlushSequence, straight));
-    assertFalse(hand.parseRuleSequence(royalFlushSequence, crap));
+    assertTrue(converter.parseRuleSequence(royalFlushSequence, royalFlush));
+    assertFalse(converter.parseRuleSequence(royalFlushSequence, straightFlush));
+    assertFalse(converter.parseRuleSequence(royalFlushSequence, flush));
+    assertFalse(converter.parseRuleSequence(royalFlushSequence, straight));
+    assertFalse(converter.parseRuleSequence(royalFlushSequence, crap));
   }
 
   @Test
   public void testThreeOfAKind() {
-    assertTrue(hand.parseRuleSequence(threeOfAKindSequence, threeOfAKindLow));
-    assertTrue(hand.parseRuleSequence(threeOfAKindSequence, threeOfAKindHigh));
-    assertFalse(hand.parseRuleSequence(threeOfAKindSequence, crap));
+    assertTrue(converter.parseRuleSequence(threeOfAKindSequence, threeOfAKindLow));
+    assertTrue(converter.parseRuleSequence(threeOfAKindSequence, threeOfAKindHigh));
+    assertFalse(converter.parseRuleSequence(threeOfAKindSequence, crap));
   }
 
   @Test
   public void testFourOfAKind() {
-    assertTrue(hand.parseRuleSequence(fourOfAKindSequence, fourOfAKindLow));
-    assertTrue(hand.parseRuleSequence(fourOfAKindSequence, fourOfAKindHigh));
-    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, crap));
-    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, twoPair1));
-    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, twoPair2));
-    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, threeOfAKindLow));
-    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, threeOfAKindHigh));
+    assertTrue(converter.parseRuleSequence(fourOfAKindSequence, fourOfAKindLow));
+    assertTrue(converter.parseRuleSequence(fourOfAKindSequence, fourOfAKindHigh));
+    assertFalse(converter.parseRuleSequence(fourOfAKindSequence, crap));
+    assertFalse(converter.parseRuleSequence(fourOfAKindSequence, twoPair1));
+    assertFalse(converter.parseRuleSequence(fourOfAKindSequence, twoPair2));
+    assertFalse(converter.parseRuleSequence(fourOfAKindSequence, threeOfAKindLow));
+    assertFalse(converter.parseRuleSequence(fourOfAKindSequence, threeOfAKindHigh));
   }
 
   @Test
   public void testTwoPair() {
-    assertTrue(hand.parseRuleSequence(twoPairSequence, twoPair1));
-    assertTrue(hand.parseRuleSequence(twoPairSequence, twoPair2));
-    assertFalse(hand.parseRuleSequence(twoPairSequence, threeOfAKindLow));
-    assertFalse(hand.parseRuleSequence(twoPairSequence, threeOfAKindHigh));
-    assertFalse(hand.parseRuleSequence(twoPairSequence, crap));
+    assertTrue(converter.parseRuleSequence(twoPairSequence, twoPair1));
+    assertTrue(converter.parseRuleSequence(twoPairSequence, twoPair2));
+    assertFalse(converter.parseRuleSequence(twoPairSequence, threeOfAKindLow));
+    assertFalse(converter.parseRuleSequence(twoPairSequence, threeOfAKindHigh));
+    assertFalse(converter.parseRuleSequence(twoPairSequence, crap));
   }
 
   @Test
   public void testStraight() {
-    assertTrue(hand.parseRuleSequence(straightSequence, straight));
-    assertTrue(hand.parseRuleSequence(straightSequenceAceHigh, aceHighStraight));
-    assertTrue(hand.parseRuleSequence(straightSequence, aceLowStraight));
-    assertFalse(hand.parseRuleSequence(straightSequenceAceHigh, crap));
-    assertFalse(hand.parseRuleSequence(straightSequence, crap));
+    assertTrue(converter.parseRuleSequence(straightSequence, straight));
+    assertTrue(converter.parseRuleSequence(straightSequenceAceHigh, aceHighStraight));
+    assertTrue(converter.parseRuleSequence(straightSequence, aceLowStraight));
+    assertFalse(converter.parseRuleSequence(straightSequenceAceHigh, crap));
+    assertFalse(converter.parseRuleSequence(straightSequence, crap));
   }
 
   @Test
   public void testFullHouse() {
-    assertTrue(hand.parseRuleSequence(fullHouseSequence, fullHouse));
-    assertTrue(hand.parseRuleSequence(fullHouseSequence, fullHouse2));
-    assertFalse(hand.parseRuleSequence(fullHouseSequence, crap));
-    assertFalse(hand.parseRuleSequence(fullHouseSequence, twoPair1));
-    assertFalse(hand.parseRuleSequence(fullHouseSequence, twoPair2));
-    assertFalse(hand.parseRuleSequence(fullHouseSequence, threeOfAKindLow));
-    assertFalse(hand.parseRuleSequence(fullHouseSequence, threeOfAKindHigh));
+    assertTrue(converter.parseRuleSequence(fullHouseSequence, fullHouse));
+    assertTrue(converter.parseRuleSequence(fullHouseSequence, fullHouse2));
+    assertFalse(converter.parseRuleSequence(fullHouseSequence, crap));
+    assertFalse(converter.parseRuleSequence(fullHouseSequence, twoPair1));
+    assertFalse(converter.parseRuleSequence(fullHouseSequence, twoPair2));
+    assertFalse(converter.parseRuleSequence(fullHouseSequence, threeOfAKindLow));
+    assertFalse(converter.parseRuleSequence(fullHouseSequence, threeOfAKindHigh));
   }
 
   @Test
   public void testStraightFlush() {
-    assertTrue(hand.parseRuleSequence(straightFlushSequence, straightFlush));
-    assertFalse(hand.parseRuleSequence(straightFlushSequence, straight));
-    assertFalse(hand.parseRuleSequence(straightFlushSequence, aceLowStraight));
-    assertFalse(hand.parseRuleSequence(straightFlushSequence, flush));
-    assertFalse(hand.parseRuleSequence(straightFlushSequence, crap));
+    assertTrue(converter.parseRuleSequence(straightFlushSequence, straightFlush));
+    assertFalse(converter.parseRuleSequence(straightFlushSequence, straight));
+    assertFalse(converter.parseRuleSequence(straightFlushSequence, aceLowStraight));
+    assertFalse(converter.parseRuleSequence(straightFlushSequence, flush));
+    assertFalse(converter.parseRuleSequence(straightFlushSequence, crap));
   }
 }

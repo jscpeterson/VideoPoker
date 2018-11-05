@@ -12,8 +12,6 @@ import java.util.Stack;
 
 public class PlayerHand extends Stack<Card> {
 
-  // TODO Implement unit tests on hand evaluations
-
   private final String ROYAL_FLUSH = "Royal Flush";
   private boolean royalFlush;
   private final String STRAIGHT_FLUSH = "Straight Flush";
@@ -44,7 +42,6 @@ public class PlayerHand extends Stack<Card> {
   private Map<Rank, Integer> rankMap = new Hashtable<>();
 
   public PlayerHand(Card... cards) {
-    // TODO separate paytable data from PlayerHand
 //    makePayTable();
     for (Card card : cards) {
       this.add(card);
