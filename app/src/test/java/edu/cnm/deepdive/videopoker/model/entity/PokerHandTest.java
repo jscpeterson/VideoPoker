@@ -95,7 +95,7 @@ public class PokerHandTest {
   String fourOfAKindSequence = "**,=*,=*,=*";
   String twoPairSequence = "**,=*;**,=*";
   String straightSequence = "**,+*,+*,+*,+*";
-//  String fullHouseSequence = "**,=*,=*;**,=*";
+  //  String fullHouseSequence = "**,=*,=*;**,=*";
   String fullHouseSequence = "**,=*;**,=*,=*";
 
   @Test
@@ -106,10 +106,10 @@ public class PokerHandTest {
 
   @Test
   public void testThreeOfAKind() {
-  assertTrue(hand.parseRuleSequence(threeOfAKindSequence, threeOfAKindLow));
+    assertTrue(hand.parseRuleSequence(threeOfAKindSequence, threeOfAKindLow));
     assertTrue(hand.parseRuleSequence(threeOfAKindSequence, threeOfAKindHigh));
     assertFalse(hand.parseRuleSequence(threeOfAKindSequence, crap));
-}
+  }
 
   @Test
   public void testFourOfAKind() {
@@ -150,5 +150,4 @@ public class PokerHandTest {
     assertFalse(hand.parseRuleSequence(fullHouseSequence, threeOfAKindLow));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, threeOfAKindHigh));
   }
-
 }

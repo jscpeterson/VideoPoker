@@ -84,8 +84,8 @@ public class PokerHand {
       //a pattern of 2 should iterate only up to the fourth card to prevent an exception
       hand:
       for (handIndex = handIndex; handIndex <= hand.size() - patternElements.length; ++handIndex) {
-        pattern:
-        for (int patternIndex = 0; handIndex <= patternElements.length; ++patternIndex) {
+        pattern: //TODO do I have this for loop set up wrong?
+        for (int patternIndex = 0; handIndex <= hand.size(); ++patternIndex) {
           //check if the card in the hand matches the first pattern element
           //if the pattern element does not match, break out of the loop
           //otherwise, continue checking if the next card from the first matches the next pattern element
@@ -124,10 +124,8 @@ public class PokerHand {
           //if pattern reaches end of loop without a failure indicate a success and break the greater loop
           if (patternIndex + 1 == patternElements.length) {
             patternMatched = true;
-            //handIndex does not update when the hand is broken so it increments here.
-            ++handIndex;
-            //increments twice to not check the card in a completed pattern again
-            ++handIndex;
+            //handIndex does not update when the hand is broken so it increments here for the length of the sequence.
+            handIndex += patternElements.length;
             break hand;
           }
         }
