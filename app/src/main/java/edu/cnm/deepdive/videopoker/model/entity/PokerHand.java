@@ -22,7 +22,6 @@ public class PokerHand {
 
   @NonNull
   @ColumnInfo
-  //the big toledo
   private String rules;
 
   @NonNull
@@ -95,8 +94,6 @@ public class PokerHand {
             case '*':
               break;
             case '+':
-              System.out.println(hand.get(handIndex).getRank().getValue() + patternIndex);
-              System.out.println(hand.get(handIndex + patternIndex).getRank().getValue());
               if (!(hand.get(handIndex).getRank().getValue() + patternIndex == hand
                   .get(handIndex + patternIndex).getRank().getValue())) {
                 break pattern;
