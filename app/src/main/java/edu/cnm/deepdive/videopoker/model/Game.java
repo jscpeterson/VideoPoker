@@ -23,7 +23,6 @@ public class Game {
     this.playerHand = deck.deal(HAND_SIZE);
   }
 
-  Paytable paytable = new Paytable;
 
   public Deck getDeck() {
     return deck;
