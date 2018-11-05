@@ -61,8 +61,6 @@ public class PokerHand {
 
   //A hand is represented by a string of values,
 
-  String flushSequence = "**,*=,*=,*=,*=";
-
   /**
    * This will check a PlayerHand against a ruleSet and return TRUE if the hand matches the rules
    * provided.
@@ -105,7 +103,12 @@ public class PokerHand {
               }
               break;
             default:
+              //Assume character is a literal in rank. If it isn't, too bad.
+              if (!(hand.get(handIndex+patternIndex).getRank().getSymbol().equals(
+                  String.valueOf(patternElements[patternIndex].charAt(0))))) {
               break pattern;
+            }
+            break;
           }
           //switch case for suits - limited flexibility as suits are unsorted
           switch (patternElements[patternIndex].charAt(1)) {

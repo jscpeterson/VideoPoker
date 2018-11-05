@@ -7,8 +7,10 @@ import edu.cnm.deepdive.videopoker.model.Card;
 import edu.cnm.deepdive.videopoker.model.PlayerHand;
 import edu.cnm.deepdive.videopoker.model.Rank;
 import edu.cnm.deepdive.videopoker.model.Suit;
+import java.util.DuplicateFormatFlagsException;
 import org.junit.Test;
 
+@SuppressWarnings("Duplicates")
 public class PokerHandTest {
 
   PokerHand hand = new PokerHand();
@@ -16,8 +18,20 @@ public class PokerHandTest {
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.TWO, Suit.SPADES),
       new Card(Rank.SIX, Suit.HEARTS),
-      new Card(Rank.FOUR, Suit.SPADES),
+      new Card(Rank.JACK, Suit.SPADES),
       new Card(Rank.TWO, Suit.DIAMONDS));
+  PlayerHand jacks = new PlayerHand(
+      new Card(Rank.ACE, Suit.SPADES),
+      new Card(Rank.JACK, Suit.SPADES),
+      new Card(Rank.SIX, Suit.HEARTS),
+      new Card(Rank.QUEEN, Suit.SPADES),
+      new Card(Rank.JACK, Suit.DIAMONDS));
+  PlayerHand aces = new PlayerHand(
+      new Card(Rank.ACE, Suit.SPADES),
+      new Card(Rank.ACE, Suit.DIAMONDS),
+      new Card(Rank.SIX, Suit.HEARTS),
+      new Card(Rank.FOUR, Suit.SPADES),
+      new Card(Rank.JACK, Suit.DIAMONDS));
   PlayerHand flush = new PlayerHand(
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.TWO, Suit.SPADES),
@@ -78,17 +92,56 @@ public class PokerHandTest {
       new Card(Rank.QUEEN, Suit.CLUBS),
       new Card(Rank.JACK, Suit.SPADES),
       new Card(Rank.TEN, Suit.SPADES));
+  PlayerHand straightFlush = new PlayerHand(
+      new Card(Rank.THREE, Suit.DIAMONDS),
+      new Card(Rank.FOUR, Suit.DIAMONDS),
+      new Card(Rank.SEVEN, Suit.DIAMONDS),
+      new Card(Rank.SIX, Suit.DIAMONDS),
+      new Card(Rank.FIVE, Suit.DIAMONDS));
+  PlayerHand royalFlush = new PlayerHand(
+      new Card(Rank.KING, Suit.DIAMONDS),
+      new Card(Rank.JACK, Suit.DIAMONDS),
+      new Card(Rank.QUEEN, Suit.DIAMONDS),
+      new Card(Rank.TEN, Suit.DIAMONDS),
+      new Card(Rank.ACE, Suit.DIAMONDS));
+  PlayerHand fullHouse = new PlayerHand(
+      new Card(Rank.TWO, Suit.SPADES),
+      new Card(Rank.TWO, Suit.CLUBS),
+      new Card(Rank.THREE, Suit.HEARTS),
+      new Card(Rank.THREE, Suit.SPADES),
+      new Card(Rank.THREE, Suit.DIAMONDS));
+  PlayerHand fullHouse2 = new PlayerHand(
+      new Card(Rank.TWO, Suit.SPADES),
+      new Card(Rank.TWO, Suit.CLUBS),
+      new Card(Rank.TWO, Suit.HEARTS),
+      new Card(Rank.THREE, Suit.SPADES),
+      new Card(Rank.THREE, Suit.DIAMONDS));
 
-  String flushSequence = "**,*=,*=,*=,*=";
-  String threeOfAKindSequence = "**,=*,=*";
+  //Longest pattern sequence must be first, otherwise two of a three of a kind will be removed!
+  String royalFlushSequence = "T=,J=,Q=,K=,A=";
+  String straightFlushSequence = "**,+=,+=,+=,+=";
   String fourOfAKindSequence = "**,=*,=*,=*";
-  String twoPairSequence = "**,=*;**,=*";
+  String fullHouseSequence = "**,=*,=*;**,=*";
+  String flushSequence = "**,*=,*=,*=,*=";
   String straightSequence = "**,+*,+*,+*,+*";
+  String straightSequenceAceHigh;
+  String threeOfAKindSequence = "**,=*,=*";
+  String twoPairSequence = "**,=*;**,=*";
+  String jacksOrBetter;
 
   @Test
   public void testFlush() {
     assertTrue(hand.parseRuleSequence(flushSequence, flush));
     assertFalse(hand.parseRuleSequence(flushSequence, crap));
+  }
+
+  @Test
+  public void testRoyalFlush() {
+    assertTrue(hand.parseRuleSequence(royalFlushSequence, royalFlush));
+    assertFalse(hand.parseRuleSequence(royalFlushSequence, straightFlush));
+    assertFalse(hand.parseRuleSequence(royalFlushSequence, flush));
+    assertFalse(hand.parseRuleSequence(royalFlushSequence, straight));
+    assertFalse(hand.parseRuleSequence(royalFlushSequence, crap));
   }
 
   @Test
@@ -102,10 +155,11 @@ public class PokerHandTest {
   public void testFourOfAKind() {
     assertTrue(hand.parseRuleSequence(fourOfAKindSequence, fourOfAKindLow));
     assertTrue(hand.parseRuleSequence(fourOfAKindSequence, fourOfAKindHigh));
-    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, threeOfAKindLow));
+    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, crap));
     assertFalse(hand.parseRuleSequence(fourOfAKindSequence, twoPair1));
     assertFalse(hand.parseRuleSequence(fourOfAKindSequence, twoPair2));
-    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, crap));
+    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, threeOfAKindLow));
+    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, threeOfAKindHigh));
   }
 
   @Test
@@ -121,36 +175,28 @@ public class PokerHandTest {
   public void testStraight() {
     assertTrue(hand.parseRuleSequence(straightSequence, straight));
     assertTrue(hand.parseRuleSequence(straightSequence, aceHighStraight));
-    //TODO Fix ace low straight
+    //TODO Fix ace low straight or change to Ace High
 //    assertTrue(hand.parseRuleSequence(straightSequence, aceLowStraight));
     assertFalse(hand.parseRuleSequence(straightSequence, crap));
   }
 
-  //Highest card value must be first, otherwise two of a three of a kind will be removed!
-  String fullHouseSequence = "**,=*,=*;**,=*";
-//  String fullHouseSequence = "**,=*;**,=*,=*";
-
-  PlayerHand fullHouse = new PlayerHand(
-      new Card(Rank.TWO, Suit.SPADES),
-      new Card(Rank.TWO, Suit.CLUBS),
-      new Card(Rank.THREE, Suit.HEARTS),
-      new Card(Rank.THREE, Suit.SPADES),
-      new Card(Rank.THREE, Suit.DIAMONDS));
-  PlayerHand fullHouse2 = new PlayerHand(
-      new Card(Rank.TWO, Suit.SPADES),
-      new Card(Rank.TWO, Suit.CLUBS),
-      new Card(Rank.TWO, Suit.HEARTS),
-      new Card(Rank.THREE, Suit.SPADES),
-      new Card(Rank.THREE, Suit.DIAMONDS));
-
   @Test
   public void testFullHouse() {
-    assertTrue(hand.parseRuleSequence(fullHouseSequence, fullHouse2));
     assertTrue(hand.parseRuleSequence(fullHouseSequence, fullHouse));
+    assertTrue(hand.parseRuleSequence(fullHouseSequence, fullHouse2));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, crap));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, twoPair1));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, twoPair2));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, threeOfAKindLow));
     assertFalse(hand.parseRuleSequence(fullHouseSequence, threeOfAKindHigh));
+  }
+
+  @Test
+  public void testStraightFlush() {
+    assertTrue(hand.parseRuleSequence(straightFlushSequence, straightFlush));
+    assertFalse(hand.parseRuleSequence(straightFlushSequence, straight));
+    assertFalse(hand.parseRuleSequence(straightFlushSequence, aceLowStraight));
+    assertFalse(hand.parseRuleSequence(straightFlushSequence, flush));
+    assertFalse(hand.parseRuleSequence(straightFlushSequence, crap));
   }
 }
