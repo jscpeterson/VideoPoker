@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.videopoker.model;
 
+import edu.cnm.deepdive.videopoker.model.db.Paytable;
 import java.security.SecureRandom;
 
 public class Game {
@@ -21,6 +22,8 @@ public class Game {
     this.deck = new Deck(new SecureRandom());
     this.playerHand = deck.deal(HAND_SIZE);
   }
+
+  Paytable paytable = new Paytable;
 
   public Deck getDeck() {
     return deck;

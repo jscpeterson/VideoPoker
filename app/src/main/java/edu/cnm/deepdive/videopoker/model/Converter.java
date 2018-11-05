@@ -29,6 +29,7 @@ public class Converter {
         for (int handIndex = 0; handIndex <= hand.size() - patternElements.length; ++handIndex) {
           pattern:
           for (int patternIndex = 0; true; ++patternIndex) {
+            //TODO clean up
             //check if the card in the hand matches the first pattern element
             //if the pattern element does not match, break out of the loop
             //otherwise, continue checking if the next card from the first matches the next pattern element

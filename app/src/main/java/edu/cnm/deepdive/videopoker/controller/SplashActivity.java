@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Game;
+import edu.cnm.deepdive.videopoker.model.db.Paytable;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -14,6 +15,10 @@ public class SplashActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    Paytable table1 = Paytable.getInstance(SplashActivity.this);
+
+
     setContentView(R.layout.activity_splash);
     playButton = findViewById(R.id.splash_play_button);
     playButton.setOnClickListener((v) -> {
