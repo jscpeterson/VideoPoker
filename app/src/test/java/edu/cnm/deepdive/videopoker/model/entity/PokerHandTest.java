@@ -2,6 +2,7 @@ package edu.cnm.deepdive.videopoker.model.entity;
 
 import static org.junit.Assert.*;
 
+import android.annotation.SuppressLint;
 import edu.cnm.deepdive.videopoker.model.Card;
 import edu.cnm.deepdive.videopoker.model.PlayerHand;
 import edu.cnm.deepdive.videopoker.model.Rank;
@@ -59,18 +60,6 @@ public class PokerHandTest {
       new Card(Rank.FOUR, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.QUEEN, Suit.DIAMONDS));
-  PlayerHand fullHouse = new PlayerHand(
-      new Card(Rank.ACE, Suit.SPADES),
-      new Card(Rank.ACE, Suit.CLUBS),
-      new Card(Rank.TWO, Suit.HEARTS),
-      new Card(Rank.TWO, Suit.SPADES),
-      new Card(Rank.TWO, Suit.DIAMONDS));
-  PlayerHand fullHouse2 = new PlayerHand(
-      new Card(Rank.ACE, Suit.SPADES),
-      new Card(Rank.ACE, Suit.CLUBS),
-      new Card(Rank.ACE, Suit.HEARTS),
-      new Card(Rank.TWO, Suit.SPADES),
-      new Card(Rank.TWO, Suit.DIAMONDS));
   PlayerHand straight = new PlayerHand(
       new Card(Rank.THREE, Suit.DIAMONDS),
       new Card(Rank.FOUR, Suit.DIAMONDS),
@@ -95,8 +84,6 @@ public class PokerHandTest {
   String fourOfAKindSequence = "**,=*,=*,=*";
   String twoPairSequence = "**,=*;**,=*";
   String straightSequence = "**,+*,+*,+*,+*";
-  //  String fullHouseSequence = "**,=*,=*;**,=*";
-  String fullHouseSequence = "**,=*;**,=*,=*";
 
   @Test
   public void testFlush() {
@@ -116,7 +103,6 @@ public class PokerHandTest {
     assertTrue(hand.parseRuleSequence(fourOfAKindSequence, fourOfAKindLow));
     assertTrue(hand.parseRuleSequence(fourOfAKindSequence, fourOfAKindHigh));
     assertFalse(hand.parseRuleSequence(fourOfAKindSequence, threeOfAKindLow));
-    assertFalse(hand.parseRuleSequence(fourOfAKindSequence, threeOfAKindHigh));
     assertFalse(hand.parseRuleSequence(fourOfAKindSequence, twoPair1));
     assertFalse(hand.parseRuleSequence(fourOfAKindSequence, twoPair2));
     assertFalse(hand.parseRuleSequence(fourOfAKindSequence, crap));
@@ -139,6 +125,22 @@ public class PokerHandTest {
 //    assertTrue(hand.parseRuleSequence(straightSequence, aceLowStraight));
     assertFalse(hand.parseRuleSequence(straightSequence, crap));
   }
+
+  String fullHouseSequence = "**,=*,=*;**,=*";
+  String fullHouseSequence = "**,=*;**,=*,=*";
+
+  PlayerHand fullHouse = new PlayerHand(
+      new Card(Rank.TWO, Suit.SPADES),
+      new Card(Rank.TWO, Suit.CLUBS),
+      new Card(Rank.THREE, Suit.HEARTS),
+      new Card(Rank.THREE, Suit.SPADES),
+      new Card(Rank.THREE, Suit.DIAMONDS));
+  PlayerHand fullHouse2 = new PlayerHand(
+      new Card(Rank.TWO, Suit.SPADES),
+      new Card(Rank.TWO, Suit.CLUBS),
+      new Card(Rank.TWO, Suit.HEARTS),
+      new Card(Rank.THREE, Suit.SPADES),
+      new Card(Rank.THREE, Suit.DIAMONDS));
 
   @Test
   public void testFullHouse() {
