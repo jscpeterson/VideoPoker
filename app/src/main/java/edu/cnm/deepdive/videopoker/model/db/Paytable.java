@@ -20,11 +20,14 @@ public abstract class Paytable extends RoomDatabase {
 
   Context context;
 
+  z
+
   public abstract PokerHandDao getPokerHandDao();
 
   public static Paytable getInstance(Context context) {
     if (instance == null) {
-      instance = Room.databaseBuilder(context.getApplicationContext(), Paytable.class, DB_NAME).build();
+      instance = Room.databaseBuilder(context.getApplicationContext(), Paytable.class, DB_NAME)
+          .build();
     }
     return instance;
   }

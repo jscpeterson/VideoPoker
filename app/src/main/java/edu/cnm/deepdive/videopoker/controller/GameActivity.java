@@ -9,7 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import edu.cnm.deepdive.videopoker.R;
+import edu.cnm.deepdive.videopoker.model.Converter;
 import edu.cnm.deepdive.videopoker.model.Game;
+import edu.cnm.deepdive.videopoker.model.PlayerHand;
+import edu.cnm.deepdive.videopoker.model.db.Paytable;
+import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -34,12 +38,14 @@ public class GameActivity extends AppCompatActivity {
   private boolean fastDisplay = true;
 
   private Game game;
+  private Converter converter = new Converter();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_game);
     game = new Game(50, 0.25);
+    new PokerTask().execute(game.getPlayerHand();
     setupButtons();
     setupTextViews();
   }
@@ -193,10 +199,10 @@ public class GameActivity extends AppCompatActivity {
 
     // Evaluate hand to display if the player was dealt a winning hand.
     game.getPlayerHand().evaluateHand();
-    String bestHand = game.getPlayerHand().getBestHand();
+    String bestHand = game.getPlayerHand().getBestHand().getName();
     // Avoid returning bust string if the dealt hand is not a winning hand.
     if (!bestHand.equals(game.getPlayerHand().getBustString())) {
-      winningHandView.setText(game.getPlayerHand().getBestHand());
+      winningHandView.setText(game.getPlayerHand().getBestHand().getName());
     }
     game.getPlayerHand().clearWins();
   }
@@ -229,8 +235,8 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void collectWinnings() {
-    game.evaluateWin();
-    winningHandView.setText(game.getPlayerHand().getBestHand());
+    // ADD TO PURSE
+    winningHandView.setText(game.getPlayerHand().getBestHand().getName());
     if (game.getWin() > 0) {
       winView.setVisibility(View.VISIBLE);
       if (fastDisplay) {
@@ -268,4 +274,21 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
+
+  private class PokerTask extends AsyncTask<PlayerHand, Void, Void> {
+
+    @Override
+    protected Void doInBackground(PlayerHand... playerHands) {
+    for (PokerHand pokerHand : Paytable.getInstance(GameActivity.this).getPokerHandDao().selectPokerHandsByBetOne()) {
+      if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
+        playerHands[0].setBestHand(pokerHand);
+        if (game.getBet() < BET_MAX) {
+          game.setWin(game.getBet() * playerHands[0].getBestHand().getBetOneValue());
+        } else {
+          game.setWin(game.getBet() * playerHands[0].getBestHand().getBetFiveValue());
+        }
+      }
+    }
+  }
+  }
 }
