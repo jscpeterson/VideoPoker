@@ -41,18 +41,5 @@ public class PlayerHand extends Stack<Card> {
     }
   }
 
-  public void evaluateHand() {
-    //TODO Find best hand for this instance of PlayerHand
-    converter.parseRuleSequence(Paytable.getInstance(GameActivity.this))
-  }
-
-  public int getHandScore(int bet) {
-    //TODO Calculate the score of the best hand for this instance by the bet provided.. "get win"
-    return 0;
-  }
-
-  public void clearWins() {
-    //TODO Reset best hand for this field... may be unnecessary... may just use setter for besthand?
-  }
 
 }

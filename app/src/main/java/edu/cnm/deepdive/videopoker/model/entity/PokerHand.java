@@ -2,6 +2,8 @@ package edu.cnm.deepdive.videopoker.model.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import edu.cnm.deepdive.videopoker.model.Card;
@@ -23,18 +25,13 @@ public class PokerHand {
   public static final int DEFAULT_VALUE = 0;
   public static final int MAX_BET = 5;
 
+  @PrimaryKey(autoGenerate = true)
+  private long id;
   private String name;
   private String ruleSequence;
   private int betOneValue;
   private int betFiveValue;
   private boolean showInTable = true;
-
-  public PokerHand(String name, String ruleSequence, int betOneValue, int betFiveValue) {
-    this.name = name;
-    this.ruleSequence = ruleSequence;
-    this.betOneValue = betOneValue;
-    this.betFiveValue = betFiveValue;
-  }
 
   public PokerHand(String name, String ruleSequence, int betOneValue) {
     this.name = name;
@@ -43,12 +40,28 @@ public class PokerHand {
     this.betFiveValue = betOneValue*MAX_BET;
   }
 
-  public PokerHand(String name, String ruleSequence, int betOneValue, boolean showInTable) {
+  @Ignore
+  public PokerHand(String name, String ruleSequence, int betOneValue, int betFiveValue) {
     this.name = name;
     this.ruleSequence = ruleSequence;
     this.betOneValue = betOneValue;
-    this.betFiveValue = betOneValue*MAX_BET;
-    this.showInTable = showInTable;
+    this.betFiveValue = betFiveValue;
+  }
+
+//  public PokerHand(String name, String ruleSequence, int betOneValue, boolean showInTable) {
+//    this.name = name;
+//    this.ruleSequence = ruleSequence;
+//    this.betOneValue = betOneValue;
+//    this.betFiveValue = betOneValue*MAX_BET;
+//    this.showInTable = showInTable;
+//  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
   }
 
   public String getName() {

@@ -60,11 +60,6 @@ public class Game {
     this.win = win;
   }
 
-  public void evaluateWin() {
-    playerHand.evaluateHand();
-    win = playerHand.getHandScore(bet);
-  }
-
   public void addWinToPurse() {
     this.purse += this.win;
   }

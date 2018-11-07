@@ -3,6 +3,7 @@
   package="edu.cnm.deepdive.videopoker">
 
   <application
+    android:name=".GameApplication"
     android:allowBackup="false"
     android:icon="@mipmap/ic_spade"
     android:label="@string/app_name"

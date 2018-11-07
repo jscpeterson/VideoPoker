@@ -1,7 +1,11 @@
 package edu.cnm.deepdive.videopoker.controller;
 
+import android.arch.persistence.db.SupportSQLiteOpenHelper;
+import android.arch.persistence.room.DatabaseConfiguration;
+import android.arch.persistence.room.InvalidationTracker;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +16,7 @@ import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Converter;
 import edu.cnm.deepdive.videopoker.model.Game;
 import edu.cnm.deepdive.videopoker.model.PlayerHand;
+import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.db.Paytable;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 
@@ -37,6 +42,7 @@ public class GameActivity extends AppCompatActivity {
   private boolean viewAsDollars = false;
   private boolean fastDisplay = true;
 
+  private Paytable paytable;
   private Game game;
   private Converter converter = new Converter();
 
@@ -45,7 +51,8 @@ public class GameActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_game);
     game = new Game(50, 0.25);
-    new PokerTask().execute(game.getPlayerHand();
+    paytable = Paytable.getInstance(this);
+    new PokerTask().execute(game.getPlayerHand());
     setupButtons();
     setupTextViews();
   }
@@ -196,15 +203,13 @@ public class GameActivity extends AppCompatActivity {
     for (int i = 0; i < game.getPlayerHand().size(); i++) {
       displayCards(i);
     }
-
+    new PokerTask().execute(game.getPlayerHand());
     // Evaluate hand to display if the player was dealt a winning hand.
-    game.getPlayerHand().evaluateHand();
     String bestHand = game.getPlayerHand().getBestHand().getName();
     // Avoid returning bust string if the dealt hand is not a winning hand.
     if (!bestHand.equals(game.getPlayerHand().getBustString())) {
       winningHandView.setText(game.getPlayerHand().getBestHand().getName());
     }
-    game.getPlayerHand().clearWins();
   }
 
   private void setupDraw() {
@@ -235,7 +240,8 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void collectWinnings() {
-    // ADD TO PURSE
+    new PokerTask().execute(game.getPlayerHand());
+    String bestHand = game.getPlayerHand().getBestHand().getName();
     winningHandView.setText(game.getPlayerHand().getBestHand().getName());
     if (game.getWin() > 0) {
       winView.setVisibility(View.VISIBLE);
@@ -255,7 +261,7 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void resetGame() {
-    game.getPlayerHand().clearWins();
+    game.getPlayerHand().setBestHand(null);
     game.setBet(0);
     betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
     dealButton.setEnabled(false);
@@ -287,8 +293,12 @@ public class GameActivity extends AppCompatActivity {
         } else {
           game.setWin(game.getBet() * playerHands[0].getBestHand().getBetFiveValue());
         }
+        return null;
       }
     }
-  }
+    //no best hand found
+  return null;
+    }
   }
 }
+

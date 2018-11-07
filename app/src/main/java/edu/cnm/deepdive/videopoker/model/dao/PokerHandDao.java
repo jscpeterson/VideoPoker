@@ -11,7 +11,7 @@ import java.util.List;
 public interface PokerHandDao {
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  String insert(PokerHand pokerhand);
+  long insert(PokerHand pokerhand);
 
   @Query("SELECT * FROM PokerHand ORDER BY betOneValue")
   List<PokerHand> selectPokerHandsByBetOne();
