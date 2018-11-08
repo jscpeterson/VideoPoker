@@ -259,7 +259,14 @@ public class GameActivity extends AppCompatActivity {
             .selectPokerHandsByBetOne()) {
           if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
             playerHands[0].setBestHand(pokerHand);
+            break;
           }
+        }
+        if (game.getBet() < BET_MAX) {
+          game.setWin(game.getBet() * game.getPlayerHand().getBestHand().getBetOneValue());
+        }
+        else {
+          game.setWin(game.getPlayerHand().getBestHand().getBetFiveValue());
         }
         return null;
       }
@@ -275,6 +282,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
   private void collectWinnings() {
+    // TODO Slow point accumulation for an "animated" win
     winningHandView.setText(game.getPlayerHand().getBestHand().getName());
     if (game.getWin() > 0) {
       winView.setVisibility(View.VISIBLE);
