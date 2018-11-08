@@ -9,6 +9,7 @@ public class Game {
   private static final int HAND_SIZE = 5;
 
   private Deck deck;
+
   private PlayerHand playerHand;
   private double creditValue;
   private int purse;
@@ -30,6 +31,10 @@ public class Game {
 
   public PlayerHand getPlayerHand() {
     return playerHand;
+  }
+
+  public void setPlayerHand(PlayerHand playerHand) {
+    this.playerHand = playerHand;
   }
 
   public double getCreditValue() {

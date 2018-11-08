@@ -149,7 +149,6 @@ public class GameActivity extends AppCompatActivity {
           card.setVisibility(View.VISIBLE);
           card.setEnabled(true);
         }
-        firstDeal = false;
       }
       deal();
       setupDraw();
@@ -204,12 +203,6 @@ public class GameActivity extends AppCompatActivity {
       displayCards(i);
     }
     new PokerTask().execute(game.getPlayerHand());
-    // Evaluate hand to display if the player was dealt a winning hand.
-    String bestHand = game.getPlayerHand().getBestHand().getName();
-    // Avoid returning bust string if the dealt hand is not a winning hand.
-    if (!bestHand.equals(game.getPlayerHand().getBustString())) {
-      winningHandView.setText(game.getPlayerHand().getBestHand().getName());
-    }
   }
 
   private void setupDraw() {
@@ -282,6 +275,15 @@ public class GameActivity extends AppCompatActivity {
 
 
   private class PokerTask extends AsyncTask<PlayerHand, Void, Void> {
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+      // Evaluate hand to display if the player was dealt a winning hand.
+      String bestHand = game.getPlayerHand().getBestHand().getName();
+      // Avoid returning bust string if the dealt hand is not a winning hand.
+      if (!bestHand.equals(game.getPlayerHand().getBustString())) {
+        winningHandView.setText(game.getPlayerHand().getBestHand().getName());
+      }    }
 
     @Override
     protected Void doInBackground(PlayerHand... playerHands) {

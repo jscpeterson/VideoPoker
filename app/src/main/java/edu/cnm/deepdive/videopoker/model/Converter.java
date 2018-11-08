@@ -2,6 +2,7 @@ package edu.cnm.deepdive.videopoker.model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 public class Converter {
 
@@ -11,7 +12,9 @@ public class Converter {
      * This will check a PlayerHand against a ruleSet and return TRUE if the hand matches the rules
      * provided.
      */
-    public boolean parseRuleSequence(String ruleSequence, List<Card> hand) {
+    public boolean parseRuleSequence(String ruleSequence, Stack<Card> playerHand) {
+      //make working copy of playerhand, otherwise the converter eats cards
+      PlayerHand hand = (PlayerHand) playerHand.clone();
       //initialize hand index outside of loop so that multiple patterns do not throw it off
       boolean patternMatched = false;
       //split delimiter by semicolons to get rule patterns

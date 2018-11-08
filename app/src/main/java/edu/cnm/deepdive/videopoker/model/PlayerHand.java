@@ -17,7 +17,18 @@ import java.util.Stack;
 
 public class PlayerHand extends Stack<Card> {
 
-  private final String BUST = "\u2639";
+  //  private final String BUST = "\u2639";
+  private final String BUST = "bust";
+
+  Converter converter = new Converter();
+
+  PokerHand bestHand;
+
+  public PlayerHand(Card... cards) {
+    for (Card card : cards) {
+      this.add(card);
+    }
+  }
 
   public String getBustString() {
     return BUST;
@@ -30,16 +41,5 @@ public class PlayerHand extends Stack<Card> {
   public void setBestHand(PokerHand bestHand) {
     this.bestHand = bestHand;
   }
-
-  Converter converter = new Converter();
-
-  PokerHand bestHand;
-
-  public PlayerHand(Card... cards) {
-    for (Card card : cards) {
-      this.add(card);
-    }
-  }
-
 
 }
