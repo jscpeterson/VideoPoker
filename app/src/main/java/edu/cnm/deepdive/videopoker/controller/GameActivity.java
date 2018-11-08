@@ -12,6 +12,7 @@ import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Converter;
 import edu.cnm.deepdive.videopoker.model.Game;
 import edu.cnm.deepdive.videopoker.model.PlayerHand;
+import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.db.Paytable;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 
@@ -47,9 +48,7 @@ public class GameActivity extends AppCompatActivity {
     setContentView(R.layout.activity_game);
     game = new Game(50, 0.25);
     paytable = Paytable.getInstance(this);
-//    new DealTask().execute(game.getPlayerHand());
-    setupButtons();
-    setupTextViews();
+    new SetupTask().execute(paytable);
   }
 
   @Override
@@ -184,6 +183,47 @@ public class GameActivity extends AppCompatActivity {
     cardButtons[index].setImageResource(identifier);
   }
 
+  private class SetupTask extends AsyncTask<Paytable, Void, Void> {
+
+    @Override
+    protected Void doInBackground(Paytable... paytables) {
+      Paytable db = paytables[0];
+      PokerHandDao dao = db.getPokerHandDao();
+
+      String royalFlushSequence = "A=,T=,J=,Q=,K=";
+      String straightFlushSequence = "**,+=,+=,+=,+=";
+      String fourOfAKindSequence = "**,=*,=*,=*";
+      String fullHouseSequence = "**,=*,=*;**,=*";
+      String flushSequence = "**,*=,*=,*=,*=";
+      String straightSequenceAceHigh = "A*,T*,J*,Q*,K*";
+      String straightSequence = "**,+*,+*,+*,+*";
+      String threeOfAKindSequence = "**,=*,=*";
+      String twoPairSequence = "**,=*;**,=*";
+      String jacksOrBetterSequence = "F*,=*";
+      String bust = "**,**,**,**,**";
+
+      dao.insert(new PokerHand("Royal Flush", royalFlushSequence, 250, 4000));
+//    dao.insert(new PokerHand("Royal Flush", royalFlushSequence, 250));
+      dao.insert(new PokerHand("Straight Flush", straightFlushSequence, 50));
+      dao.insert(new PokerHand("Four of a Kind", fourOfAKindSequence, 25));
+      dao.insert(new PokerHand("Full House", fullHouseSequence, 9));
+      dao.insert(new PokerHand("Flush", flushSequence, 6));
+      dao.insert(new PokerHand("Straight", straightSequenceAceHigh, 4, false));
+      dao.insert(new PokerHand("Straight", straightSequence, 4));
+      dao.insert(new PokerHand("Three of a Kind", threeOfAKindSequence, 3));
+      dao.insert(new PokerHand("Two Pair", twoPairSequence, 2));
+      dao.insert(new PokerHand("Jacks or Better", jacksOrBetterSequence, 1));
+      dao.insert(new PokerHand("\u2639", bust, 0));
+
+      return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+      setupButtons();
+      setupTextViews();
+    }
+  }
 
   /**
    * First card deal and any potential winning hand evaluated.

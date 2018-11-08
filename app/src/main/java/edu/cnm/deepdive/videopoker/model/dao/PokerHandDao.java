@@ -10,7 +10,7 @@ import java.util.List;
 @Dao
 public interface PokerHandDao {
 
-  @Insert(onConflict = OnConflictStrategy.FAIL)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
   long insert(PokerHand pokerhand);
 
   @Query("SELECT * FROM PokerHand ORDER BY betOneValue DESC")

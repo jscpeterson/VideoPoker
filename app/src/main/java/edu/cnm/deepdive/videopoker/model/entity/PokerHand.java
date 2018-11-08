@@ -48,13 +48,14 @@ public class PokerHand {
     this.betFiveValue = betFiveValue;
   }
 
-//  public PokerHand(String name, String ruleSequence, int betOneValue, boolean showInTable) {
-//    this.name = name;
-//    this.ruleSequence = ruleSequence;
-//    this.betOneValue = betOneValue;
-//    this.betFiveValue = betOneValue*MAX_BET;
-//    this.showInTable = showInTable;
-//  }
+  @Ignore
+  public PokerHand(String name, String ruleSequence, int betOneValue, boolean showInTable) {
+    this.name = name;
+    this.ruleSequence = ruleSequence;
+    this.betOneValue = betOneValue;
+    this.betFiveValue = betOneValue*MAX_BET;
+    this.showInTable = showInTable;
+  }
 
   public long getId() {
     return id;
