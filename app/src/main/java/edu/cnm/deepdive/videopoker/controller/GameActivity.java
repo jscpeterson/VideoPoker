@@ -1,11 +1,7 @@
 package edu.cnm.deepdive.videopoker.controller;
 
-import android.arch.persistence.db.SupportSQLiteOpenHelper;
-import android.arch.persistence.room.DatabaseConfiguration;
-import android.arch.persistence.room.InvalidationTracker;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +12,6 @@ import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Converter;
 import edu.cnm.deepdive.videopoker.model.Game;
 import edu.cnm.deepdive.videopoker.model.PlayerHand;
-import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.db.Paytable;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 
@@ -52,7 +47,7 @@ public class GameActivity extends AppCompatActivity {
     setContentView(R.layout.activity_game);
     game = new Game(50, 0.25);
     paytable = Paytable.getInstance(this);
-    new PokerTask().execute(game.getPlayerHand());
+//    new DealTask().execute(game.getPlayerHand());
     setupButtons();
     setupTextViews();
   }
@@ -144,20 +139,11 @@ public class GameActivity extends AppCompatActivity {
     dealButton.setOnClickListener((v) -> {
       // special actions for the initial deal when the game first begins
       // activate and make cards visible
-      if (firstDeal) {
-        for (CardButton card : cardButtons) {
-          card.setVisibility(View.VISIBLE);
-          card.setEnabled(true);
-        }
-      }
-      deal();
-      setupDraw();
+      new DealTask().execute(game.getPlayerHand());
     });
 
     drawButton.setOnClickListener((v) -> {
-      draw();
-      collectWinnings();
-      resetGame();
+      new DrawTask().execute(game.getPlayerHand());
     });
   }
 
@@ -191,65 +177,110 @@ public class GameActivity extends AppCompatActivity {
     betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
   }
 
-  private void deal() {
-    winView.setVisibility(View.INVISIBLE);
-    winningHandView.setText(EMPTY_STRING);
-    game.setPurse(game.getPurse() - game.getBet());
-    purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
-    betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
-    game.getDeck().shuffle();
-    game.getDeck().dealAndReplace(game.getPlayerHand());
-    for (int i = 0; i < game.getPlayerHand().size(); i++) {
-      displayCards(i);
-    }
-    new PokerTask().execute(game.getPlayerHand());
-  }
-
-  private void setupDraw() {
-    dealButton.setEnabled(false);
-    drawButton.setEnabled(true);
-    betOneButton.setEnabled(false);
-    betMaxButton.setEnabled(false);
-    for (CardButton card : cardButtons) {
-      card.setEnabled(true);
-    }
-  }
-
-  private void draw() {
-    for (int i = 0; i < HAND_SIZE; i++) {
-      if (!cardButtons[i].isChecked()) {
-        game.getDeck().push(game.getPlayerHand().get(i));
-        game.getPlayerHand().set(i, game.getDeck().remove(0));
-        displayCards(i);
-      }
-    }
-  }
-
-  private void displayCards(int index) {
+  private void displayCard(int index) {
     String resourceId = game.getPlayerHand().get(index).getResourceId();
     int identifier = getResources()
         .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
     cardButtons[index].setImageResource(identifier);
   }
 
+
+  /**
+   * First card deal and any potential winning hand evaluated.
+   */
+  private class DealTask extends AsyncTask<PlayerHand, Void, Void> {
+
+    @Override
+    protected void onPreExecute() {
+      game.getDeck().shuffle();
+      game.getDeck().dealAndReplace(game.getPlayerHand());
+    }
+
+    @Override
+    protected Void doInBackground(PlayerHand... playerHands) {
+      for (PokerHand pokerHand : Paytable.getInstance(GameActivity.this).getPokerHandDao()
+          .selectPokerHandsByBetOne()) {
+        if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
+          playerHands[0].setBestHand(pokerHand);
+          return null;
+        }
+      }
+      //no best hand found
+      return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+      if (firstDeal) {
+        for (CardButton card : cardButtons) {
+          card.setVisibility(View.VISIBLE);
+          card.setEnabled(true);
+        }
+      }
+      winView.setVisibility(View.INVISIBLE);
+      winningHandView.setText(EMPTY_STRING);
+      game.setPurse(game.getPurse() - game.getBet());
+      purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
+      betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
+      for (int i = 0; i < game.getPlayerHand().size(); i++) {
+        displayCard(i);
+      }
+      if (game.getPlayerHand().getBestHand().getBetOneValue() > 0) {
+        winningHandView.setText(game.getPlayerHand().getBestHand().getName());
+      }
+      dealButton.setEnabled(false);
+      drawButton.setEnabled(true);
+      betOneButton.setEnabled(false);
+      betMaxButton.setEnabled(false);
+      for (CardButton card : cardButtons) {
+        card.setEnabled(true);
+      }
+    }
+  }
+
+  /**
+   * Subsequent card draw, winnings evaluated and game reset.
+   */
+  private class DrawTask extends AsyncTask<PlayerHand, Void, Void> {
+
+      @Override
+      protected void onPreExecute() {
+        for (int i = 0; i < HAND_SIZE; i++) {
+          if (!cardButtons[i].isChecked()) {
+            game.getDeck().push(game.getPlayerHand().get(i));
+            game.getPlayerHand().set(i, game.getDeck().remove(0));
+          }
+        }
+      }
+
+      @Override
+      protected Void doInBackground(PlayerHand... playerHands) {
+        for (PokerHand pokerHand : Paytable.getInstance(GameActivity.this).getPokerHandDao()
+            .selectPokerHandsByBetOne()) {
+          if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
+            playerHands[0].setBestHand(pokerHand);
+          }
+        }
+        return null;
+      }
+
+      @Override
+      protected void onPostExecute(Void aVoid) {
+        for (int i = 0; i < game.getPlayerHand().size(); i++) {
+          displayCard(i);
+        }
+        collectWinnings();
+        resetGame();
+      }
+    }
+
   private void collectWinnings() {
-    new PokerTask().execute(game.getPlayerHand());
-    String bestHand = game.getPlayerHand().getBestHand().getName();
     winningHandView.setText(game.getPlayerHand().getBestHand().getName());
     if (game.getWin() > 0) {
       winView.setVisibility(View.VISIBLE);
-      if (fastDisplay) {
         winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
         game.setPurse(game.getPurse() + game.getWin());
         purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
-      } else {
-        for (int i = 0; i < game.getWin(); ++i) {
-          // TODO Slow down point accumulation display
-          winView.setText(getWinString(i + 1, game.getCreditValue(), viewAsDollars));
-          game.setPurse(game.getPurse() + 1);
-          purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
-        }
-      }
     }
   }
 
@@ -274,33 +305,5 @@ public class GameActivity extends AppCompatActivity {
   }
 
 
-  private class PokerTask extends AsyncTask<PlayerHand, Void, Void> {
-
-    @Override
-    protected void onPostExecute(Void aVoid) {
-      // Evaluate hand to display if the player was dealt a winning hand.
-      String bestHand = game.getPlayerHand().getBestHand().getName();
-      // Avoid returning bust string if the dealt hand is not a winning hand.
-      if (!bestHand.equals(game.getPlayerHand().getBustString())) {
-        winningHandView.setText(game.getPlayerHand().getBestHand().getName());
-      }    }
-
-    @Override
-    protected Void doInBackground(PlayerHand... playerHands) {
-    for (PokerHand pokerHand : Paytable.getInstance(GameActivity.this).getPokerHandDao().selectPokerHandsByBetOne()) {
-      if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
-        playerHands[0].setBestHand(pokerHand);
-        if (game.getBet() < BET_MAX) {
-          game.setWin(game.getBet() * playerHands[0].getBestHand().getBetOneValue());
-        } else {
-          game.setWin(game.getBet() * playerHands[0].getBestHand().getBetFiveValue());
-        }
-        return null;
-      }
-    }
-    //no best hand found
-  return null;
-    }
-  }
 }
 
