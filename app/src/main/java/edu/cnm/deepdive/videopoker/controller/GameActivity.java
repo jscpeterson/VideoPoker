@@ -282,52 +282,51 @@ public class GameActivity extends AppCompatActivity {
    */
   private class DrawTask extends AsyncTask<PlayerHand, Void, Void> {
 
-      @Override
-      protected void onPreExecute() {
-        for (int i = 0; i < HAND_SIZE; i++) {
-          if (!cardButtons[i].isChecked()) {
-            game.getDeck().push(game.getPlayerHand().get(i));
-            game.getPlayerHand().set(i, game.getDeck().remove(0));
-          }
+    @Override
+    protected void onPreExecute() {
+      for (int i = 0; i < HAND_SIZE; i++) {
+        if (!cardButtons[i].isChecked()) {
+          game.getDeck().push(game.getPlayerHand().get(i));
+          game.getPlayerHand().set(i, game.getDeck().remove(0));
         }
-      }
-
-      @Override
-      protected Void doInBackground(PlayerHand... playerHands) {
-        for (PokerHand pokerHand : Paytable.getInstance(GameActivity.this).getPokerHandDao()
-            .selectPokerHandsByBetOne()) {
-          if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
-            playerHands[0].setBestHand(pokerHand);
-            break;
-          }
-        }
-        if (game.getBet() < BET_MAX) {
-          game.setWin(game.getBet() * game.getPlayerHand().getBestHand().getBetOneValue());
-        }
-        else {
-          game.setWin(game.getPlayerHand().getBestHand().getBetFiveValue());
-        }
-        return null;
-      }
-
-      @Override
-      protected void onPostExecute(Void aVoid) {
-        for (int i = 0; i < game.getPlayerHand().size(); i++) {
-          displayCard(i);
-        }
-        collectWinnings();
-        resetGame();
       }
     }
+
+    @Override
+    protected Void doInBackground(PlayerHand... playerHands) {
+      for (PokerHand pokerHand : Paytable.getInstance(GameActivity.this).getPokerHandDao()
+          .selectPokerHandsByBetOne()) {
+        if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
+          playerHands[0].setBestHand(pokerHand);
+          break;
+        }
+      }
+      if (game.getBet() < BET_MAX) {
+        game.setWin(game.getBet() * game.getPlayerHand().getBestHand().getBetOneValue());
+      } else {
+        game.setWin(game.getPlayerHand().getBestHand().getBetFiveValue());
+      }
+      return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+      for (int i = 0; i < game.getPlayerHand().size(); i++) {
+        displayCard(i);
+      }
+      collectWinnings();
+      resetGame();
+    }
+  }
 
   private void collectWinnings() {
     // TODO Slow point accumulation for an "animated" win
     winningHandView.setText(game.getPlayerHand().getBestHand().getName());
     if (game.getWin() > 0) {
       winView.setVisibility(View.VISIBLE);
-        winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
-        game.setPurse(game.getPurse() + game.getWin());
-        purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
+      winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
+      game.setPurse(game.getPurse() + game.getWin());
+      purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
     }
   }
 
