@@ -25,7 +25,7 @@ public class PokerHand {
   public static final int DEFAULT_VALUE = 0;
   public static final int MAX_BET = 5;
 
-  @PrimaryKey(autoGenerate = true)
+  @PrimaryKey(autoGenerate = false)
   private long id;
   private String name;
   private String ruleSequence;
@@ -33,23 +33,28 @@ public class PokerHand {
   private int betFiveValue;
   private boolean showInTable = true;
 
-  public PokerHand(String name, String ruleSequence, int betOneValue) {
+  public PokerHand(long id, String name, String ruleSequence, int betOneValue) {
+    this.id = id;
     this.name = name;
     this.ruleSequence = ruleSequence;
     this.betOneValue = betOneValue;
     this.betFiveValue = betOneValue*MAX_BET;
+    this.showInTable = (betOneValue > 0);
   }
 
   @Ignore
-  public PokerHand(String name, String ruleSequence, int betOneValue, int betFiveValue) {
+  public PokerHand(long id, String name, String ruleSequence, int betOneValue, int betFiveValue) {
+    this.id = id;
     this.name = name;
     this.ruleSequence = ruleSequence;
     this.betOneValue = betOneValue;
     this.betFiveValue = betFiveValue;
+    this.showInTable = (betOneValue > 0);
   }
 
   @Ignore
-  public PokerHand(String name, String ruleSequence, int betOneValue, boolean showInTable) {
+  public PokerHand(long id, String name, String ruleSequence, int betOneValue, boolean showInTable) {
+    this.id = id;
     this.name = name;
     this.ruleSequence = ruleSequence;
     this.betOneValue = betOneValue;

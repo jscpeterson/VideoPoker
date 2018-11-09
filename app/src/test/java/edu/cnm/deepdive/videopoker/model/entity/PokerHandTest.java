@@ -147,6 +147,7 @@ public class PokerHandTest {
   private String twoPairSequence = "**,=*;**,=*";
   private String jacksOrBetterSequence = "F*,=*";
   //TODO test additional hand sequences
+  private String fourAcesSequence = "A*,=*,=*,=*";
   private String fourTwosSequence = "2*,=*,=*,=*";
   private String fourThreesSequence = "3*,=*,=*,=*";
   private String fourFoursSequence = "4*,=*,=*,=*";
@@ -189,6 +190,17 @@ public class PokerHandTest {
     assertFalse(converter.parseRuleSequence(fourOfAKindSequence, twoPair2));
     assertFalse(converter.parseRuleSequence(fourOfAKindSequence, threeOfAKindLow));
     assertFalse(converter.parseRuleSequence(fourOfAKindSequence, threeOfAKindHigh));
+  }
+
+  @Test
+  public void testFourAces() {
+    assertTrue(converter.parseRuleSequence(fourAcesSequence, fourAces));
+    assertFalse(converter.parseRuleSequence(fourAcesSequence, fourOfAKindHigh));
+    assertFalse(converter.parseRuleSequence(fourAcesSequence, crap));
+    assertFalse(converter.parseRuleSequence(fourAcesSequence, twoPair1));
+    assertFalse(converter.parseRuleSequence(fourAcesSequence, twoPair2));
+    assertFalse(converter.parseRuleSequence(fourAcesSequence, threeOfAKindLow));
+    assertFalse(converter.parseRuleSequence(fourAcesSequence, threeOfAKindHigh));
   }
 
   @Test

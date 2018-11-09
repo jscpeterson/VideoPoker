@@ -15,6 +15,12 @@ import edu.cnm.deepdive.videopoker.model.PlayerHand;
 import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.db.Paytable;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -186,34 +192,23 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected Void doInBackground(Paytable... paytables) {
-      Paytable db = paytables[0];
-      PokerHandDao dao = db.getPokerHandDao();
-
-      String royalFlushSequence = "A=,T=,J=,Q=,K=";
-      String straightFlushSequence = "**,+=,+=,+=,+=";
-      String fourOfAKindSequence = "**,=*,=*,=*";
-      String fullHouseSequence = "**,=*,=*;**,=*";
-      String flushSequence = "**,*=,*=,*=,*=";
-      String straightSequenceAceHigh = "A*,T*,J*,Q*,K*";
-      String straightSequence = "**,+*,+*,+*,+*";
-      String threeOfAKindSequence = "**,=*,=*";
-      String twoPairSequence = "**,=*;**,=*";
-      String jacksOrBetterSequence = "F*,=*";
-      String bust = "**,**,**,**,**";
-
-      dao.insert(new PokerHand("Royal Flush", royalFlushSequence, 250, 4000));
-//    dao.insert(new PokerHand("Royal Flush", royalFlushSequence, 250));
-      dao.insert(new PokerHand("Straight Flush", straightFlushSequence, 50));
-      dao.insert(new PokerHand("Four of a Kind", fourOfAKindSequence, 25));
-      dao.insert(new PokerHand("Full House", fullHouseSequence, 9));
-      dao.insert(new PokerHand("Flush", flushSequence, 6));
-      dao.insert(new PokerHand("Straight", straightSequenceAceHigh, 4, false));
-      dao.insert(new PokerHand("Straight", straightSequence, 4));
-      dao.insert(new PokerHand("Three of a Kind", threeOfAKindSequence, 3));
-      dao.insert(new PokerHand("Two Pair", twoPairSequence, 2));
-      dao.insert(new PokerHand("Jacks or Better", jacksOrBetterSequence, 1));
-      dao.insert(new PokerHand("\u2639", bust, 0));
-
+      try {
+        //TODO Move to splash screen
+        Paytable db = paytables[0];
+        PokerHandDao dao = db.getPokerHandDao();
+        InputStream csvInputStream = getResources().openRawResource(R.raw.jacksorbetter);
+        CSVParser csvParser = null;
+        csvParser = new CSVParser(new InputStreamReader(csvInputStream), CSVFormat.DEFAULT);
+        System.out.println("butter");
+        System.out.println(csvParser.getFirstEndOfLine());
+        //TODO Adjust for constructors
+        for (CSVRecord record : csvParser.getRecords()) {
+          dao.insert(new PokerHand(record.getRecordNumber(),
+              record.get(0), record.get(1), Integer.parseInt(record.get(2))));
+        }
+      }catch (IOException e) {
+        e.printStackTrace();
+      }
       return null;
     }
 

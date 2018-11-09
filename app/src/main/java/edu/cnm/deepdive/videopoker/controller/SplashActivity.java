@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import edu.cnm.deepdive.videopoker.R;
+import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.db.Paytable;
+import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -18,6 +20,7 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -29,12 +32,16 @@ public class SplashActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState){
-     buildPaytable(R.raw.jacksorbetter);
+    System.out.println("peanut");
+    try {
+      buildPaytable(R.raw.jacksorbetter);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     super.onCreate(savedInstanceState);
 
-    //TODO allow options for additional games
-    //TODO import CSV Files
+    //TODO allow options for additional games. pass paytable into GameActivity
 
     Paytable table1 = Paytable.getInstance(SplashActivity.this);
 
@@ -47,18 +54,7 @@ public class SplashActivity extends AppCompatActivity {
     });
   }
 
-  void buildPaytable(int gameCsvFileId) {
-    InputStream csvInputStream = getResources().openRawResource(gameCsvFileId);
-    CSVParser csvParser = null;
-    try {
-      csvParser = new CSVParser(new InputStreamReader(csvInputStream), CSVFormat.DEFAULT);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    System.out.println(csvParser.iterator().next());
-    //TODO build and return a paytable
+  private void buildPaytable(int gameCsvFileId) throws IOException {
+
   }
-
-
-
 }
