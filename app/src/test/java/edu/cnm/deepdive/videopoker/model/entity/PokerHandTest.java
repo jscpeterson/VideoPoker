@@ -12,104 +12,104 @@ import org.junit.Test;
 @SuppressWarnings("Duplicates")
 public class PokerHandTest {
 
-  Converter converter = new Converter();
-  PlayerHand crap = new PlayerHand(
+  private Converter converter = new Converter();
+  private PlayerHand crap = new PlayerHand(
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.TWO, Suit.SPADES),
       new Card(Rank.SIX, Suit.HEARTS),
       new Card(Rank.JACK, Suit.SPADES),
       new Card(Rank.TWO, Suit.DIAMONDS));
-  PlayerHand jacks = new PlayerHand(
+  private PlayerHand jacks = new PlayerHand(
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.JACK, Suit.SPADES),
       new Card(Rank.SIX, Suit.HEARTS),
       new Card(Rank.QUEEN, Suit.SPADES),
       new Card(Rank.JACK, Suit.DIAMONDS));
-  PlayerHand aces = new PlayerHand(
+  private PlayerHand aces = new PlayerHand(
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.ACE, Suit.DIAMONDS),
       new Card(Rank.SIX, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.JACK, Suit.DIAMONDS));
-  PlayerHand flush = new PlayerHand(
+  private PlayerHand flush = new PlayerHand(
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.TWO, Suit.SPADES),
       new Card(Rank.ACE, Suit.SPADES),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.ACE, Suit.SPADES));
-  PlayerHand threeOfAKindHigh = new PlayerHand(
+  private PlayerHand threeOfAKindHigh = new PlayerHand(
       new Card(Rank.KING, Suit.SPADES),
       new Card(Rank.TWO, Suit.SPADES),
       new Card(Rank.KING, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.KING, Suit.DIAMONDS));
-  PlayerHand threeOfAKindLow = new PlayerHand(
+  private PlayerHand threeOfAKindLow = new PlayerHand(
       new Card(Rank.TWO, Suit.SPADES),
       new Card(Rank.TWO, Suit.HEARTS),
       new Card(Rank.KING, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.TWO, Suit.DIAMONDS));
-  PlayerHand fourOfAKindLow = new PlayerHand(
+  private PlayerHand fourOfAKindLow = new PlayerHand(
       new Card(Rank.TWO, Suit.SPADES),
       new Card(Rank.TWO, Suit.CLUBS),
       new Card(Rank.TWO, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.TWO, Suit.DIAMONDS));
-  PlayerHand fourOfAKindHigh = new PlayerHand(
+  private PlayerHand fourOfAKindHigh = new PlayerHand(
       new Card(Rank.KING, Suit.SPADES),
       new Card(Rank.KING, Suit.CLUBS),
       new Card(Rank.KING, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.KING, Suit.DIAMONDS));
-  PlayerHand twoPair1 = new PlayerHand(
+  private PlayerHand twoPair1 = new PlayerHand(
       new Card(Rank.SIX, Suit.SPADES),
       new Card(Rank.SIX, Suit.CLUBS),
       new Card(Rank.FOUR, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.QUEEN, Suit.DIAMONDS));
-  PlayerHand twoPair2 = new PlayerHand(
+  private PlayerHand twoPair2 = new PlayerHand(
       new Card(Rank.KING, Suit.SPADES),
       new Card(Rank.KING, Suit.CLUBS),
       new Card(Rank.FOUR, Suit.HEARTS),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.QUEEN, Suit.DIAMONDS));
-  PlayerHand straight = new PlayerHand(
+  private PlayerHand straight = new PlayerHand(
       new Card(Rank.THREE, Suit.DIAMONDS),
       new Card(Rank.FOUR, Suit.DIAMONDS),
       new Card(Rank.SEVEN, Suit.HEARTS),
       new Card(Rank.SIX, Suit.CLUBS),
       new Card(Rank.FIVE, Suit.DIAMONDS));
-  PlayerHand aceLowStraight = new PlayerHand(
+  private PlayerHand aceLowStraight = new PlayerHand(
       new Card(Rank.ACE, Suit.HEARTS),
       new Card(Rank.TWO, Suit.DIAMONDS),
       new Card(Rank.THREE, Suit.CLUBS),
       new Card(Rank.FOUR, Suit.SPADES),
       new Card(Rank.FIVE, Suit.SPADES));
-  PlayerHand aceHighStraight = new PlayerHand(
+  private PlayerHand aceHighStraight = new PlayerHand(
       new Card(Rank.ACE, Suit.HEARTS),
       new Card(Rank.KING, Suit.DIAMONDS),
       new Card(Rank.QUEEN, Suit.CLUBS),
       new Card(Rank.JACK, Suit.SPADES),
       new Card(Rank.TEN, Suit.SPADES));
-  PlayerHand straightFlush = new PlayerHand(
+  private PlayerHand straightFlush = new PlayerHand(
       new Card(Rank.THREE, Suit.DIAMONDS),
       new Card(Rank.FOUR, Suit.DIAMONDS),
       new Card(Rank.SEVEN, Suit.DIAMONDS),
       new Card(Rank.SIX, Suit.DIAMONDS),
       new Card(Rank.FIVE, Suit.DIAMONDS));
-  PlayerHand royalFlush = new PlayerHand(
+  private PlayerHand royalFlush = new PlayerHand(
       new Card(Rank.KING, Suit.DIAMONDS),
       new Card(Rank.JACK, Suit.DIAMONDS),
       new Card(Rank.QUEEN, Suit.DIAMONDS),
       new Card(Rank.TEN, Suit.DIAMONDS),
       new Card(Rank.ACE, Suit.DIAMONDS));
-  PlayerHand fullHouse = new PlayerHand(
+  private PlayerHand fullHouse = new PlayerHand(
       new Card(Rank.TWO, Suit.SPADES),
       new Card(Rank.TWO, Suit.CLUBS),
       new Card(Rank.THREE, Suit.HEARTS),
       new Card(Rank.THREE, Suit.SPADES),
       new Card(Rank.THREE, Suit.DIAMONDS));
-  PlayerHand fullHouse2 = new PlayerHand(
+  private PlayerHand fullHouse2 = new PlayerHand(
       new Card(Rank.TWO, Suit.SPADES),
       new Card(Rank.TWO, Suit.CLUBS),
       new Card(Rank.TWO, Suit.HEARTS),
@@ -117,16 +117,16 @@ public class PokerHandTest {
       new Card(Rank.THREE, Suit.DIAMONDS));
 
   //Longest pattern sequence must be first, otherwise two of a three of a kind will be removed!
-  String royalFlushSequence = "A=,T=,J=,Q=,K=";
-  String straightFlushSequence = "**,+=,+=,+=,+=";
-  String fourOfAKindSequence = "**,=*,=*,=*";
-  String fullHouseSequence = "**,=*,=*;**,=*";
-  String flushSequence = "**,*=,*=,*=,*=";
-  String straightSequenceAceHigh = "A*,T*,J*,Q*,K*";
-  String straightSequence = "**,+*,+*,+*,+*";
-  String threeOfAKindSequence = "**,=*,=*";
-  String twoPairSequence = "**,=*;**,=*";
-  String jacksOrBetterSequence = "F*,=*";
+  private String royalFlushSequence = "A=,T=,J=,Q=,K=";
+  private String straightFlushSequence = "**,+=,+=,+=,+=";
+  private String fourOfAKindSequence = "**,=*,=*,=*";
+  private String fullHouseSequence = "**,=*,=*;**,=*";
+  private String flushSequence = "**,*=,*=,*=,*=";
+  private String straightSequenceAceHigh = "A*,T*,J*,Q*,K*";
+  private String threeOfAKindSequence = "**,=*,=*";
+  private String twoPairSequence = "**,=*;**,=*";
+  private String jacksOrBetterSequence = "F*,=*";
+  //TODO test additional hand sequences
 
   @Test
   public void testJacksOrBetter() {
@@ -179,6 +179,7 @@ public class PokerHandTest {
 
   @Test
   public void testStraight() {
+    String straightSequence = "**,+*,+*,+*,+*";
     assertTrue(converter.parseRuleSequence(straightSequence, straight));
     assertTrue(converter.parseRuleSequence(straightSequenceAceHigh, aceHighStraight));
     assertTrue(converter.parseRuleSequence(straightSequence, aceLowStraight));

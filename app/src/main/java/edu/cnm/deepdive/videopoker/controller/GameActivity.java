@@ -141,12 +141,11 @@ public class GameActivity extends AppCompatActivity {
       new DealTask().execute(game.getPlayerHand());
     });
 
-    drawButton.setOnClickListener((v) -> {
-      new DrawTask().execute(game.getPlayerHand());
-    });
+    drawButton.setOnClickListener((v) -> new DrawTask().execute(game.getPlayerHand()));
   }
 
   private void setupTextViews() {
+    //TODO Change title to paytable name (game name)
     winningHandView = findViewById(R.id.win_notifier);
     winView = findViewById(R.id.win_view);
     betView = findViewById(R.id.bet_view);

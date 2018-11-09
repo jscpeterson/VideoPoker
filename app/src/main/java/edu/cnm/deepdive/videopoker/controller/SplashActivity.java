@@ -10,11 +10,14 @@ import edu.cnm.deepdive.videopoker.model.db.Paytable;
 
 public class SplashActivity extends AppCompatActivity {
 
-  Button playButton;
+  private Button playButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    //TODO allow options for additional games
+    //TODO import CSV Files
 
     Paytable table1 = Paytable.getInstance(SplashActivity.this);
 

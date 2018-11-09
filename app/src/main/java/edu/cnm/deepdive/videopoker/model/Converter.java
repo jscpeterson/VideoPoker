@@ -1,12 +1,12 @@
 package edu.cnm.deepdive.videopoker.model;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Stack;
 
 public class Converter {
 
-  public static final int FACE_CARD_LOWEST_VALUE = 10;
+  private static final int FACE_CARD_LOWEST_VALUE = 10;
+  private static final String ACE_SYMBOL = "A";
 
   /**
      * This will check a PlayerHand against a ruleSet and return TRUE if the hand matches the rules
@@ -32,36 +32,37 @@ public class Converter {
         for (int handIndex = 0; handIndex <= hand.size() - patternElements.length; ++handIndex) {
           pattern:
           for (int patternIndex = 0; true; ++patternIndex) {
-            //TODO clean up
             //check if the card in the hand matches the first pattern element
             //if the pattern element does not match, break out of the loop
             //otherwise, continue checking if the next card from the first matches the next pattern element
             //switch case for ranks
+            Rank rankAtHandIndex = hand.get(handIndex).getRank();
+            Rank rankAtPointInPattern = hand.get(handIndex + patternIndex)
+                .getRank();
             switch (patternElements[patternIndex].charAt(0)) {
               case '*':
                 break;
               case '+':
-                if (!(hand.get(handIndex).getRank().getValue() + patternIndex == hand
-                    .get(handIndex + patternIndex).getRank().getValue())) {
+                if (!(rankAtHandIndex.getValue() + patternIndex == rankAtPointInPattern.getValue())) {
                   break pattern;
                 }
                 break;
               case '=':
-                if (!(hand.get(handIndex).getRank() == hand.get(handIndex + patternIndex)
-                    .getRank())) {
+                if (!(rankAtHandIndex == rankAtPointInPattern)) {
                   break pattern;
                 }
                 break;
               //Face card
+              //TODO change from face card to greater than operator
               case 'F':
-                if (!(hand.get(handIndex+patternIndex).getRank().getValue() > FACE_CARD_LOWEST_VALUE ||
-                    hand.get(handIndex+patternIndex).getRank().getSymbol().equals("A"))) {
+                if (!(rankAtPointInPattern.getValue() > FACE_CARD_LOWEST_VALUE ||
+                    rankAtPointInPattern.getSymbol().equals(ACE_SYMBOL))) {
                   break pattern;
                 }
                 break;
               default:
                 //Assume character is a literal in rank. If it isn't, too bad.
-                if (!(hand.get(handIndex+patternIndex).getRank().getSymbol().equals(
+                if (!(rankAtPointInPattern.getSymbol().equals(
                     String.valueOf(patternElements[patternIndex].charAt(0))))) {
                   break pattern;
                 }
@@ -83,12 +84,9 @@ public class Converter {
             //if pattern reaches end of loop without a failure indicate a success and break the greater loop
             if (patternIndex + 1 == patternElements.length) {
               patternMatched = true;
-//            //handIndex does not update when the hand is broken so it increments here for the length of the sequence.
-//            handIndex += patternElements.length;
-
               //WHEN THERE IS A SUCCESS REMOVE ALL MATCHING CARDS FROM THE HAND
-              for (int i = handIndex; i < handIndex+patternElements.length; ++i){
-                hand.remove(handIndex);
+              if (handIndex + patternElements.length > handIndex) {
+                hand.subList(handIndex, handIndex + patternElements.length).clear();
               }
               break hand;
             }
