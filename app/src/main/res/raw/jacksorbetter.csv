@@ -1,0 +1,11 @@
+"Royal Flush","A=,T=,J=,Q=,K=",250,4000
+"Straight Flush","**,+=,+=,+=,+=",50
+"Four of a Kind","**,=*,=*,=*",25
+"Full House","**,=*,=*;**,=*",9
+"Flush","**,*=,*=,*=,*=",6
+"Straight","A*,T*,J*,Q*,K*",4,false
+"Straight","**,+*,+*,+*,+*",4
+"Three of a Kind","**,=*,=*",3
+"Two Pair","**,=*;**,=*",2
+"Jacks or Better","F*,=*",1
+"☹","**,**,**,**,**",0
