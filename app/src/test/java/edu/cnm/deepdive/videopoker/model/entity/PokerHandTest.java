@@ -115,6 +115,25 @@ public class PokerHandTest {
       new Card(Rank.TWO, Suit.HEARTS),
       new Card(Rank.THREE, Suit.SPADES),
       new Card(Rank.THREE, Suit.DIAMONDS));
+  private PlayerHand fourAces = new PlayerHand(
+      new Card(Rank.ACE, Suit.SPADES),
+      new Card(Rank.ACE, Suit.DIAMONDS),
+      new Card(Rank.ACE, Suit.CLUBS),
+      new Card(Rank.JACK, Suit.CLUBS),
+      new Card(Rank.ACE, Suit.HEARTS));
+  private PlayerHand fourThrees = new PlayerHand(
+      new Card(Rank.THREE, Suit.SPADES),
+      new Card(Rank.THREE, Suit.DIAMONDS),
+      new Card(Rank.THREE, Suit.CLUBS),
+      new Card(Rank.TWO, Suit.CLUBS),
+      new Card(Rank.THREE, Suit.HEARTS));
+  private PlayerHand fourFours = new PlayerHand(
+      new Card(Rank.FIVE, Suit.CLUBS),
+      new Card(Rank.FOUR, Suit.SPADES),
+      new Card(Rank.FOUR, Suit.DIAMONDS),
+      new Card(Rank.FOUR, Suit.HEARTS),
+      new Card(Rank.FOUR, Suit.CLUBS));
+
 
   //Longest pattern sequence must be first, otherwise two of a three of a kind will be removed!
   private String royalFlushSequence = "A=,T=,J=,Q=,K=";
@@ -123,10 +142,14 @@ public class PokerHandTest {
   private String fullHouseSequence = "**,=*,=*;**,=*";
   private String flushSequence = "**,*=,*=,*=,*=";
   private String straightSequenceAceHigh = "A*,T*,J*,Q*,K*";
+  private String straightSequence = "**,+*,+*,+*,+*";
   private String threeOfAKindSequence = "**,=*,=*";
   private String twoPairSequence = "**,=*;**,=*";
   private String jacksOrBetterSequence = "F*,=*";
   //TODO test additional hand sequences
+  private String fourTwosSequence = "2*,=*,=*,=*";
+  private String fourThreesSequence = "3*,=*,=*,=*";
+  private String fourFoursSequence = "4*,=*,=*,=*";
 
   @Test
   public void testJacksOrBetter() {
@@ -169,6 +192,39 @@ public class PokerHandTest {
   }
 
   @Test
+  public void testFourTwos() {
+    assertTrue(converter.parseRuleSequence(fourTwosSequence, fourOfAKindLow));
+    assertFalse(converter.parseRuleSequence(fourTwosSequence, fourOfAKindHigh));
+    assertFalse(converter.parseRuleSequence(fourTwosSequence, crap));
+    assertFalse(converter.parseRuleSequence(fourTwosSequence, twoPair1));
+    assertFalse(converter.parseRuleSequence(fourTwosSequence, twoPair2));
+    assertFalse(converter.parseRuleSequence(fourTwosSequence, threeOfAKindLow));
+    assertFalse(converter.parseRuleSequence(fourTwosSequence, threeOfAKindHigh));
+  }
+
+  @Test
+  public void testFourThrees() {
+    assertTrue(converter.parseRuleSequence(fourThreesSequence, fourThrees));
+    assertFalse(converter.parseRuleSequence(fourThreesSequence, fourOfAKindHigh));
+    assertFalse(converter.parseRuleSequence(fourThreesSequence, crap));
+    assertFalse(converter.parseRuleSequence(fourThreesSequence, twoPair1));
+    assertFalse(converter.parseRuleSequence(fourThreesSequence, twoPair2));
+    assertFalse(converter.parseRuleSequence(fourThreesSequence, threeOfAKindLow));
+    assertFalse(converter.parseRuleSequence(fourThreesSequence, threeOfAKindHigh));
+  }
+
+  @Test
+  public void testFourFours() {
+    assertTrue(converter.parseRuleSequence(fourFoursSequence, fourFours));
+    assertFalse(converter.parseRuleSequence(fourFoursSequence, fourOfAKindHigh));
+    assertFalse(converter.parseRuleSequence(fourFoursSequence, crap));
+    assertFalse(converter.parseRuleSequence(fourFoursSequence, twoPair1));
+    assertFalse(converter.parseRuleSequence(fourFoursSequence, twoPair2));
+    assertFalse(converter.parseRuleSequence(fourFoursSequence, threeOfAKindLow));
+    assertFalse(converter.parseRuleSequence(fourFoursSequence, threeOfAKindHigh));
+  }
+
+  @Test
   public void testTwoPair() {
     assertTrue(converter.parseRuleSequence(twoPairSequence, twoPair1));
     assertTrue(converter.parseRuleSequence(twoPairSequence, twoPair2));
@@ -179,7 +235,6 @@ public class PokerHandTest {
 
   @Test
   public void testStraight() {
-    String straightSequence = "**,+*,+*,+*,+*";
     assertTrue(converter.parseRuleSequence(straightSequence, straight));
     assertTrue(converter.parseRuleSequence(straightSequenceAceHigh, aceHighStraight));
     assertTrue(converter.parseRuleSequence(straightSequence, aceLowStraight));
