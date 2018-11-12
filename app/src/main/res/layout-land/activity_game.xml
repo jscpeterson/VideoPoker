@@ -81,13 +81,12 @@
       android:gravity="start">
       <Button
         android:id="@+id/main_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+       style="@style/button"
         android:text="@string/main_button_text"/>
       <Button
         android:id="@+id/help_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/button"
+
         android:text="@string/help_button_text"/>
     </LinearLayout>
 
@@ -98,13 +97,13 @@
       android:gravity="center">
       <Button
         android:id="@+id/bet1_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/button"
+
         android:text="@string/bet_one_button_text"/>
       <Button
         android:id="@+id/bet_max_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/button"
+
         android:text="@string/bet_max_button_text"/>
     </LinearLayout>
 
@@ -115,13 +114,13 @@
       android:gravity="end">
       <Button
         android:id="@+id/deal_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/button"
+
         android:text="@string/deal_button_text"/>
       <Button
         android:id="@+id/draw_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/button"
+
         android:text="@string/draw_button_text"/>
     </LinearLayout>
 

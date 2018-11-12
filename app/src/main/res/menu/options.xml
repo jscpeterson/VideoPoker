@@ -4,18 +4,16 @@
   <item
     android:id="@+id/switch_currency_view"
     android:title="@string/options_switch_currency_view"
-    android:icon="@drawable/ic_attach_money_black_24dp"
     app:showAsAction="never"/>
 
   <item
-    android:id="@+id/fast_display"
-    android:title="@string/options_fast_display"
-    android:icon="@drawable/ic_attach_money_black_24dp"
+    android:id="@+id/view_payout_table"
+    android:title="@string/options_view_payout_table"
     app:showAsAction="never"/>
 
   <item
-    android:id="@+id/exit"
-    android:title="@string/options_exit"
-    android:icon="@drawable/ic_attach_money_black_24dp"
+    android:id="@+id/change_hand"
+    android:title="@string/options_change_hand"
     app:showAsAction="never"/>
+
 </menu>

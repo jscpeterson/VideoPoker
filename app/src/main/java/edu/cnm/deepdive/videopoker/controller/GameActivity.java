@@ -44,9 +44,7 @@ public class GameActivity extends AppCompatActivity {
   private TextView purseView;
 
   private boolean firstDeal = true;
-  private boolean debug = true;
   private boolean viewAsDollars = false;
-  private boolean fastDisplay = true;
 
   private Paytable paytable;
   private Game game;
@@ -77,13 +75,9 @@ public class GameActivity extends AppCompatActivity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     boolean handled = true;
-    // TODO rig hand menu option for testing/future potential
     switch (item.getItemId()) {
       default:
         handled = super.onOptionsItemSelected(item);
-        break;
-      case R.id.fast_display:
-        fastDisplay = !fastDisplay;
         break;
       case R.id.switch_currency_view:
         viewAsDollars = !viewAsDollars;
@@ -91,8 +85,14 @@ public class GameActivity extends AppCompatActivity {
         purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
         betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
         break;
-      case R.id.exit:
-        System.exit(0);
+      case R.id.change_hand:
+        // TODO rig hand menu option for testing/future potential
+        Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
+        break;
+      case R.id.view_payout_table:
+        // TODO view/change paytable menu option
+        Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
+        break;
     }
     return handled;
   }
