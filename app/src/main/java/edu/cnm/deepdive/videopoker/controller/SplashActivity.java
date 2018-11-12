@@ -32,7 +32,6 @@ public class SplashActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState){
-    System.out.println("peanut");
     try {
       buildPaytable(R.raw.jacksorbetter);
     } catch (IOException e) {

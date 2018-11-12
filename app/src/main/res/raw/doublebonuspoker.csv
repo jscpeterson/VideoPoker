@@ -1,0 +1,15 @@
+"Royal Flush","A=,T=,J=,Q=,K=",250,4000
+"Straight Flush","**,+=,+=,+=,+=",50
+"Four Aces","A*,=*,=*,=*",160
+"Four Twos, Threes or Fours","2*,=*,=*,=*",80
+"Four Threes","3*,=*,=*,=*",80
+"Four Fours","4*,=*,=*,=*",80
+"Four 5-K","**,=*,=*,=*",50
+"Full House","**,=*,=*;**,=*",10
+"Flush","**,*=,*=,*=,*=",7
+"Straight","A*,T*,J*,Q*,K*",5,false
+"Straight","**,+*,+*,+*,+*",5
+"Three of a Kind","**,=*,=*",3
+"Two Pair","**,=*;**,=*",1
+"Jacks or Better","F*,=*",1
+"☹","**,**,**,**,**",0

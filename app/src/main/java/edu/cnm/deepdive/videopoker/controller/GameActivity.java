@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.videopoker.controller;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Converter;
 import edu.cnm.deepdive.videopoker.model.Game;
@@ -29,6 +31,8 @@ public class GameActivity extends AppCompatActivity {
   private static final String EMPTY_STRING = "";
 
   private CardButton[] cardButtons;
+  private Button mainButton;
+  private Button helpButton;
   private Button dealButton;
   private Button drawButton;
   private Button betOneButton;
@@ -55,6 +59,12 @@ public class GameActivity extends AppCompatActivity {
     game = new Game(50, 0.25);
     paytable = Paytable.getInstance(this);
     new SetupTask().execute(paytable);
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+//    paytable.close();
   }
 
   @Override
@@ -111,6 +121,8 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void setupButtons() {
+    mainButton = findViewById(R.id.main_button);
+    helpButton = findViewById(R.id.help_button);
     dealButton = findViewById(R.id.deal_button);
     dealButton.setEnabled(false);
     drawButton = findViewById(R.id.draw_button);
@@ -130,6 +142,16 @@ public class GameActivity extends AppCompatActivity {
       card.setEnabled(false);
       card.setOnClickListener((v) -> card.toggle());
     }
+
+    mainButton.setOnClickListener((v) -> {
+      //TODO main button function
+      finish();
+    });
+
+    helpButton.setOnClickListener((v) -> {
+      //TODO do something with help button
+      Toast.makeText(this, "Help!", Toast.LENGTH_SHORT).show();
+    });
 
     betOneButton.setOnClickListener((v) -> {
       betOne();

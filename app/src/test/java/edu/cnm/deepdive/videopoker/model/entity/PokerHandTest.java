@@ -146,7 +146,6 @@ public class PokerHandTest {
   private String threeOfAKindSequence = "**,=*,=*";
   private String twoPairSequence = "**,=*;**,=*";
   private String jacksOrBetterSequence = "F*,=*";
-  //TODO test additional hand sequences
   private String fourAcesSequence = "A*,=*,=*,=*";
   private String fourTwosSequence = "2*,=*,=*,=*";
   private String fourThreesSequence = "3*,=*,=*,=*";

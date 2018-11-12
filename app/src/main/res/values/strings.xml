@@ -17,4 +17,6 @@
   <string name="splash_title">Video Poker</string>
   <string name="splash_play">Play!</string>
   <string name="splash_image_content_description">A playerHand of cards.</string>
+  <string name="main_button_text">MAIN</string>
+  <string name="help_button_text">HELP</string>
 </resources>

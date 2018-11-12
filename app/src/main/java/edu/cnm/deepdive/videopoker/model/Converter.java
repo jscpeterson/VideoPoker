@@ -15,14 +15,13 @@ public class Converter {
     public boolean parseRuleSequence(String ruleSequence, Stack<Card> playerHand) {
       //make working copy of playerhand, otherwise the converter eats cards
       PlayerHand hand = (PlayerHand) playerHand.clone();
-      //initialize hand index outside of loop so that multiple patterns do not throw it off
       boolean patternMatched = false;
-      //split delimiter by semicolons to get rule patterns
+      //split sequence by semicolons to get rule patterns
       String[] patterns = ruleSequence.split(";");
       //iterate over each pattern
       for (String pattern : patterns) {
         patternMatched = false;
-        //split delimiter by commas to get pattern elements
+        //split sequence by commas to get pattern elements
         String[] patternElements = pattern.split(",");
         //sort hand by rank
         Collections.sort(hand);
@@ -37,8 +36,10 @@ public class Converter {
             //otherwise, continue checking if the next card from the first matches the next pattern element
             //switch case for ranks
             Rank rankAtHandIndex = hand.get(handIndex).getRank();
+            Suit suitAtHandIndex = hand.get(handIndex).getSuit();
             Rank rankAtPointInPattern = hand.get(handIndex + patternIndex)
                 .getRank();
+            Suit suitAtPointInPattern = hand.get(handIndex + patternIndex).getSuit();
             switch (patternElements[patternIndex].charAt(0)) {
               case '*':
                 break;
@@ -62,6 +63,7 @@ public class Converter {
                 break;
               default:
                 //Assume character is a literal in rank. If it isn't, too bad.
+                //TODO add OR operator
                 if (!(rankAtPointInPattern.getSymbol().equals(
                     String.valueOf(patternElements[patternIndex].charAt(0))))) {
                   break pattern;
@@ -73,18 +75,17 @@ public class Converter {
               case '*':
                 break;
               case '=':
-                if (!(hand.get(handIndex).getSuit() == hand.get(handIndex + patternIndex)
-                    .getSuit())) {
+                if (!(suitAtHandIndex == suitAtPointInPattern)) {
                   break pattern;
                 }
                 break;
               default:
                 break pattern;
             }
-            //if pattern reaches end of loop without a failure indicate a success and break the greater loop
+            //if pattern reaches end of loop without a failure indicate a successful match
             if (patternIndex + 1 == patternElements.length) {
               patternMatched = true;
-              //WHEN THERE IS A SUCCESS REMOVE ALL MATCHING CARDS FROM THE HAND
+              //remove matched card from the hand
               if (handIndex + patternElements.length > handIndex) {
                 hand.subList(handIndex, handIndex + patternElements.length).clear();
               }
