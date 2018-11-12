@@ -144,7 +144,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     mainButton.setOnClickListener((v) -> {
-      //TODO main button function
       finish();
     });
 
@@ -221,12 +220,28 @@ public class GameActivity extends AppCompatActivity {
         InputStream csvInputStream = getResources().openRawResource(R.raw.jacksorbetter);
         CSVParser csvParser = null;
         csvParser = new CSVParser(new InputStreamReader(csvInputStream), CSVFormat.DEFAULT);
-        System.out.println("butter");
-        System.out.println(csvParser.getFirstEndOfLine());
-        //TODO Adjust for constructors
         for (CSVRecord record : csvParser.getRecords()) {
-          dao.insert(new PokerHand(record.getRecordNumber(),
-              record.get(0), record.get(1), Integer.parseInt(record.get(2))));
+          //check record size if constructors need to be overloaded
+          //no flexibility for both a max bet value and a showInTable change but none needed for now
+          if (record.size() > 3) {
+            //constructor overloaded with "false" boolean value for showInTable
+            //no flexibility for a "true" but none needed for now
+            if (record.get(3).equals("false")) {
+              dao.insert(new PokerHand(record.getRecordNumber(),
+                  record.get(0), record.get(1), Integer.parseInt(record.get(2)), false));
+            }
+            else {
+              //constructor overloaded with integer value for max bet amount
+              dao.insert(new PokerHand(record.getRecordNumber(),
+                  record.get(0), record.get(1), Integer.parseInt(record.get(2)),
+                  Integer.parseInt(record.get(3))));
+            }
+            }
+          else {
+            //constructor not overloaded, max bet and showInTable set to defaults
+            dao.insert(new PokerHand(record.getRecordNumber(),
+                record.get(0), record.get(1), Integer.parseInt(record.get(2))));
+          }
         }
       }catch (IOException e) {
         e.printStackTrace();

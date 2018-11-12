@@ -2,8 +2,8 @@
 "Straight Flush","**,+=,+=,+=,+=",50
 "Four Aces","A*,=*,=*,=*",80
 "Four Twos, Threes or Fours","2*,=*,=*,=*",40
-"Four Threes","3*,=*,=*,=*",40
-"Four Fours","4*,=*,=*,=*",40
+"Four Threes","3*,=*,=*,=*",40,false
+"Four Fours","4*,=*,=*,=*",40,false
 "Four 5-K","**,=*,=*,=*",25
 "Full House","**,=*,=*;**,=*",8
 "Flush","**,*=,*=,*=,*=",5
