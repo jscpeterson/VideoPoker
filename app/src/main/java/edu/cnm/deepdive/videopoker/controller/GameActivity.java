@@ -202,11 +202,42 @@ public class GameActivity extends AppCompatActivity {
     betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
   }
 
+  private void collectWinnings() {
+    // TODO Slow point accumulation for an "animated" win
+    winningHandView.setText(game.getPlayerHand().getBestHand().getName());
+    if (game.getWin() > 0) {
+      winView.setVisibility(View.VISIBLE);
+      winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
+      game.setPurse(game.getPurse() + game.getWin());
+      purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
+    }
+  }
+
   private void displayCard(int index) {
     String resourceId = game.getPlayerHand().get(index).getResourceId();
     int identifier = getResources()
         .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
     cardButtons[index].setImageResource(identifier);
+  }
+
+  private void resetGame() {
+    game.getPlayerHand().setBestHand(null);
+    game.setBet(0);
+    betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
+    dealButton.setEnabled(false);
+    drawButton.setEnabled(false);
+    for (CardButton card : cardButtons) {
+      card.setEnabled(false);
+      card.setChecked(false);
+    }
+    if (game.getPurse() >= BET_MAX) {
+      betMaxButton.setEnabled(true);
+      betOneButton.setEnabled(true);
+    } else if (game.getPurse() > 0) {
+      betOneButton.setEnabled(true);
+    } else {
+      winningHandView.setText(R.string.purse_empty_text);
+    }
   }
 
   private class SetupTask extends AsyncTask<Paytable, Void, Void> {
@@ -350,38 +381,5 @@ public class GameActivity extends AppCompatActivity {
       resetGame();
     }
   }
-
-  private void collectWinnings() {
-    // TODO Slow point accumulation for an "animated" win
-    winningHandView.setText(game.getPlayerHand().getBestHand().getName());
-    if (game.getWin() > 0) {
-      winView.setVisibility(View.VISIBLE);
-      winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
-      game.setPurse(game.getPurse() + game.getWin());
-      purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
-    }
-  }
-
-  private void resetGame() {
-    game.getPlayerHand().setBestHand(null);
-    game.setBet(0);
-    betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
-    dealButton.setEnabled(false);
-    drawButton.setEnabled(false);
-    for (CardButton card : cardButtons) {
-      card.setEnabled(false);
-      card.setChecked(false);
-    }
-    if (game.getPurse() >= BET_MAX) {
-      betMaxButton.setEnabled(true);
-      betOneButton.setEnabled(true);
-    } else if (game.getPurse() > 0) {
-      betOneButton.setEnabled(true);
-    } else {
-      winningHandView.setText(R.string.purse_empty_text);
-    }
-  }
-
-
 }
 

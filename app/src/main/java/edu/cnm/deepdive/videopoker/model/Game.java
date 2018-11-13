@@ -69,13 +69,5 @@ public class Game {
     this.purse += this.win;
   }
 
-  public enum State {
-    START,
-    DEAL,
-    HOLD,
-    DRAW,
-    RESULT,
-    BET
-  }
 
 }

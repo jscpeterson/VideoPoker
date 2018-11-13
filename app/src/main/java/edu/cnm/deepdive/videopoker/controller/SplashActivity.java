@@ -40,10 +40,10 @@ public class SplashActivity extends AppCompatActivity {
 
     super.onCreate(savedInstanceState);
 
-    //TODO allow options for additional games. pass paytable into GameActivity
+    //TODO allow options for additional games with separate paytables
+    //TODO create dialog to putExtra for purse and credit value
 
     Paytable table1 = Paytable.getInstance(SplashActivity.this);
-
 
     setContentView(R.layout.activity_splash);
     playButton = findViewById(R.id.splash_play_button);

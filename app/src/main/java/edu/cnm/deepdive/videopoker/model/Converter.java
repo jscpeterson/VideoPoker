@@ -7,6 +7,8 @@ public class Converter {
 
   private static final int FACE_CARD_LOWEST_VALUE = 10;
   private static final String ACE_SYMBOL = "A";
+  private static final String SEQUENCE_DELIMITER = ";";
+  private static final String PATTERN_DELIMITER = ",";
 
   /**
      * This will check a PlayerHand against a ruleSet and return TRUE if the hand matches the rules
@@ -17,12 +19,12 @@ public class Converter {
       PlayerHand hand = (PlayerHand) playerHand.clone();
       boolean patternMatched = false;
       //split sequence by semicolons to get rule patterns
-      String[] patterns = ruleSequence.split(";");
+      String[] patterns = ruleSequence.split(SEQUENCE_DELIMITER);
       //iterate over each pattern
       for (String pattern : patterns) {
         patternMatched = false;
         //split sequence by commas to get pattern elements
-        String[] patternElements = pattern.split(",");
+        String[] patternElements = pattern.split(PATTERN_DELIMITER);
         //sort hand by rank
         Collections.sort(hand);
         //for each pattern, iterate over the hand for the length of the pattern

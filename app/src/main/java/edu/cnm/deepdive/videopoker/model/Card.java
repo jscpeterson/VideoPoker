@@ -3,10 +3,9 @@ package edu.cnm.deepdive.videopoker.model;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 
 public class Card implements Comparable <Card>{
-
-  // implement hashcode
 
   private Rank rank;
   private Suit suit;
@@ -17,11 +16,11 @@ public class Card implements Comparable <Card>{
     this.suit = suit;
   }
 
-  public Rank getRank() {
+  Rank getRank() {
     return rank;
   }
 
-  public Suit getSuit() {
+  Suit getSuit() {
     return suit;
   }
 
@@ -52,7 +51,6 @@ public class Card implements Comparable <Card>{
         resId.append("s");
         break;
     }
-//    resId.append(".png");
     return resId.toString();
   }
 
@@ -65,24 +63,19 @@ public class Card implements Comparable <Card>{
   }
 
   @Override
-  public int compareTo(Card other) {
+  public int compareTo(@NotNull Card other) {
     return this.rank.compareTo(other.rank);
-/*    int comparison = this.suit.compareTo(other.suit);
-    if (comparison == 0) {
-      comparison = this.rank.compareTo(other.rank);
-    }
-    return comparison;*/
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object other) {
+    if (this == other) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (other == null || getClass() != other.getClass()) {
       return false;
     }
-    Card card = (Card) o;
+    Card card = (Card) other;
     return rank == card.rank &&
         suit == card.suit;
   }

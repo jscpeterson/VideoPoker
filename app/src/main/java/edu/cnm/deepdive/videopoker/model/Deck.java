@@ -6,15 +6,6 @@ import java.util.Stack;
 
 public class Deck extends Stack<Card> {
 
-    //use composition instead of inheritance
-
-//  Stack<Card> deck = new Stack<Card>();
-/*
-  public Deck() {
-    //ArrayList<>
-    this = ArrayList<Card>();
-  }*/
-
     private Random rng;
 
     public Deck(Random rng) {
