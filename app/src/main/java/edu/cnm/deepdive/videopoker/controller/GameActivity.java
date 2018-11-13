@@ -144,7 +144,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     mainButton.setOnClickListener((v) -> {
-      finish();
+      Intent intent = new Intent(this, SplashActivity.class);
+      intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+      startActivity(intent);
     });
 
     helpButton.setOnClickListener((v) -> {
