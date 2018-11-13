@@ -10,6 +10,7 @@ public class Game {
 
   private Deck deck;
 
+  private String gameName;
   private PlayerHand playerHand;
   private double creditValue;
   private int purse;
@@ -17,7 +18,8 @@ public class Game {
   private int bet = 0;
   private int win = 0;
 
-  public Game(int purse, double creditValue) {
+  public Game(int purse, double creditValue, String gameName) {
+    this.gameName = gameName;
     this.purse = purse;
     this.creditValue = creditValue;
     this.deck = new Deck(new SecureRandom());
@@ -69,5 +71,11 @@ public class Game {
     this.purse += this.win;
   }
 
+  public String getGameName() {
+    return gameName;
+  }
 
+  public void setGameName(String gameName) {
+    this.gameName = gameName;
+  }
 }

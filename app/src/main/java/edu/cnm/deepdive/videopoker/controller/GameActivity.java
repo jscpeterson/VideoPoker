@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,9 @@ public class GameActivity extends AppCompatActivity {
   private static final int BET_MAX = 5;
   private static final int HAND_SIZE = 5;
   private static final String EMPTY_STRING = "";
+  private static final String PURSE_KEY = "purse";
+  private static final String CREDIT_VALUE_KEY = "creditValue";
+  private static final String GAME_NAME_KEY = "gameName";
 
   private CardButton[] cardButtons;
   private Button mainButton;
@@ -54,9 +58,12 @@ public class GameActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_game);
-    game = new Game(50, 0.25);
-    paytable = Paytable.getInstance(this);
-    new SetupTask().execute(paytable);
+    Bundle extras = getIntent().getExtras();
+    game = new Game((int) extras.get(PURSE_KEY), (double) extras.get(CREDIT_VALUE_KEY),
+        (String) extras.get(GAME_NAME_KEY));
+    paytable = Paytable.getInstance(getApplicationContext(), game.getGameName());
+    setupButtons();
+    setupTextViews();
   }
 
   @Override
@@ -242,53 +249,6 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
-  private class SetupTask extends AsyncTask<Paytable, Void, Void> {
-
-    @Override
-    protected Void doInBackground(Paytable... paytables) {
-      try {
-        //TODO Move to splash screen
-        Paytable db = paytables[0];
-        PokerHandDao dao = db.getPokerHandDao();
-        InputStream csvInputStream = getResources().openRawResource(R.raw.jacksorbetter);
-        CSVParser csvParser = null;
-        csvParser = new CSVParser(new InputStreamReader(csvInputStream), CSVFormat.DEFAULT);
-        for (CSVRecord record : csvParser.getRecords()) {
-          //check record size if constructors need to be overloaded
-          //no flexibility for both a max bet value and a showInTable change but none needed for now
-          if (record.size() > 3) {
-            //constructor overloaded with "false" boolean value for showInTable
-            //no flexibility for a "true" but none needed for now
-            if (record.get(3).equals("false")) {
-              dao.insert(new PokerHand(record.getRecordNumber(),
-                  record.get(0), record.get(1), Integer.parseInt(record.get(2)), false));
-            }
-            else {
-              //constructor overloaded with integer value for max bet amount
-              dao.insert(new PokerHand(record.getRecordNumber(),
-                  record.get(0), record.get(1), Integer.parseInt(record.get(2)),
-                  Integer.parseInt(record.get(3))));
-            }
-            }
-          else {
-            //constructor not overloaded, max bet and showInTable set to defaults
-            dao.insert(new PokerHand(record.getRecordNumber(),
-                record.get(0), record.get(1), Integer.parseInt(record.get(2))));
-          }
-        }
-      }catch (IOException e) {
-        //TODO handle or don't
-     }
-      return null;
-    }
-
-    @Override
-    protected void onPostExecute(Void aVoid) {
-      setupButtons();
-      setupTextViews();
-    }
-  }
-
   /**
    * First card deal and any potential winning hand evaluated.
    */
@@ -302,7 +262,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected Void doInBackground(PlayerHand... playerHands) {
-      for (PokerHand pokerHand : Paytable.getInstance(GameActivity.this).getPokerHandDao()
+      for (PokerHand pokerHand : Paytable.getInstance(getApplicationContext(), game.getGameName()).getPokerHandDao()
           .selectPokerHandsByBetOne()) {
         if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
           playerHands[0].setBestHand(pokerHand);
@@ -359,7 +319,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected Void doInBackground(PlayerHand... playerHands) {
-      for (PokerHand pokerHand : Paytable.getInstance(GameActivity.this).getPokerHandDao()
+      for (PokerHand pokerHand : Paytable.getInstance(getApplicationContext(), game.getGameName()).getPokerHandDao()
           .selectPokerHandsByBetOne()) {
         if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
           playerHands[0].setBestHand(pokerHand);
