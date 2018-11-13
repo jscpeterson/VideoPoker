@@ -17,14 +17,8 @@ import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 )
 public abstract class Paytable extends RoomDatabase {
 
-  private static final String DB_NAME="ffdfffdf";
-
-  String gameName;
-
   private static Paytable instance = null;
-
-  Context context;
-
+  
   public abstract PokerHandDao getPokerHandDao();
 
   public static Paytable getInstance(Context context, String gameName) {
