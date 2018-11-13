@@ -277,8 +277,8 @@ public class GameActivity extends AppCompatActivity {
           }
         }
       }catch (IOException e) {
-        e.printStackTrace();
-      }
+        //TODO handle or don't
+     }
       return null;
     }
 

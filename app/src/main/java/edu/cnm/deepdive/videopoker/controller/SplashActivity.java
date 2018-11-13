@@ -24,7 +24,8 @@ import org.apache.commons.csv.CSVRecord;
 
 public class SplashActivity extends AppCompatActivity {
 
-
+  private static final String PURSE_KEY = "purse";
+  private static final String CREDIT_VALUE_KEY = "creditValue";
   private Button playButton;
 
   public SplashActivity() throws IOException {
@@ -50,6 +51,9 @@ public class SplashActivity extends AppCompatActivity {
     playButton.setOnClickListener((v) -> {
       Intent intent = new Intent(this, GameActivity.class);
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+      // TODO Get these values from an alertDialog
+      intent.putExtra(PURSE_KEY, 100);
+      intent.putExtra(CREDIT_VALUE_KEY, 0.50);
       startActivity(intent);
     });
   }
