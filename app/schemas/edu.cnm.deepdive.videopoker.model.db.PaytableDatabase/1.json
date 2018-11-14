@@ -1,0 +1,116 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "9924df51f19286d81bf55fe0f6ce74e4",
+    "entities": [
+      {
+        "tableName": "Paytable",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`paytable_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT COLLATE NOCASE)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "paytable_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "paytable_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "PokerHand",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`poker_hand_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `paytable_id` INTEGER NOT NULL, `name` TEXT, `ruleSequence` TEXT, `betOneValue` INTEGER NOT NULL, `betFiveValue` INTEGER NOT NULL, `showInTable` INTEGER NOT NULL, FOREIGN KEY(`paytable_id`) REFERENCES `Paytable`(`paytable_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "poker_hand_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "paytableId",
+            "columnName": "paytable_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ruleSequence",
+            "columnName": "ruleSequence",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "betOneValue",
+            "columnName": "betOneValue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "betFiveValue",
+            "columnName": "betFiveValue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "showInTable",
+            "columnName": "showInTable",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "poker_hand_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_PokerHand_paytable_id",
+            "unique": false,
+            "columnNames": [
+              "paytable_id"
+            ],
+            "createSql": "CREATE  INDEX `index_PokerHand_paytable_id` ON `${TABLE_NAME}` (`paytable_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Paytable",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "paytable_id"
+            ],
+            "referencedColumns": [
+              "paytable_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"9924df51f19286d81bf55fe0f6ce74e4\")"
+    ]
+  }
+}

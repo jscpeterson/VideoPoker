@@ -34,6 +34,7 @@ public class SplashActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    // TODO Add an option to reset paytable defaults
     super.onCreate(savedInstanceState);
     new SetupTask(this).execute();
     setContentView(R.layout.activity_splash);
