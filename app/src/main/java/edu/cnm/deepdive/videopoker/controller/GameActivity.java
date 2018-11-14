@@ -24,6 +24,9 @@ public class GameActivity extends AppCompatActivity {
   private static final String EMPTY_STRING = "";
   private static final String PURSE_KEY = "purse";
   private static final String CREDIT_VALUE_KEY = "creditValue";
+  private static final String PAYTABLE_ID_KEY = "paytableId";
+
+  private int paytableId;
 
   private CardButton[] cardButtons;
   private Button mainButton;
@@ -51,7 +54,7 @@ public class GameActivity extends AppCompatActivity {
     Bundle extras = getIntent().getExtras();
     assert extras != null;
     game = new Game((int) extras.get(PURSE_KEY), (double) extras.get(CREDIT_VALUE_KEY));
-    PaytableDatabase paytableDb = PaytableDatabase.getInstance(getApplicationContext());
+    paytableId = (int) extras.get(PAYTABLE_ID_KEY);
     setupButtons();
     setupTextViews();
   }
@@ -253,7 +256,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected Void doInBackground(PlayerHand... playerHands) {
       for (PokerHand pokerHand : PaytableDatabase.getInstance(getApplicationContext())
-          .getPokerHandDao().selectPokerHandsByBetOne()) {
+          .getPokerHandDao().selectPokerHandsByBetOneFromPaytable(paytableId)) {
         if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
           playerHands[0].setBestHand(pokerHand);
           return null;
@@ -310,7 +313,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected Void doInBackground(PlayerHand... playerHands) {
       for (PokerHand pokerHand : PaytableDatabase.getInstance(getApplicationContext())
-          .getPokerHandDao().selectPokerHandsByBetOne()) {
+          .getPokerHandDao().selectPokerHandsByBetOneFromPaytable(paytableId)) {
         if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
           playerHands[0].setBestHand(pokerHand);
           break;

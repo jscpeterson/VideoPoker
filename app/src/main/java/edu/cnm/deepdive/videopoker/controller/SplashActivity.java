@@ -21,6 +21,7 @@ public class SplashActivity extends AppCompatActivity {
 
   private static final String PURSE_KEY = "purse";
   private static final String CREDIT_VALUE_KEY = "creditValue";
+  private static final String PAYTABLE_ID_KEY = "paytableId";
 
   private static final int INDEX_GAME_NAME = 0;
   private static final int INDEX_HAND_NAME = 1;
@@ -50,6 +51,7 @@ public class SplashActivity extends AppCompatActivity {
       // TODO Get these values from an alertDialog
       intent.putExtra(PURSE_KEY, 100);
       intent.putExtra(CREDIT_VALUE_KEY, 0.50);
+      intent.putExtra(PAYTABLE_ID_KEY, 1);
 
       startActivity(intent);
     });
@@ -61,7 +63,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected Void doInBackground(Void... voids) {
       try {
-        //TODO Only build paytable once if not already built? Move this to callback?
+        //TODO Skip if DB already built
         PaytableDatabase db = PaytableDatabase.getInstance(getApplicationContext());
         PokerHandDao pokerHandDao = db.getPokerHandDao();
 
@@ -71,6 +73,7 @@ public class SplashActivity extends AppCompatActivity {
             new CSVParser(new InputStreamReader(paytablesInputStream), CSVFormat.DEFAULT);
         CSVParser gamesCsvParser =
             new CSVParser(new InputStreamReader(gamesInputStream), CSVFormat.DEFAULT);
+        //TODO add and handle headers
 
         for (CSVRecord gameRecord : gamesCsvParser.getRecords()) {
           Paytable paytable = new Paytable();
