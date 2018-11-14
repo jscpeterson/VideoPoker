@@ -8,6 +8,7 @@ import android.widget.Button;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
+import edu.cnm.deepdive.videopoker.model.entity.Paytable;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,13 +22,21 @@ public class SplashActivity extends AppCompatActivity {
   private static final String PURSE_KEY = "purse";
   private static final String CREDIT_VALUE_KEY = "creditValue";
   private static final String GAME_NAME_KEY = "gameName";
+
+  private static final int INDEX_GAME_NAME = 0;
+  private static final int INDEX_HAND_NAME = 1;
+  private static final int INDEX_RULE_SEQUENCE = 2;
+  private static final int INDEX_BET_ONE_VALUE = 3;
+  private static final int INDEX_OVERLOADED_PARAM = 4;
+
+
   private Button playButton;
 
   public SplashActivity() throws IOException {
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState){
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     //TODO allow options for additional games with separate paytables
     //TODO create dialog to putExtra for purse and credit value
@@ -40,7 +49,7 @@ public class SplashActivity extends AppCompatActivity {
       // TODO Get this name from a csv file header
       String gameName = "Jacks or Better";
       intent.putExtra(GAME_NAME_KEY, gameName);
-      new SetupTask().execute(R.raw.jacksorbetter);
+      new SetupTask().execute();
 
       // TODO Get these values from an alertDialog
       intent.putExtra(PURSE_KEY, 100);
@@ -51,52 +60,60 @@ public class SplashActivity extends AppCompatActivity {
   }
 
 
-  private class SetupTask extends AsyncTask<Integer, Void, Void> {
+  private class SetupTask extends AsyncTask<Void, Void, Void> {
 
     @Override
-    protected Void doInBackground(Integer... gameCsvFileIds) {
+    protected Void doInBackground(Void... voids) {
       try {
         //TODO Only build paytable once if not already built? Move this to callback?
-        //TODO Get gameName from a csv file header
-        PaytableDatabase db = PaytableDatabase.getInstance(SplashActivity.this);
+        PaytableDatabase db = PaytableDatabase.getInstance(getApplicationContext());
+        PokerHandDao pokerHandDao = db.getPokerHandDao();
 
-        PokerHandDao dao = db.getPokerHandDao();
-        InputStream csvInputStream = getResources().openRawResource(gameCsvFileIds[0]);
-        CSVParser csvParser = null;
-        csvParser = new CSVParser(new InputStreamReader(csvInputStream), CSVFormat.DEFAULT);
-        for (CSVRecord record : csvParser.getRecords()) {
-          //check record size if constructors need to be overloaded
-          //no flexibility for both a max bet value and a showInTable change but none needed for now
-          if (record.size() > 3) {
-            //constructor overloaded with "false" boolean value for showInTable
-            //no flexibility for a "true" but none needed for now
-            if (record.get(3).equals("false")) {
-              dao.insert(new PokerHand(record.getRecordNumber(),
-                  record.get(0), record.get(1), Integer.parseInt(record.get(2)), false));
-            }
-            else {
-              //constructor overloaded with integer value for max bet amount
-              dao.insert(new PokerHand(record.getRecordNumber(),
-                  record.get(0), record.get(1), Integer.parseInt(record.get(2)),
-                  Integer.parseInt(record.get(3))));
-            }
-          }
-          else {
-            //constructor not overloaded, max bet and showInTable set to defaults
-            dao.insert(new PokerHand(record.getRecordNumber(),
-                record.get(0), record.get(1), Integer.parseInt(record.get(2))));
-          }
+        InputStream paytablesInputStream = getResources().openRawResource(R.raw.paytables);
+        InputStream gamesInputStream = getResources().openRawResource(R.raw.games);
+        CSVParser paytablesCsvParser =
+            new CSVParser(new InputStreamReader(paytablesInputStream), CSVFormat.DEFAULT);
+        CSVParser gamesCsvParser =
+            new CSVParser(new InputStreamReader(gamesInputStream), CSVFormat.DEFAULT);
+
+        for (CSVRecord gameRecord : gamesCsvParser.getRecords()) {
+          Paytable paytable = new Paytable();
+          paytable.setName(gameRecord.get(INDEX_GAME_NAME));
+          db.getPaytableDao().insert(paytable);
+          System.out.println("");
+          System.out.println(paytable.getId());
+          System.out.println(paytable.getName());
+
         }
-      }catch (IOException e) {
-        //TODO handle or don't
-      }
-      return null;
-    }
+        for (CSVRecord paytableRecord : paytablesCsvParser.getRecords()) {
+          PokerHand newHand = new PokerHand();
+          Paytable paytable = db.getPaytableDao().select(paytableRecord.get(INDEX_GAME_NAME));
+          newHand.setPaytableId(paytable.getId());
 
-    @Override
-    protected void onPostExecute(Void aVoid) {
+          newHand.setName(paytableRecord.get(INDEX_HAND_NAME));
+          newHand.setRuleSequence(paytableRecord.get(INDEX_RULE_SEQUENCE));
+          newHand.setRuleSequence(paytableRecord.get(INDEX_BET_ONE_VALUE));
 
+          //TODO handle overloaded params
+          newHand.setBetFiveValue(newHand.getBetOneValue() * 5);
+          newHand.setShowInTable(newHand.getBetOneValue() > 0);
+
+          pokerHandDao.insert(newHand);
+        }
+
+      }catch(
+    IOException e)
+
+    {
+      //TODO handle or don't
     }
+        return null;
   }
+
+  @Override
+  protected void onPostExecute(Void aVoid) {
+
+  }
+}
 
 }

@@ -4,6 +4,7 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import edu.cnm.deepdive.videopoker.model.dao.PaytableDao;
 import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.entity.Paytable;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
@@ -20,6 +21,8 @@ public abstract class PaytableDatabase extends RoomDatabase {
   private static PaytableDatabase instance = null;
   
   public abstract PokerHandDao getPokerHandDao();
+
+  public abstract PaytableDao getPaytableDao();
 
   public static PaytableDatabase getInstance(Context context) {
     if (instance == null) {

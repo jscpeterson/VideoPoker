@@ -1,0 +1,11 @@
+"Jacks or Better","Royal Flush","A=,T=,J=,Q=,K=",250,4000
+"Jacks or Better","Straight Flush","**,+=,+=,+=,+=",50
+"Jacks or Better","Four of a Kind","**,=*,=*,=*",25
+"Jacks or Better","Full House","**,=*,=*;**,=*",9
+"Jacks or Better","Flush","**,*=,*=,*=,*=",6
+"Jacks or Better","Straight","A*,T*,J*,Q*,K*",4,false
+"Jacks or Better","Straight","**,+*,+*,+*,+*",4
+"Jacks or Better","Three of a Kind","**,=*,=*",3
+"Jacks or Better","Two Pair","**,=*;**,=*",2
+"Jacks or Better","Jacks or Better","F*,=*",1
+"Jacks or Better","☹","**,**,**,**,**",0

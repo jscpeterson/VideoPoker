@@ -42,7 +42,6 @@ public class GameActivity extends AppCompatActivity {
   private boolean firstDeal = true;
   private boolean viewAsDollars = false;
 
-  private PaytableDatabase paytable;
   private Game game;
   private Converter converter = new Converter();
 
@@ -51,9 +50,10 @@ public class GameActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_game);
     Bundle extras = getIntent().getExtras();
+    assert extras != null;
     game = new Game((int) extras.get(PURSE_KEY), (double) extras.get(CREDIT_VALUE_KEY),
         (String) extras.get(GAME_NAME_KEY));
-    paytable = PaytableDatabase.getInstance(getApplicationContext(), game.getGameName());
+    PaytableDatabase paytableDb = PaytableDatabase.getInstance(getApplicationContext());
     setupButtons();
     setupTextViews();
   }
@@ -61,7 +61,7 @@ public class GameActivity extends AppCompatActivity {
   @Override
   protected void onDestroy() {
     super.onDestroy();
-//    paytable.close();
+//    paytableDb.close();
   }
 
   @Override
@@ -89,7 +89,7 @@ public class GameActivity extends AppCompatActivity {
         Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
         break;
       case R.id.view_payout_table:
-        // TODO view/change paytable menu option
+        // TODO view/change paytableDb menu option
         Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
         break;
     }
@@ -173,7 +173,7 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void setupTextViews() {
-    //TODO Change title to paytable name (game name)
+    //TODO Change title to paytableDb name (game name)
     winningHandView = findViewById(R.id.win_notifier);
     winView = findViewById(R.id.win_view);
     betView = findViewById(R.id.bet_view);
@@ -254,7 +254,8 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected Void doInBackground(PlayerHand... playerHands) {
-      for (PokerHand pokerHand : PaytableDatabase.getInstance(getApplicationContext()).selectPokerHandsByBetOne()) {
+      for (PokerHand pokerHand : PaytableDatabase.getInstance(getApplicationContext())
+          .getPokerHandDao().selectPokerHandsByBetOne()) {
         if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
           playerHands[0].setBestHand(pokerHand);
           return null;
@@ -310,8 +311,8 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected Void doInBackground(PlayerHand... playerHands) {
-      for (PokerHand pokerHand : PaytableDatabase.getInstance(getApplicationContext(), game.getGameName()).getPokerHandDao()
-          .selectPokerHandsByBetOne()) {
+      for (PokerHand pokerHand : PaytableDatabase.getInstance(getApplicationContext())
+          .getPokerHandDao().selectPokerHandsByBetOne()) {
         if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
           playerHands[0].setBestHand(pokerHand);
           break;

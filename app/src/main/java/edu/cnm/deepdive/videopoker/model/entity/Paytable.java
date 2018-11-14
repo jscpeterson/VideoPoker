@@ -10,6 +10,7 @@ public class Paytable {
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "paytable_id")
   private long id;
+  @ColumnInfo(collate = ColumnInfo.NOCASE)
   private String name;
 
   public long getId() {
