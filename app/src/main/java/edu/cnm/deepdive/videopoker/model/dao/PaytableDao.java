@@ -6,6 +6,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import edu.cnm.deepdive.videopoker.model.entity.Paytable;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
+import java.util.List;
 
 @Dao
 public interface PaytableDao {
@@ -18,4 +19,7 @@ public interface PaytableDao {
 
   @Query("SELECT * FROM Paytable WHERE name = :name LIMIT 1")
   Paytable select(String name);
+
+  @Query("SELECT * FROM Paytable ORDER BY name")
+  List<Paytable> select();
 }

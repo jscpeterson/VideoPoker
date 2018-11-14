@@ -25,8 +25,10 @@ public class GameActivity extends AppCompatActivity {
   private static final String PURSE_KEY = "purse";
   private static final String CREDIT_VALUE_KEY = "creditValue";
   private static final String PAYTABLE_ID_KEY = "paytableId";
+  private static final String PAYTABLE_NAME_KEY = "paytableNameKey";
 
-  private int paytableId;
+  private long paytableId;
+  private String paytableName;
 
   private CardButton[] cardButtons;
   private Button mainButton;
@@ -54,9 +56,11 @@ public class GameActivity extends AppCompatActivity {
     Bundle extras = getIntent().getExtras();
     assert extras != null;
     game = new Game((int) extras.get(PURSE_KEY), (double) extras.get(CREDIT_VALUE_KEY));
-    paytableId = (int) extras.get(PAYTABLE_ID_KEY);
+    paytableId = extras.getLong(PAYTABLE_ID_KEY);
+    paytableName = extras.getString(PAYTABLE_NAME_KEY);
     setupButtons();
     setupTextViews();
+    this.setTitle(paytableName);
   }
 
   @Override

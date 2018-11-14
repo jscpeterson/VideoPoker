@@ -23,8 +23,9 @@ public class SplashActivity extends AppCompatActivity {
   private static final String PURSE_KEY = "purse";
   private static final String CREDIT_VALUE_KEY = "creditValue";
   private static final String PAYTABLE_ID_KEY = "paytableId";
+  private static final String PAYTABLE_NAME_KEY = "paytableNameKey";
 
-
+  private Paytable paytable;
 
 
   private Button playButton;
@@ -36,7 +37,11 @@ public class SplashActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     // TODO Add an option to reset paytable defaults
     super.onCreate(savedInstanceState);
-    new SetupTask(this).execute();
+    new Thread(() -> {
+      PaytableDatabase.getInstance(this).getPaytableDao().select();
+    }).start();
+
+
     setContentView(R.layout.activity_splash);
     playButton = findViewById(R.id.splash_play_button);
     playButton.setOnClickListener((v) -> {
@@ -47,26 +52,48 @@ public class SplashActivity extends AppCompatActivity {
       intent.putExtra(CREDIT_VALUE_KEY, 0.50);
 
       // TODO Make multiple game buttons
-      intent.putExtra(PAYTABLE_ID_KEY, 1);
+      intent.putExtra(PAYTABLE_ID_KEY, paytable.getId());
+      intent.putExtra(PAYTABLE_NAME_KEY, paytable.getName());
 
       startActivity(intent);
     });
   }
 
-  private static class SetupTask extends AsyncTask<Void, Void, Void> {
+  public void ready() {
+    new SetupTask(this).execute();
+  }
 
+  private static class SetupTask extends AsyncTask<Void, Void, Paytable> {
+
+    private Paytable paytable;
     private Context context;
+
+    public String getName() {
+      return name;
+    }
+
+    private String name;
 
     private SetupTask(Context context) {
       this.context = context;
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected Paytable doInBackground(Void... voids) {
       //do something with the database to initialize it
-      //TODO Figure out something real for this guy to do here
-      PaytableDatabase.getInstance(context.getApplicationContext()).getPaytableDao().select(1);
+      paytable = PaytableDatabase.getInstance(context.getApplicationContext())
+          .getPaytableDao().select(4);
+      if (paytable != null) {
+        return paytable;
+      }
       return null;
+   }
+
+    @Override
+    protected void onPostExecute(Paytable paytable) {
+      if (paytable != null) {
+        ((SplashActivity) context).paytable = paytable;
+      }
     }
   }
 

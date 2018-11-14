@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import edu.cnm.deepdive.videopoker.R;
+import edu.cnm.deepdive.videopoker.controller.SplashActivity;
 import edu.cnm.deepdive.videopoker.model.dao.PaytableDao;
 import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.entity.Paytable;
@@ -45,7 +46,14 @@ public abstract class PaytableDatabase extends RoomDatabase {
           .addCallback(new Callback() {
             @Override
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
+              super.onCreate(db);
               new SetupTask(context).execute();
+            }
+
+            @Override
+            public void onOpen(@NonNull SupportSQLiteDatabase db) {
+              super.onOpen(db);
+              ((SplashActivity) context).ready();
             }
           })
           .build();
@@ -104,6 +112,10 @@ public abstract class PaytableDatabase extends RoomDatabase {
       return null;
     }
 
+    @Override
+    protected void onPostExecute(Void aVoid) {
+      ((SplashActivity) context).ready();
+    }
   }
 
 }
