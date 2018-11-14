@@ -24,4 +24,19 @@
 "Bonus Poker","Two Pair","**,=*;**,=*",2
 "Bonus Poker","Jacks or Better","F*,=*",1
 "Bonus Poker","☹","**,**,**,**,**",0
-"Stupid Poker","Stupid Anything","**",5
+"Double Bonus Poker","Royal Flush","A=,T=,J=,Q=,K=",250,4000
+"Double Bonus Poker","Straight Flush","**,+=,+=,+=,+=",50
+"Double Bonus Poker","Four Aces","A*,=*,=*,=*",160
+"Double Bonus Poker","Four Twos, Threes or Fours","2*,=*,=*,=*",80
+"Double Bonus Poker","Four Threes","3*,=*,=*,=*",80,false
+"Double Bonus Poker","Four Fours","4*,=*,=*,=*",80,false
+"Double Bonus Poker","Four 5-K","**,=*,=*,=*",50
+"Double Bonus Poker","Full House","**,=*,=*;**,=*",10
+"Double Bonus Poker","Flush","**,*=,*=,*=,*=",7
+"Double Bonus Poker","Straight","A*,T*,J*,Q*,K*",5,false
+"Double Bonus Poker","Straight","**,+*,+*,+*,+*",5
+"Double Bonus Poker","Three of a Kind","**,=*,=*",3
+"Double Bonus Poker","Two Pair","**,=*;**,=*",1
+"Double Bonus Poker","Jacks or Better","F*,=*",1
+"Double Bonus Poker","☹","**,**,**,**,**",0
+"Stupid Poker","Anything","**",5

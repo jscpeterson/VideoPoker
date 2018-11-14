@@ -34,9 +34,7 @@ public class SplashActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    //FIXME Game crashes on first run
     super.onCreate(savedInstanceState);
-    //TODO create dialog to putExtra for purse and credit value
     new SetupTask(this).execute();
     setContentView(R.layout.activity_splash);
     playButton = findViewById(R.id.splash_play_button);
@@ -46,7 +44,9 @@ public class SplashActivity extends AppCompatActivity {
       // TODO Get these values from an alertDialog
       intent.putExtra(PURSE_KEY, 100);
       intent.putExtra(CREDIT_VALUE_KEY, 0.50);
-      intent.putExtra(PAYTABLE_ID_KEY, 3);
+
+      // TODO Make multiple game buttons
+      intent.putExtra(PAYTABLE_ID_KEY, 1);
 
       startActivity(intent);
     });
@@ -63,7 +63,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected Void doInBackground(Void... voids) {
       //do something with the database to initialize it
-      PaytableDatabase.getInstance(context.getApplicationContext());
+      //TODO Figure out something real for this guy to do here
+      PaytableDatabase.getInstance(context.getApplicationContext()).getPaytableDao().select(1);
       return null;
     }
   }
