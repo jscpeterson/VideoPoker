@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,15 +14,8 @@ import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Converter;
 import edu.cnm.deepdive.videopoker.model.Game;
 import edu.cnm.deepdive.videopoker.model.PlayerHand;
-import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
-import edu.cnm.deepdive.videopoker.model.db.Paytable;
+import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -50,7 +42,7 @@ public class GameActivity extends AppCompatActivity {
   private boolean firstDeal = true;
   private boolean viewAsDollars = false;
 
-  private Paytable paytable;
+  private PaytableDatabase paytable;
   private Game game;
   private Converter converter = new Converter();
 
@@ -61,7 +53,7 @@ public class GameActivity extends AppCompatActivity {
     Bundle extras = getIntent().getExtras();
     game = new Game((int) extras.get(PURSE_KEY), (double) extras.get(CREDIT_VALUE_KEY),
         (String) extras.get(GAME_NAME_KEY));
-    paytable = Paytable.getInstance(getApplicationContext(), game.getGameName());
+    paytable = PaytableDatabase.getInstance(getApplicationContext(), game.getGameName());
     setupButtons();
     setupTextViews();
   }
@@ -262,8 +254,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected Void doInBackground(PlayerHand... playerHands) {
-      for (PokerHand pokerHand : Paytable.getInstance(getApplicationContext(), game.getGameName()).getPokerHandDao()
-          .selectPokerHandsByBetOne()) {
+      for (PokerHand pokerHand : PaytableDatabase.getInstance(getApplicationContext()).selectPokerHandsByBetOne()) {
         if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
           playerHands[0].setBestHand(pokerHand);
           return null;
@@ -319,7 +310,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected Void doInBackground(PlayerHand... playerHands) {
-      for (PokerHand pokerHand : Paytable.getInstance(getApplicationContext(), game.getGameName()).getPokerHandDao()
+      for (PokerHand pokerHand : PaytableDatabase.getInstance(getApplicationContext(), game.getGameName()).getPokerHandDao()
           .selectPokerHandsByBetOne()) {
         if (converter.parseRuleSequence(pokerHand.getRuleSequence(), playerHands[0])) {
           playerHands[0].setBestHand(pokerHand);

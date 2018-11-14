@@ -1,6 +1,5 @@
 package edu.cnm.deepdive.videopoker.model;
 
-import edu.cnm.deepdive.videopoker.model.db.Paytable;
 import java.security.SecureRandom;
 
 public class Game {

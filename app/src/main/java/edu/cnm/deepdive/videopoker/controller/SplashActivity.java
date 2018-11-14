@@ -7,18 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
-import edu.cnm.deepdive.videopoker.model.db.Paytable;
+import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -65,7 +58,8 @@ public class SplashActivity extends AppCompatActivity {
       try {
         //TODO Only build paytable once if not already built? Move this to callback?
         //TODO Get gameName from a csv file header
-        Paytable db = Paytable.getInstance(SplashActivity.this, "Jacks or Better");
+        PaytableDatabase db = PaytableDatabase.getInstance(SplashActivity.this);
+
         PokerHandDao dao = db.getPokerHandDao();
         InputStream csvInputStream = getResources().openRawResource(gameCsvFileIds[0]);
         CSVParser csvParser = null;
