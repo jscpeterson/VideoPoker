@@ -17,8 +17,7 @@ public class Game {
   private int bet = 0;
   private int win = 0;
 
-  public Game(int purse, double creditValue, String gameName) {
-    this.gameName = gameName;
+  public Game(int purse, double creditValue) {
     this.purse = purse;
     this.creditValue = creditValue;
     this.deck = new Deck(new SecureRandom());

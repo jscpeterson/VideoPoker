@@ -33,7 +33,7 @@ public class PokerHand {
   public static final int DEFAULT_VALUE = 0;
   public static final int MAX_BET = 5;
 
-  @PrimaryKey(autoGenerate = false)
+  @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "poker_hand_id")
   private long id;
   @ColumnInfo(name = "paytable_id", index = true)

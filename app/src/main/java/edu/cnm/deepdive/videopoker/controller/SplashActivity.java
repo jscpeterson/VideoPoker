@@ -21,7 +21,6 @@ public class SplashActivity extends AppCompatActivity {
 
   private static final String PURSE_KEY = "purse";
   private static final String CREDIT_VALUE_KEY = "creditValue";
-  private static final String GAME_NAME_KEY = "gameName";
 
   private static final int INDEX_GAME_NAME = 0;
   private static final int INDEX_HAND_NAME = 1;
@@ -46,9 +45,6 @@ public class SplashActivity extends AppCompatActivity {
     playButton.setOnClickListener((v) -> {
       Intent intent = new Intent(this, GameActivity.class);
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-      // TODO Get this name from a csv file header
-      String gameName = "Jacks or Better";
-      intent.putExtra(GAME_NAME_KEY, gameName);
       new SetupTask().execute();
 
       // TODO Get these values from an alertDialog
@@ -83,8 +79,8 @@ public class SplashActivity extends AppCompatActivity {
           System.out.println("");
           System.out.println(paytable.getId());
           System.out.println(paytable.getName());
-
         }
+
         for (CSVRecord paytableRecord : paytablesCsvParser.getRecords()) {
           PokerHand newHand = new PokerHand();
           Paytable paytable = db.getPaytableDao().select(paytableRecord.get(INDEX_GAME_NAME));
@@ -92,7 +88,7 @@ public class SplashActivity extends AppCompatActivity {
 
           newHand.setName(paytableRecord.get(INDEX_HAND_NAME));
           newHand.setRuleSequence(paytableRecord.get(INDEX_RULE_SEQUENCE));
-          newHand.setRuleSequence(paytableRecord.get(INDEX_BET_ONE_VALUE));
+          newHand.setBetOneValue(Integer.parseInt(paytableRecord.get(INDEX_BET_ONE_VALUE)));
 
           //TODO handle overloaded params
           newHand.setBetFiveValue(newHand.getBetOneValue() * 5);
@@ -101,19 +97,12 @@ public class SplashActivity extends AppCompatActivity {
           pokerHandDao.insert(newHand);
         }
 
-      }catch(
-    IOException e)
-
-    {
-      //TODO handle or don't
+      } catch (IOException e) {
+        //TODO handle or don't
+      }
+      return null;
     }
-        return null;
-  }
-
-  @Override
-  protected void onPostExecute(Void aVoid) {
 
   }
-}
 
 }

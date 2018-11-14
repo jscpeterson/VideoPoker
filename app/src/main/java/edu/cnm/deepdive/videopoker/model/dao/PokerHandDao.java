@@ -10,13 +10,11 @@ import java.util.List;
 @Dao
 public interface PokerHandDao {
 
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  @Insert(onConflict = OnConflictStrategy.FAIL)
   long insert(PokerHand pokerhand);
 
   @Query("SELECT * FROM PokerHand ORDER BY betOneValue DESC")
   List<PokerHand> selectPokerHandsByBetOne();
 
-  @Query("SELECT * FROM PokerHand ORDER BY betFiveValue")
-  List<PokerHand> selectPokerHandsByBetFive();
 
 }

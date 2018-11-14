@@ -24,7 +24,6 @@ public class GameActivity extends AppCompatActivity {
   private static final String EMPTY_STRING = "";
   private static final String PURSE_KEY = "purse";
   private static final String CREDIT_VALUE_KEY = "creditValue";
-  private static final String GAME_NAME_KEY = "gameName";
 
   private CardButton[] cardButtons;
   private Button mainButton;
@@ -51,8 +50,7 @@ public class GameActivity extends AppCompatActivity {
     setContentView(R.layout.activity_game);
     Bundle extras = getIntent().getExtras();
     assert extras != null;
-    game = new Game((int) extras.get(PURSE_KEY), (double) extras.get(CREDIT_VALUE_KEY),
-        (String) extras.get(GAME_NAME_KEY));
+    game = new Game((int) extras.get(PURSE_KEY), (double) extras.get(CREDIT_VALUE_KEY));
     PaytableDatabase paytableDb = PaytableDatabase.getInstance(getApplicationContext());
     setupButtons();
     setupTextViews();
