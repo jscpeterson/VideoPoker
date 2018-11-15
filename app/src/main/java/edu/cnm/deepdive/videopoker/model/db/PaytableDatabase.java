@@ -102,8 +102,8 @@ public abstract class PaytableDatabase extends RoomDatabase {
             newHand.setRuleSequence(paytableRecord.get(INDEX_RULE_SEQUENCE));
             newHand.setBetOneValue(Integer.parseInt(paytableRecord.get(INDEX_BET_ONE_VALUE)));
 
-            if (paytableRecord.size() >= INDEX_BET_ONE_VALUE) {
-              newHand.setBetFiveValue(newHand.getBetFiveValue());
+            if (paytableRecord.size() == INDEX_OVERLOADED_PARAM + 1) {
+              newHand.setBetFiveValue(Integer.parseInt(paytableRecord.get(INDEX_OVERLOADED_PARAM)));
             } else {
               newHand.setBetFiveValue(newHand.getBetOneValue() * 5);
             }

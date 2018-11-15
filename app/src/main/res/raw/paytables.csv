@@ -19,7 +19,7 @@
 "Bonus Poker","Four 5-K","**,=*,=*,=*",25
 "Bonus Poker","Full House","**,=*,=*;**,=*",8
 "Bonus Poker","Flush","**,*=,*=,*=,*=",5
-"Bonus Poker","Straight","A*,T*,J*,Q*,K*",4,false
+"Bonus Poker","Straight","A*,T*,J*,Q*,K*",4
 "Bonus Poker","Straight","**,+*,+*,+*,+*",4
 "Bonus Poker","Three of a Kind","**,=*,=*",3
 "Bonus Poker","Two Pair","**,=*;**,=*",2
