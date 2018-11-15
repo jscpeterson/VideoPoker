@@ -19,4 +19,6 @@ public interface PokerHandDao {
   @Query("SELECT * FROM PokerHand WHERE paytable_id IS :paytableId ORDER BY betOneValue DESC")
   List<PokerHand> selectPokerHandsByBetOneFromPaytable(long paytableId);
 
+  @Query("SELECT name FROM PokerHand WHERE paytable_id IS :paytableId ORDER BY betOneValue DESC")
+  List<String> selectPokerHandNamesByBetOneFromPaytable(long paytableId);
 }

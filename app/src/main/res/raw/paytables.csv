@@ -1,9 +1,10 @@
+"Game Name","Hand Name","Rule Sequence","Bet One Value","Bet Five Value"
 "Jacks or Better","Royal Flush","A=,T=,J=,Q=,K=",250,4000
 "Jacks or Better","Straight Flush","**,+=,+=,+=,+=",50
 "Jacks or Better","Four of a Kind","**,=*,=*,=*",25
 "Jacks or Better","Full House","**,=*,=*;**,=*",9
 "Jacks or Better","Flush","**,*=,*=,*=,*=",6
-"Jacks or Better","Straight","A*,T*,J*,Q*,K*",4,false
+"Jacks or Better","Straight","A*,T*,J*,Q*,K*",4
 "Jacks or Better","Straight","**,+*,+*,+*,+*",4
 "Jacks or Better","Three of a Kind","**,=*,=*",3
 "Jacks or Better","Two Pair","**,=*;**,=*",2
@@ -13,8 +14,8 @@
 "Bonus Poker","Straight Flush","**,+=,+=,+=,+=",50
 "Bonus Poker","Four Aces","A*,=*,=*,=*",80
 "Bonus Poker","Four Twos, Threes or Fours","2*,=*,=*,=*",40
-"Bonus Poker","Four Threes","3*,=*,=*,=*",40,false
-"Bonus Poker","Four Fours","4*,=*,=*,=*",40,false
+"Bonus Poker","Four Twos, Threes or Fours","3*,=*,=*,=*",40
+"Bonus Poker","Four Twos, Threes or Fours","4*,=*,=*,=*",40
 "Bonus Poker","Four 5-K","**,=*,=*,=*",25
 "Bonus Poker","Full House","**,=*,=*;**,=*",8
 "Bonus Poker","Flush","**,*=,*=,*=,*=",5
@@ -28,12 +29,12 @@
 "Double Bonus Poker","Straight Flush","**,+=,+=,+=,+=",50
 "Double Bonus Poker","Four Aces","A*,=*,=*,=*",160
 "Double Bonus Poker","Four Twos, Threes or Fours","2*,=*,=*,=*",80
-"Double Bonus Poker","Four Threes","3*,=*,=*,=*",80,false
-"Double Bonus Poker","Four Fours","4*,=*,=*,=*",80,false
+"Double Bonus Poker","Four Twos, Threes or Fours","3*,=*,=*,=*",80
+"Double Bonus Poker","Four Twos, Threes or Fours","4*,=*,=*,=*",80
 "Double Bonus Poker","Four 5-K","**,=*,=*,=*",50
 "Double Bonus Poker","Full House","**,=*,=*;**,=*",10
 "Double Bonus Poker","Flush","**,*=,*=,*=,*=",7
-"Double Bonus Poker","Straight","A*,T*,J*,Q*,K*",5,false
+"Double Bonus Poker","Straight","A*,T*,J*,Q*,K*",5
 "Double Bonus Poker","Straight","**,+*,+*,+*,+*",5
 "Double Bonus Poker","Three of a Kind","**,=*,=*",3
 "Double Bonus Poker","Two Pair","**,=*;**,=*",1

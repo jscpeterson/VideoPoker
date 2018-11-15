@@ -85,27 +85,41 @@ public abstract class PaytableDatabase extends RoomDatabase {
         //TODO add and handle headers
 
         for (CSVRecord gameRecord : gamesCsvParser.getRecords()) {
-          Paytable paytable = new Paytable();
-          paytable.setName(gameRecord.get(INDEX_GAME_NAME));
-          db.getPaytableDao().insert(paytable);
+          if (gameRecord.getRecordNumber() > 1) {
+            Paytable paytable = new Paytable();
+            paytable.setName(gameRecord.get(INDEX_GAME_NAME));
+            db.getPaytableDao().insert(paytable);
+          }
         }
 
         for (CSVRecord paytableRecord : paytablesCsvParser.getRecords()) {
-          PokerHand newHand = new PokerHand();
-          Paytable paytable = db.getPaytableDao().select(paytableRecord.get(INDEX_GAME_NAME));
-          newHand.setPaytableId(paytable.getId());
+          if (paytableRecord.getRecordNumber() > 1) {
+            PokerHand newHand = new PokerHand();
+            Paytable paytable = db.getPaytableDao().select(paytableRecord.get(INDEX_GAME_NAME));
+            newHand.setPaytableId(paytable.getId());
 
-          newHand.setName(paytableRecord.get(INDEX_HAND_NAME));
-          newHand.setRuleSequence(paytableRecord.get(INDEX_RULE_SEQUENCE));
-          newHand.setBetOneValue(Integer.parseInt(paytableRecord.get(INDEX_BET_ONE_VALUE)));
+            newHand.setName(paytableRecord.get(INDEX_HAND_NAME));
+            newHand.setRuleSequence(paytableRecord.get(INDEX_RULE_SEQUENCE));
+            newHand.setBetOneValue(Integer.parseInt(paytableRecord.get(INDEX_BET_ONE_VALUE)));
 
-          //TODO handle overloaded params
-          newHand.setBetFiveValue(newHand.getBetOneValue() * 5);
-          newHand.setShowInTable(newHand.getBetOneValue() > 0);
+            if (paytableRecord.size() >= INDEX_BET_ONE_VALUE) {
+              newHand.setBetFiveValue(newHand.getBetFiveValue());
+            } else {
+              newHand.setBetFiveValue(newHand.getBetOneValue() * 5);
+            }
 
-          pokerHandDao.insert(newHand);
+            // showInTable flag off if the hand is useless (0 value) or already named in the game
+            if (pokerHandDao.selectPokerHandNamesByBetOneFromPaytable(paytable.getId())
+                .contains(newHand.getName())) {
+              newHand.setShowInTable(false);
+            } else {
+              newHand.setShowInTable(newHand.getBetOneValue() > 0);
+            }
+
+            pokerHandDao.insert(newHand);
+
+          }
         }
-
       } catch (IOException e) {
         //TODO handle or don't
       }
@@ -117,5 +131,4 @@ public abstract class PaytableDatabase extends RoomDatabase {
       ((SplashActivity) context).ready();
     }
   }
-
 }
