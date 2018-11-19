@@ -89,14 +89,15 @@ public class GameActivity extends AppCompatActivity {
         purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
         betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
         break;
-      case R.id.change_hand:
+/*      case R.id.change_hand:
         // TODO rig hand menu option for testing/future potential
         Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
-        break;
+        break;*/
       case R.id.view_payout_table:
-        // TODO view/change paytableDb menu option
-        Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
-        break;
+        Intent intent = new Intent(this, PaytableActivity.class);
+//      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra(PAYTABLE_ID_KEY, paytableId);
+        startActivity(intent);
     }
     return handled;
   }
@@ -154,8 +155,9 @@ public class GameActivity extends AppCompatActivity {
     });
 
     helpButton.setOnClickListener((v) -> {
-      //TODO do something with help button
-      Toast.makeText(this, "Help!", Toast.LENGTH_SHORT).show();
+      Intent intent = new Intent(this, HelpActivity.class);
+//      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+      startActivity(intent);
     });
 
     betOneButton.setOnClickListener((v) -> {
