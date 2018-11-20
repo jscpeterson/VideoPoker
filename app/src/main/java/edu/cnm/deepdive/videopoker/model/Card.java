@@ -54,14 +54,6 @@ public class Card implements Comparable <Card>{
     return resId.toString();
   }
 
-  public void toggleHeld() {
-    held = !held;
-  }
-
-  public boolean isHeld() {
-    return held;
-  }
-
   @Override
   public int compareTo(@NotNull Card other) {
     return this.rank.compareTo(other.rank);

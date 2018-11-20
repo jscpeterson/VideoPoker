@@ -15,6 +15,7 @@ public class PaytableActivity extends AppCompatActivity {
       @Nullable PersistableBundle persistentState) {
     super.onCreate(savedInstanceState, persistentState);
     setContentView(R.layout.activity_paytable);
+    finish();
   }
 
 }

@@ -18,6 +18,7 @@ public class HelpActivity extends AppCompatActivity {
     setContentView(R.layout.activity_help);
     helpText.findViewById(R.id.help_text);
     helpText.setText("Strange things are afoot at the circle K");
+    finish();
   }
 
 }

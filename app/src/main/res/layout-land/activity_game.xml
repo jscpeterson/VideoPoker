@@ -87,7 +87,6 @@
       <Button
         android:id="@+id/help_button"
         style="@style/button"
-
         android:text="@string/help_button_text"/>
     </LinearLayout>
 
@@ -99,12 +98,10 @@
       <Button
         android:id="@+id/bet1_button"
         style="@style/button"
-
         android:text="@string/bet_one_button_text"/>
       <Button
         android:id="@+id/bet_max_button"
         style="@style/button"
-
         android:text="@string/bet_max_button_text"/>
     </LinearLayout>
 
@@ -116,12 +113,10 @@
       <Button
         android:id="@+id/deal_button"
         style="@style/button"
-
         android:text="@string/deal_button_text"/>
       <Button
         android:id="@+id/draw_button"
         style="@style/button"
-
         android:text="@string/draw_button_text"/>
     </LinearLayout>
 
