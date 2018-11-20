@@ -16,16 +16,18 @@ Throughout development this project has been tested on:
 * a Nexus device emulator on API level 24
 * a physical device on API level 22
 * a physical Amazon Fire device on API level ??
+* a Galaxy Nexus emulator on API level 25
+* a Galaxy Nexus emulator device on API level 26
 
 There is a compatibility issue on devices prior to API level 26 in which cards toggled as held are not changing color tint.
-Past the launcher screen, the device expects to run strictly in a landscape mode, but will not
+Past the launcher screen, the device only runs in landscape view. 
 
 ## Third-party libraries
 *A list of the 3rd-party libraries (i.e. anything beyond the Android standard and support libraries) used by your app.*
 
 ## External services
 *A list of the external services (including Google services such as Sign In, Calendar, Maps, etc.) consumed by your app.*
-The only external services this app consumes are CSV files to read the initial database information from, stored on the device so the user can reset defaults if desired.
+The only external services this app consumes are CSV files to read to a persistence library. The files are stored on the device so the user can reset defaults if desired.
 
 ## Cosmetic stretch goals
 *A list of aesthetic/cosmetic (not functional) improvements that you think would improve your app. This list should be ordered, with those that would give the most improvement (in your opinion) listed first.*
@@ -48,6 +50,10 @@ The only external services this app consumes are CSV files to read the initial d
 
 ## Licenses
 *Links to all applicable licenses.*
+   * implementation 'android.arch.persistence.room:runtime:1.1.1'
+   * implementation 'org.apache.commons:commons-csv:1.6'
+   * annotationProcessor 'android.arch.persistence.room:compiler:1.1.1' **(TO REMOVE AT LAUNCH)**
+   * implementation 'com.facebook.stetho:stetho:1.5.0'
 
 ## Build instructions
 *A link to instructions for building the app.*
