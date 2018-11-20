@@ -10,6 +10,15 @@ As a fan of casino video poker games, I've developed an interest in exploring th
 
 ## Versions
 *A list of Android API versions and hardware (including emulators) on which you’ve tested the submitted version of your app, the minimum Android API required, and any other hardware/software/orientation restrictions that you’re aware of. (This includes restrictions on device language, orientation, etc.)*
+Throughout development this project has been tested on:
+* a physical Galaxy device on API level 26
+* a Nexus device emulator on API level 28
+* a Nexus device emulator on API level 24
+* a physical device on API level 22
+* a physical Amazon Fire device on API level ??
+
+There is a compatibility issue on devices prior to API level 26 in which cards toggled as held are not changing color tint.
+Past the launcher screen, the device expects to run strictly in a landscape mode, but will not
 
 ## Third-party libraries
 *A list of the 3rd-party libraries (i.e. anything beyond the Android standard and support libraries) used by your app.*
