@@ -16,9 +16,14 @@ As a fan of casino video poker games, I've developed an interest in exploring th
 
 ## External services
 *A list of the external services (including Google services such as Sign In, Calendar, Maps, etc.) consumed by your app.*
+The only external services this app consumes are CSV files to read the initial database information from, stored on the device so the user can reset defaults if desired.
 
 ## Cosmetic stretch goals
 *A list of aesthetic/cosmetic (not functional) improvements that you think would improve your app. This list should be ordered, with those that would give the most improvement (in your opinion) listed first.*
+* Timer to show the win accumulated rather than immediately changed. 
+* Animation to show cards flip over individually on deal and draw.
+* Buttons are currently kept as default only for the enabled/disabled states. I would like better looking buttons with this functionality.
+* Option menu text looks bad as black on blue - however changing the default text interferes with the buttons as mentioned.
 
 ## Functional stretch goals
 *A list of functional stretch goals. These should be sorted either with those that would add the most utility at the top, or with those that would be the simplest to implement at the top.*
