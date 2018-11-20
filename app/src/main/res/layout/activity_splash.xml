@@ -13,35 +13,39 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center">
-
-    <ImageView
+    <ProgressBar
+      android:id="@+id/progress_spinner"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:src="@mipmap/ic_spade"
+      android:layout_gravity="center"/>
+    <ImageView
+      android:id="@+id/splash_image"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:layout_gravity="center"
+      android:src="@mipmap/ic_spade"
+      android:visibility="invisible"
       android:contentDescription="@string/splash_image_content_description"/>
-
   </LinearLayout>
 
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center">
-
     <TextView
+      android:id="@+id/splash_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:text="@string/splash_title"
+      android:visibility="invisible"
       style="@style/textView"/>
-
   </LinearLayout>
 
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center">
-
     <Button
       android:id="@+id/splash_play_button"
       android:layout_width="wrap_content"
@@ -49,7 +53,6 @@
       android:text="@string/splash_play"
       android:layout_gravity="center"
       style="?android:attr/buttonBarButtonStyle"/>
-
   </LinearLayout>
 
 </LinearLayout>
