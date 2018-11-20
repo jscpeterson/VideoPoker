@@ -8,6 +8,8 @@ import edu.cnm.deepdive.videopoker.R;
 
 public class PaytableActivity extends AppCompatActivity {
 
+  // TODO Add an option to reset paytable defaults
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState,
       @Nullable PersistableBundle persistentState) {

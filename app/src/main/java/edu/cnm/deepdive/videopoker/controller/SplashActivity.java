@@ -41,7 +41,6 @@ public class SplashActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    // TODO Add an option to reset paytable defaults
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
     setupLayout();
@@ -106,8 +105,8 @@ public class SplashActivity extends AppCompatActivity {
         intent.putExtra(PURSE_KEY, 100);
         intent.putExtra(CREDIT_VALUE_KEY, 0.50);
         // TODO Make multiple game buttons
-        intent.putExtra(PAYTABLE_ID_KEY, db.get(4).getId());
-        intent.putExtra(PAYTABLE_NAME_KEY, db.get(4).getId());
+        intent.putExtra(PAYTABLE_ID_KEY, db.get(1).getId());
+        intent.putExtra(PAYTABLE_NAME_KEY, db.get(1).getId());
         activityContext.startActivity(intent);
       });
     }
