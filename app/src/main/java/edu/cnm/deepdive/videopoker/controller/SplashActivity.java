@@ -82,7 +82,7 @@ public class SplashActivity extends AppCompatActivity {
     protected Paytable doInBackground(Void... voids) {
       //do something with the database to initialize it
       paytable = PaytableDatabase.getInstance(context.getApplicationContext())
-          .getPaytableDao().select(4);
+          .getPaytableDao().select(1);
       if (paytable != null) {
         return paytable;
       }
