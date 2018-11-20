@@ -10,5 +10,4 @@
 
 * *(Stretch)* As a moderate to professional level gambler, I want to find out what the best cards to hold would be on a given draw by using an estimated value calculator.
 
-*Stretch*
 * *(Stretch)* As a moderate to professional level gambler, I want to get long term optimal payout odds on a video poker variant by running simulations with the computer playing to the estimated value. 
