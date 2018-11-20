@@ -9,31 +9,46 @@ public class Card implements Comparable <Card>{
 
   private Rank rank;
   private Suit suit;
-  private boolean held = false;
 
+  /**
+   * Constructor takes a rank and a suit to build the card with.
+   */
   public Card(Rank rank, Suit suit) {
     this.rank = rank;
     this.suit = suit;
   }
 
-  Rank getRank() {
+  /**
+   * @return the Rank value of this card.
+   */
+  public Rank getRank() {
     return rank;
   }
 
-  Suit getSuit() {
+  /**
+   * @return the Suit value of this card.
+   */
+  public Suit getSuit() {
     return suit;
   }
 
+  /**
+   * Overridden toString to display the symbol values of Rank and Suit, respectively.
+   * @return a String such as "A♠"
+   */
   @Override
   public String toString() {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append(rank.getSymbol());
     stringBuilder.append(suit.getSymbol());
-    if (held) stringBuilder.append('*');
     return stringBuilder.toString();
   }
 
-  public String getResourceId() {
+  /**
+   * Retrieve a filename for a drawable resource.
+   * @return a String that corresponds to a resource in res/drawable.
+   */
+  public String getResource() {
     StringBuilder resId = new StringBuilder();
     resId.append("image_");
     resId.append(rank.getSymbol().toLowerCase());
@@ -54,11 +69,15 @@ public class Card implements Comparable <Card>{
     return resId.toString();
   }
 
+  /**
+   * Overridden compareTo only accounts for the rank value. Aces are assumed to be low.
+   */
   @Override
   public int compareTo(@NotNull Card other) {
     return this.rank.compareTo(other.rank);
   }
 
+  // TODO Document
   @Override
   public boolean equals(Object other) {
     if (this == other) {
@@ -72,6 +91,7 @@ public class Card implements Comparable <Card>{
         suit == card.suit;
   }
 
+  // TODO Document
   @Override
   public int hashCode() {
     return Objects.hash(rank, suit);

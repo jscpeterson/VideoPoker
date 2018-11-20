@@ -1,20 +1,14 @@
 package edu.cnm.deepdive.videopoker.controller;
 
 import android.content.Context;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.widget.Checkable;
-import android.widget.CompoundButton;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import edu.cnm.deepdive.videopoker.R;
 
 public class CardButton extends android.support.v7.widget.AppCompatImageView implements Checkable {
 
   //https://stackoverflow.com/questions/33942116/state-checked-doesnt-toggle-imageview-on-and-off/34020870
 
-  private boolean mChecked;
+  private boolean checked;
 
   private static final int[] CHECKED_STATE_SET = {
       android.R.attr.state_checked
@@ -42,16 +36,16 @@ public class CardButton extends android.support.v7.widget.AppCompatImageView imp
   }
 
   public void toggle() {
-    setChecked(!mChecked);
+    setChecked(!checked);
   }
 
   public boolean isChecked() {
-    return mChecked;
+    return checked;
   }
 
   public void setChecked(boolean checked) {
-    if (mChecked != checked) {
-      mChecked = checked;
+    if (this.checked != checked) {
+      this.checked = checked;
       refreshDrawableState();
     }
   }

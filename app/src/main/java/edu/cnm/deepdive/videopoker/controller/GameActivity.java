@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Converter;
 import edu.cnm.deepdive.videopoker.model.Game;
@@ -89,13 +88,8 @@ public class GameActivity extends AppCompatActivity {
         purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
         betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
         break;
-/*      case R.id.change_hand:
-        // TODO rig hand menu option for testing/future potential
-        Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
-        break;*/
       case R.id.view_payout_table:
         Intent intent = new Intent(this, PaytableActivity.class);
-//      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(PAYTABLE_ID_KEY, paytableId);
         startActivity(intent);
     }
@@ -146,6 +140,7 @@ public class GameActivity extends AppCompatActivity {
       card.setVisibility(View.INVISIBLE);
       card.setEnabled(false);
       card.setOnClickListener((v) -> card.toggle());
+      // TODO change card on long press
     }
 
     mainButton.setOnClickListener((v) -> {
@@ -180,7 +175,6 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void setupTextViews() {
-    //TODO Change title to paytableDb name (game name)
     winningHandView = findViewById(R.id.win_notifier);
     winView = findViewById(R.id.win_view);
     betView = findViewById(R.id.bet_view);
@@ -222,7 +216,7 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void displayCard(int index) {
-    String resourceId = game.getPlayerHand().get(index).getResourceId();
+    String resourceId = game.getPlayerHand().get(index).getResource();
     int identifier = getResources()
         .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
     cardButtons[index].setImageResource(identifier);
