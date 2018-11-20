@@ -5,6 +5,7 @@
   android:layout_height="match_parent"
   android:gravity="center">
 
+  <!--CARD VIEWS-->
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
       style="@style/cardStyle"/>
   </LinearLayout>
 
+  <!--WINNING HAND TEXT VIEW-->
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -36,6 +38,7 @@
       style="@style/winningHandView"/>
   </LinearLayout>
 
+  <!--GAME STATE TEXT VIEWS-->
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -67,9 +70,9 @@
         android:id="@+id/purse_view"
         style="@style/textView"/>
     </LinearLayout>
-
   </LinearLayout>
 
+  <!--BUTTONS-->
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -89,7 +92,6 @@
         style="@style/button"
         android:text="@string/help_button_text"/>
     </LinearLayout>
-
     <LinearLayout
       android:layout_width="0dp"
       android:layout_weight="1"
@@ -104,7 +106,6 @@
         style="@style/button"
         android:text="@string/bet_max_button_text"/>
     </LinearLayout>
-
     <LinearLayout
       android:layout_width="0dp"
       android:layout_weight="1"
