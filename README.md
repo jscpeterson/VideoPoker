@@ -24,6 +24,7 @@ Past the launcher screen, the device only runs in landscape view.
 
 ## Third-party libraries
 *A list of the 3rd-party libraries (i.e. anything beyond the Android standard and support libraries) used by your app.*
+  https://commons.apache.org/proper/commons-csv/
 
 ## External services
 *A list of the external services (including Google services such as Sign In, Calendar, Maps, etc.) consumed by your app.*
@@ -50,10 +51,8 @@ The only external services this app consumes are CSV files to read to a persiste
 
 ## Licenses
 *Links to all applicable licenses.*
-   * implementation 'android.arch.persistence.room:runtime:1.1.1'
-   * implementation 'org.apache.commons:commons-csv:1.6'
-   * annotationProcessor 'android.arch.persistence.room:compiler:1.1.1' **(TO REMOVE AT LAUNCH)**
-   * implementation 'com.facebook.stetho:stetho:1.5.0'
+   [org.apache.commons:commons-csv:1.6](licenses/ApacheSoftwareLicense.txt)
+   <br />implementation 'com.facebook.stetho:stetho:1.5.0' **(TO REMOVE AT LAUNCH)**
 
 ## Build instructions
 *A link to instructions for building the app.*
