@@ -5,13 +5,20 @@ import java.util.Random;
 import java.util.Stack;
 
 /**
- * This class represents a deck of card objects. 
+ * This class represents a deck of card objects. It is assumed to be a standard 52 card deck and
+ * generates 52 cards from rank Ace to King of suits Clubs, Diamonds, Hearts, Spades upon creation.
+ * The RNG to be used for shuffling is passed into the constructor.
  */
 public class Deck extends Stack<Card> {
 
     private Random rng;
 
-    public Deck(Random rng) {
+  /**
+   * On creation of a Deck object it is automatically populated with 52 Card objects of a standard
+   * 52 card deck of rank Ace through King, suit Clubs Diamonds Hearts Spades.
+   * @param rng the Random object to be used for shuffling.
+   */
+  public Deck(Random rng) {
       this.rng = rng;
       generateStandardDeck();
     }
@@ -52,10 +59,6 @@ public class Deck extends Stack<Card> {
         playerHand.push(this.remove(0));
         this.add(playerHand.remove(0));
       }
-    }
-
-    void print() {
-      System.out.println(this.toString());
     }
 
     int getSize() {

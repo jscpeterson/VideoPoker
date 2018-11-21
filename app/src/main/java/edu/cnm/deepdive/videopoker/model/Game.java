@@ -1,37 +1,37 @@
 package edu.cnm.deepdive.videopoker.model;
 
 import java.security.SecureRandom;
+import java.util.Random;
 
 /**
  * This class contains information for the state of the game being currently played. It does not
  * contain any information about the paytable - the specific hands and the rules to evaluate them.
- * The Random object used to shuffle the deck is determined here.
+ * It only contains information about the deck being used, the hand being played with, and the
+ * credits the user is playing with.
  */
 public class Game {
 
-  private static final int BET_MAX = 5;
+  //CONSTANTS
   private static final int HAND_SIZE = 5;
 
   private Deck deck;
-
-  private String gameName;
   private PlayerHand playerHand;
   private double creditValue;
   private int purse;
-
   private int bet = 0;
   private int win = 0;
 
   /**
-   * The constructor for this . It currently uses SecureRandom as the random number generator.
-   * @param purse an amount of credits to start with.
-   * @param creditValue the worth of each credit assumed to be in dollars.
+   * Creation of the game object sets the credits and their worth, creates a deck based on the
+   * Random object given, and deals from that deck to a new hand.
+   * @param purse the amount of credits to start playing with.
+   * @param creditValue the monetary worth of each credit, assumed to be in US dollars.
+   * @param rng the random number generation object to be passed into the deck for shuffling.
    */
-  public Game(int purse, double creditValue) {
-    this.gameName = gameName;
+  public Game(int purse, double creditValue, Random rng) {
     this.purse = purse;
     this.creditValue = creditValue;
-    this.deck = new Deck(new SecureRandom());
+    this.deck = new Deck(rng);
     this.playerHand = deck.deal(HAND_SIZE);
   }
 
@@ -79,11 +79,4 @@ public class Game {
     this.purse += this.win;
   }
 
-  public String getGameName() {
-    return gameName;
-  }
-
-  public void setGameName(String gameName) {
-    this.gameName = gameName;
-  }
 }

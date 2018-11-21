@@ -13,15 +13,18 @@ public class HelpActivity extends AppCompatActivity {
   TextView helpText;
 
   @Override
-  public void onCreate(@Nullable Bundle savedInstanceState,
-      @Nullable PersistableBundle persistentState) {
-    super.onCreate(savedInstanceState, persistentState);
-    helpText.findViewById(R.id.help_text);
-    this.setTitle("How to play Video Poker");
-    helpText.setText("Strange things are afoot at the circle K");
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_help);
-    ActionBar actionBar = getSupportActionBar();
-    actionBar.setDisplayHomeAsUpEnabled(false);
+    helpText = findViewById(R.id.help_text);
+    helpText.setText("Help text here....");
+    this.setTitle("How to play Video Poker");
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    finish();
   }
 
 }

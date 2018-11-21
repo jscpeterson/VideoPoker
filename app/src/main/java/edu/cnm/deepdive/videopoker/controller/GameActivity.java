@@ -16,6 +16,7 @@ import edu.cnm.deepdive.videopoker.model.Game;
 import edu.cnm.deepdive.videopoker.model.PlayerHand;
 import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
+import java.security.SecureRandom;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -120,7 +121,8 @@ public class GameActivity extends AppCompatActivity {
     setContentView(R.layout.activity_game);
     Bundle extras = getIntent().getExtras();
     assert extras != null;
-    game = new Game((int) extras.get(PURSE_KEY), (double) extras.get(CREDIT_VALUE_KEY));
+    game = new Game((int) extras.get(PURSE_KEY), (double) extras.get(CREDIT_VALUE_KEY),
+        new SecureRandom());
     paytableId = extras.getLong(PAYTABLE_ID_KEY);
     paytableName = extras.getString(PAYTABLE_NAME_KEY);
     setupButtons();

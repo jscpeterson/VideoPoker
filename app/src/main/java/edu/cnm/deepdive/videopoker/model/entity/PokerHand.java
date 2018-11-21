@@ -30,9 +30,6 @@ import java.util.Stack;
 )
 public class PokerHand {
 
-  public static final int DEFAULT_VALUE = 0;
-  public static final int MAX_BET = 5;
-
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "poker_hand_id")
   private long id;
@@ -46,24 +43,6 @@ public class PokerHand {
 
   public PokerHand() {
 
-  }
-
-  @Ignore
-  public PokerHand(long id, String name, String ruleSequence, int betOneValue) {
-    this.id = id;
-    this.name = name;
-    this.ruleSequence = ruleSequence;
-    this.betOneValue = betOneValue;
-    this.betFiveValue = betOneValue*MAX_BET;
-  }
-
-  @Ignore
-  public PokerHand(long id, String name, String ruleSequence, int betOneValue, int betFiveValue) {
-    this.id = id;
-    this.name = name;
-    this.ruleSequence = ruleSequence;
-    this.betOneValue = betOneValue;
-    this.betFiveValue = betFiveValue;
   }
 
   public long getId() {

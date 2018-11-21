@@ -22,18 +22,27 @@
       android:name=".controller.GameActivity"
       android:screenOrientation="landscape"
       android:parentActivityName="edu.cnm.deepdive.videopoker.controller.SplashActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="edu.cnm.deepdive.videopoker.controller.SplashActivity"/>
     </activity>
 
     <activity
       android:name=".controller.HelpActivity"
       android:screenOrientation="landscape"
       android:parentActivityName="edu.cnm.deepdive.videopoker.controller.GameActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="edu.cnm.deepdive.videopoker.controller.GameActivity"/>
     </activity>
 
     <activity
       android:name=".controller.PaytableActivity"
       android:screenOrientation="landscape"
       android:parentActivityName="edu.cnm.deepdive.videopoker.controller.GameActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="edu.cnm.deepdive.videopoker.controller.GameActivity"/>
     </activity>
 
   </application>

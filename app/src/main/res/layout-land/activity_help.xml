@@ -9,6 +9,7 @@
     android:id="@+id/help_text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:text="Blah blah blah"
     style="@style/textView"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
