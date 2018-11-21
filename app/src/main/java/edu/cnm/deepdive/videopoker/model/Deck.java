@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.Stack;
 
+/**
+ * This class represents a deck of card objects. 
+ */
 public class Deck extends Stack<Card> {
 
     private Random rng;

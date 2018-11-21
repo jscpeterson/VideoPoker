@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Converter;
 import edu.cnm.deepdive.videopoker.model.Game;
@@ -18,6 +19,7 @@ import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 
 public class GameActivity extends AppCompatActivity {
 
+  //CONSTANTS
   private static final int BET_MAX = 5;
   private static final int HAND_SIZE = 5;
   private static final String EMPTY_STRING = "";
@@ -26,165 +28,32 @@ public class GameActivity extends AppCompatActivity {
   private static final String PAYTABLE_ID_KEY = "paytableId";
   private static final String PAYTABLE_NAME_KEY = "paytableNameKey";
 
+  //EXTRAS
   private long paytableId;
   private String paytableName;
 
-  private CardButton[] cardButtons;
+  //BUTTONS
   private Button mainButton;
   private Button helpButton;
   private Button dealButton;
   private Button drawButton;
   private Button betOneButton;
   private Button betMaxButton;
+  private CardButton[] cardButtons;
 
+  //FLAGS
+  private boolean firstDeal = true;
+  private boolean viewAsDollars = false;
+
+  //TEXT VIEWS
   private TextView winningHandView;
   private TextView winView;
   private TextView betView;
   private TextView purseView;
 
-  private boolean firstDeal = true;
-  private boolean viewAsDollars = false;
-
+  //OBJECTS
   private Game game;
   private Converter converter = new Converter();
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_game);
-    Bundle extras = getIntent().getExtras();
-    assert extras != null;
-    game = new Game((int) extras.get(PURSE_KEY), (double) extras.get(CREDIT_VALUE_KEY));
-    paytableId = extras.getLong(PAYTABLE_ID_KEY);
-    paytableName = extras.getString(PAYTABLE_NAME_KEY);
-    setupButtons();
-    setupTextViews();
-    this.setTitle(paytableName);
-  }
-
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-//    paytableDb.close();
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    super.onCreateOptionsMenu(menu);
-    getMenuInflater().inflate(R.menu.options, menu);
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    boolean handled = true;
-    switch (item.getItemId()) {
-      default:
-        handled = super.onOptionsItemSelected(item);
-        break;
-      case R.id.switch_currency_view:
-        viewAsDollars = !viewAsDollars;
-        winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
-        purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
-        betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
-        break;
-      case R.id.view_payout_table:
-        Intent intent = new Intent(this, PaytableActivity.class);
-        intent.putExtra(PAYTABLE_ID_KEY, paytableId);
-        startActivity(intent);
-    }
-    return handled;
-  }
-
-  private String getWinString(int win, double creditValue, boolean viewAsDollars) {
-    if (viewAsDollars) {
-      return getString(R.string.win_text_dollar_format, (double) win * creditValue);
-    } else {
-      return getString(R.string.win_text_credits_format, win);
-    }
-  }
-
-  private String getPurseString(int purse, double creditValue, boolean viewAsDollars) {
-    if (viewAsDollars) {
-      return getString(R.string.purse_text_dollar_format, (double) purse * creditValue);
-    }
-    return getString(R.string.purse_text_credits_format, purse);
-  }
-
-  private String getBetString(int bet, double creditValue, boolean viewAsDollars) {
-    if (viewAsDollars) {
-      return getString(R.string.bet_text_dollar_format, (double) bet * creditValue);
-    } else {
-      return getString(R.string.bet_text_credits_format, bet);
-    }
-  }
-
-  private void setupButtons() {
-    mainButton = findViewById(R.id.main_button);
-    helpButton = findViewById(R.id.help_button);
-    dealButton = findViewById(R.id.deal_button);
-    dealButton.setEnabled(false);
-    drawButton = findViewById(R.id.draw_button);
-    drawButton.setEnabled(false);
-    betOneButton = findViewById(R.id.bet1_button);
-    betMaxButton = findViewById(R.id.bet_max_button);
-    cardButtons = new CardButton[]{
-        findViewById(R.id.card1),
-        findViewById(R.id.card2),
-        findViewById(R.id.card3),
-        findViewById(R.id.card4),
-        findViewById(R.id.card5),
-    };
-    // cards start off disabled and invisible
-    for (CardButton card : cardButtons) {
-      card.setVisibility(View.INVISIBLE);
-      card.setEnabled(false);
-      card.setOnClickListener((v) -> card.toggle());
-      // TODO change card on long press
-    }
-
-    mainButton.setOnClickListener((v) -> {
-      Intent intent = new Intent(this, SplashActivity.class);
-      intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-      startActivity(intent);
-    });
-
-    helpButton.setOnClickListener((v) -> {
-      Intent intent = new Intent(this, HelpActivity.class);
-//      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-      startActivity(intent);
-    });
-
-    betOneButton.setOnClickListener((v) -> {
-      betOne();
-      dealButton.setEnabled(true);
-    });
-
-    betMaxButton.setOnClickListener((v) -> {
-      betMax();
-      dealButton.setEnabled(true);
-    });
-
-    dealButton.setOnClickListener((v) -> {
-      // special actions for the initial deal when the game first begins
-      // activate and make cards visible
-      new DealTask().execute(game.getPlayerHand());
-    });
-
-    drawButton.setOnClickListener((v) -> new DrawTask().execute(game.getPlayerHand()));
-  }
-
-  private void setupTextViews() {
-    winningHandView = findViewById(R.id.win_notifier);
-    winView = findViewById(R.id.win_view);
-    betView = findViewById(R.id.bet_view);
-    purseView = findViewById(R.id.purse_view);
-    winningHandView.setText(EMPTY_STRING);
-    winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
-    winView.setVisibility(View.INVISIBLE);
-    betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
-    purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
-  }
 
   private void betOne() {
     if (game.getBet() < BET_MAX) {
@@ -216,10 +85,81 @@ public class GameActivity extends AppCompatActivity {
   }
 
   private void displayCard(int index) {
-    String resourceId = game.getPlayerHand().get(index).getResource();
+    String resourceId = game.getPlayerHand().get(index).getResourceId();
     int identifier = getResources()
         .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
     cardButtons[index].setImageResource(identifier);
+  }
+
+  private String getWinString(int win, double creditValue, boolean viewAsDollars) {
+    if (viewAsDollars) {
+      return getString(R.string.win_text_dollar_format, (double) win * creditValue);
+    } else {
+      return getString(R.string.win_text_credits_format, win);
+    }
+  }
+
+  private String getPurseString(int purse, double creditValue, boolean viewAsDollars) {
+    if (viewAsDollars) {
+      return getString(R.string.purse_text_dollar_format, (double) purse * creditValue);
+    }
+    return getString(R.string.purse_text_credits_format, purse);
+  }
+
+  private String getBetString(int bet, double creditValue, boolean viewAsDollars) {
+    if (viewAsDollars) {
+      return getString(R.string.bet_text_dollar_format, (double) bet * creditValue);
+    } else {
+      return getString(R.string.bet_text_credits_format, bet);
+    }
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_game);
+    Bundle extras = getIntent().getExtras();
+    assert extras != null;
+    game = new Game((int) extras.get(PURSE_KEY), (double) extras.get(CREDIT_VALUE_KEY));
+    paytableId = extras.getLong(PAYTABLE_ID_KEY);
+    paytableName = extras.getString(PAYTABLE_NAME_KEY);
+    setupButtons();
+    setupTextViews();
+    this.setTitle(paytableName);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    super.onCreateOptionsMenu(menu);
+    getMenuInflater().inflate(R.menu.options, menu);
+    return true;
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+//    paytableDb.close();
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    boolean handled = true;
+    switch (item.getItemId()) {
+      default:
+        handled = super.onOptionsItemSelected(item);
+        break;
+      case R.id.switch_currency_view:
+        viewAsDollars = !viewAsDollars;
+        winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
+        purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
+        betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
+        break;
+      case R.id.view_payout_table:
+        Intent intent = new Intent(this, PaytableActivity.class);
+        intent.putExtra(PAYTABLE_ID_KEY, paytableId);
+        startActivity(intent);
+    }
+    return handled;
   }
 
   private void resetGame() {
@@ -242,8 +182,72 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
+  private void setupButtons() {
+    mainButton = findViewById(R.id.main_button);
+    helpButton = findViewById(R.id.help_button);
+    dealButton = findViewById(R.id.deal_button);
+    dealButton.setEnabled(false);
+    drawButton = findViewById(R.id.draw_button);
+    drawButton.setEnabled(false);
+    betOneButton = findViewById(R.id.bet1_button);
+    betMaxButton = findViewById(R.id.bet_max_button);
+    cardButtons = new CardButton[]{
+        findViewById(R.id.card1),
+        findViewById(R.id.card2),
+        findViewById(R.id.card3),
+        findViewById(R.id.card4),
+        findViewById(R.id.card5),
+    };
+    // cards start off disabled and invisible
+    for (CardButton card : cardButtons) {
+      card.setVisibility(View.INVISIBLE);
+      card.setEnabled(false);
+      card.setOnClickListener((v) -> card.toggle());
+      //TODO Change card ability on long press
+    }
+
+    mainButton.setOnClickListener((v) -> {
+      Intent intent = new Intent(this, SplashActivity.class);
+      intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+      startActivity(intent);
+    });
+
+    helpButton.setOnClickListener((v) -> {
+      Intent intent = new Intent(this, HelpActivity.class);
+      startActivity(intent);
+    });
+
+    betOneButton.setOnClickListener((v) -> {
+      betOne();
+      dealButton.setEnabled(true);
+    });
+
+    betMaxButton.setOnClickListener((v) -> {
+      betMax();
+      dealButton.setEnabled(true);
+    });
+
+    dealButton.setOnClickListener((v) -> {
+      new DealTask().execute(game.getPlayerHand());
+    });
+
+    drawButton.setOnClickListener((v) -> new DrawTask().execute(game.getPlayerHand()));
+  }
+
+  private void setupTextViews() {
+    winningHandView = findViewById(R.id.win_notifier);
+    winView = findViewById(R.id.win_view);
+    betView = findViewById(R.id.bet_view);
+    purseView = findViewById(R.id.purse_view);
+    winningHandView.setText(EMPTY_STRING);
+    winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
+    winView.setVisibility(View.INVISIBLE);
+    betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
+    purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
+  }
+
   /**
-   * First card deal and any potential winning hand evaluated.
+   * Asynchronous task for the first card deal and evaluation of any potential winning hand.
    */
   private class DealTask extends AsyncTask<PlayerHand, Void, Void> {
 
@@ -280,6 +284,7 @@ public class GameActivity extends AppCompatActivity {
       purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
       betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
       for (int i = 0; i < game.getPlayerHand().size(); i++) {
+        //TODO Animate card display
         displayCard(i);
       }
       if (game.getPlayerHand().getBestHand().getBetOneValue() > 0) {
@@ -296,7 +301,7 @@ public class GameActivity extends AppCompatActivity {
   }
 
   /**
-   * Subsequent card draw, winnings evaluated and game reset.
+   * Asynchronous task for the subsequent card draw, winnings evaluated and game reset.
    */
   private class DrawTask extends AsyncTask<PlayerHand, Void, Void> {
 
@@ -330,6 +335,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onPostExecute(Void aVoid) {
       for (int i = 0; i < game.getPlayerHand().size(); i++) {
+        //TODO Animate card display
         displayCard(i);
       }
       collectWinnings();

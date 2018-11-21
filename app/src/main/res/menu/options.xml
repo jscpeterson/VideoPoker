@@ -11,9 +11,4 @@
     android:title="@string/options_view_payout_table"
     app:showAsAction="never"/>
 
-  <item
-    android:id="@+id/change_hand"
-    android:title="@string/options_change_hand"
-    app:showAsAction="never"/>
-
 </menu>

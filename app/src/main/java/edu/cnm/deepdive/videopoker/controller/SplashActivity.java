@@ -8,32 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import edu.cnm.deepdive.videopoker.GameApplication;
 import edu.cnm.deepdive.videopoker.R;
-import edu.cnm.deepdive.videopoker.model.Game;
-import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
-import edu.cnm.deepdive.videopoker.model.entity.Paytable;
-import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
+
 
 public class SplashActivity extends AppCompatActivity {
 
+  //CONSTANTS
   private static final String PURSE_KEY = "purse";
   private static final String CREDIT_VALUE_KEY = "creditValue";
   private static final String PAYTABLE_ID_KEY = "paytableId";
   private static final String PAYTABLE_NAME_KEY = "paytableNameKey";
 
-  int gameId = 1;
-  GameApplication instance = GameApplication.getInstance();
-
-  private Button playButton;
-
-  public SplashActivity() throws IOException {
-  }
+  private int gameId = 1;
+  private GameApplication instance = GameApplication.getInstance();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     setContentView(R.layout.activity_splash);
-    playButton = findViewById(R.id.splash_play_button);
+    Button playButton = findViewById(R.id.splash_play_button);
     playButton.setOnClickListener((v) -> {
       Intent intent = new Intent(this, GameActivity.class);
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

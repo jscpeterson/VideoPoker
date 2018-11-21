@@ -1,12 +1,7 @@
 <resources>
 
-  <!-- Base application theme. -->
-  <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
-    <!-- Customize your theme here. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <item name="android:background">@color/backgroundBlue</item>
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
   </style>
 
   <style name="button">
@@ -24,7 +19,7 @@
     <item name="android:shadowDx">1.8</item>
     <item name="android:shadowDy">1.8</item>
     <item name="android:shadowRadius">2.0</item>
-    <item name="android:padding">16sp</item>
+    <item name="android:padding">8dp</item>
   </style>
 
   <style name="winningHandView">
@@ -37,15 +32,15 @@
     <item name="android:shadowDx">1.8</item>
     <item name="android:shadowDy">1.8</item>
     <item name="android:shadowRadius">2.0</item>
- f   <item name="android:paddingBottom">0sp</item>
-    <item name="android:paddingTop">0sp</item>
+    <item name="android:paddingBottom">0dp</item>
+    <item name="android:paddingTop">0dp</item>
   </style>
 
   <style name="cardStyle">
-    <item name="android:layout_width">160sp</item>
-    <item name="android:layout_height">240sp</item>
-    <item name="android:paddingBottom">24sp</item>
-    <item name="android:paddingTop">16sp</item>
+    <item name="android:layout_width">100dp</item>
+    <item name="android:layout_height">160dp</item>
+    <item name="android:paddingBottom">16dp</item>
+    <item name="android:paddingTop">16dp</item>
     <item name="android:scaleType">fitCenter</item>
     <item name="android:tint">@color/card</item>
   </style>

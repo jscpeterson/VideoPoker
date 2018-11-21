@@ -1,21 +1,21 @@
 <resources>
   <string name="app_name">VideoPoker</string>
-  <string name="bet_text_credits_format">BET %d</string>
-  <string name="bet_text_dollar_format">BET \$%.2f</string>
   <string name="bet_max_button_text">MAX</string>
   <string name="bet_one_button_text">BET 1</string>
+  <string name="bet_text_credits_format">BET %d</string>
+  <string name="bet_text_dollar_format">BET \$%.2f</string>
   <string name="deal_button_text">DEAL</string>
   <string name="draw_button_text">DRAW</string>
-  <string name="main_button_text">MAIN</string>
   <string name="help_button_text">HELP</string>
-  <string name="options_view_payout_table">View payout table</string>
   <string name="options_switch_currency_view">Switch currency view</string>
+  <string name="options_view_payout_table">View payout table</string>
   <string name="purse_empty_text">☹ Game Over ☹</string>
   <string name="purse_text_credits_format">CREDITS %d</string>
   <string name="purse_text_dollar_format">\$%.2f</string>
+  <string name="splash_image_content_description">A hand of playing cards.</string>
   <string name="splash_title">Video Poker</string>
   <string name="splash_play">New Game</string>
-  <string name="splash_image_content_description">A hand of cards.</string>
+  <string name="main_button_text">MAIN</string>
   <string name="win_text_credits_format">%d WIN</string>
   <string name="win_text_dollar_format">\$%.2f WIN</string>
 </resources>
