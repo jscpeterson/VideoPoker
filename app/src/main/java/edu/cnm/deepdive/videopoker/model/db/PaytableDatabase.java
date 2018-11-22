@@ -85,7 +85,7 @@ public abstract class PaytableDatabase extends RoomDatabase {
         //TODO add and handle headers
 
         for (CSVRecord gameRecord : gamesCsvParser.getRecords()) {
-          if (gameRecord.getRecordNumber() > 1) {
+          if (gameRecord.getRecordNumber() >= 1) {
             Paytable paytable = new Paytable();
             paytable.setName(gameRecord.get(INDEX_GAME_NAME));
             db.getPaytableDao().insert(paytable);
@@ -93,7 +93,7 @@ public abstract class PaytableDatabase extends RoomDatabase {
         }
 
         for (CSVRecord paytableRecord : paytablesCsvParser.getRecords()) {
-          if (paytableRecord.getRecordNumber() > 1) {
+          if (paytableRecord.getRecordNumber() >= 1) {
             PokerHand newHand = new PokerHand();
             Paytable paytable = db.getPaytableDao().select(paytableRecord.get(INDEX_GAME_NAME));
             newHand.setPaytableId(paytable.getId());

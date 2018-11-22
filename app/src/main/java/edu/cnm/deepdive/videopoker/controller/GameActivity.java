@@ -145,12 +145,8 @@ public class GameActivity extends AppCompatActivity {
       default:
         handled = super.onOptionsItemSelected(item);
         break;
-      case R.id.home:
-        // Clicking the back button will keep the game in the current stack, so the user can start
-        // multiple games if so desired.
-        intent = new Intent(this, SplashActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
+      case android.R.id.home:
+        onBackPressed();
         break;
       case R.id.switch_currency_view:
         viewAsDollars = !viewAsDollars;
@@ -161,7 +157,7 @@ public class GameActivity extends AppCompatActivity {
       case R.id.view_payout_table:
         intent = new Intent(this, PaytableActivity.class);
         intent.putExtra(PAYTABLE_ID_KEY, paytableId);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         break;
     }
@@ -213,16 +209,16 @@ public class GameActivity extends AppCompatActivity {
     }
 
     mainButton.setOnClickListener((v) -> {
-      // The main button ends the current game.
+      // The main button only returns the main screen to the user, it does not end the current game.
+      // Using the main button the user can run multiple games at once.
       Intent intent = new Intent(this, SplashActivity.class);
       intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
       startActivity(intent);
-      finish();
     });
 
     helpButton.setOnClickListener((v) -> {
       Intent intent = new Intent(this, HelpActivity.class);
-      intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//      intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
       startActivity(intent);
     });
 

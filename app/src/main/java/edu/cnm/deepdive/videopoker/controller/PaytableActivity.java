@@ -19,10 +19,16 @@ public class PaytableActivity extends AppCompatActivity {
   }
 
   @Override
+  protected void onPause() {
+    super.onPause();
+    finish();
+  }
+
+  @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.home) {
+    if (item.getItemId() == android.R.id.home) {
       onBackPressed();
-      return false;
+      return true;
     }
     return(super.onOptionsItemSelected(item));
   }

@@ -24,10 +24,16 @@ public class HelpActivity extends AppCompatActivity {
   }
 
   @Override
+  protected void onPause() {
+    super.onPause();
+    finish();
+  }
+
+  @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.home) {
-      NavUtils.navigateUpFromSameTask(this);
-      return false;
+    if (item.getItemId() == android.R.id.home) {
+      onBackPressed();
+      return true;
     }
     return(super.onOptionsItemSelected(item));
   }
