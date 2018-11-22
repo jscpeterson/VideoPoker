@@ -2,11 +2,19 @@
 
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <item name="android:background">@color/backgroundBlue</item>
+    <item name="android:colorAccent">@color/textRed</item>
   </style>
 
   <style name="button">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
+  </style>
+
+  <style name="smallTextView">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textColor">@color/textYellow</item>
+    <item name="android:textSize">14sp</item>
   </style>
 
   <style name="textView">
@@ -15,7 +23,7 @@
     <item name="android:textColor">@color/textYellow</item>
     <item name="android:textSize">20sp</item>
     <item name="android:textStyle">bold</item>
-    <item name="android:shadowColor">@color/textRedBackground</item>
+    <item name="android:shadowColor">@color/textRed</item>
     <item name="android:shadowDx">1.8</item>
     <item name="android:shadowDy">1.8</item>
     <item name="android:shadowRadius">2.0</item>
@@ -28,7 +36,7 @@
     <item name="android:textColor">@color/textYellow</item>
     <item name="android:textSize">20sp</item>
     <item name="android:textStyle">bold</item>
-    <item name="android:shadowColor">@color/textRedBackground</item>
+    <item name="android:shadowColor">@color/textRed</item>
     <item name="android:shadowDx">1.8</item>
     <item name="android:shadowDy">1.8</item>
     <item name="android:shadowRadius">2.0</item>

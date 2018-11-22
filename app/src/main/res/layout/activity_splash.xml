@@ -45,13 +45,15 @@
       android:id="@+id/splash_purse_text"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/splash_purse"/>
+      android:text="@string/splash_purse"
+      style="@style/smallTextView"/>
     <EditText
       android:id="@+id/splash_purse_edit"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:inputType="number"
-      android:maxLength="4"/>
+      android:maxLength="4"
+      style="@style/smallTextView"/>
   </LinearLayout>
 
   <!--CREDIT VALUE EDIT FIELD-->
@@ -63,13 +65,15 @@
       android:id="@+id/splash_credit_text"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/splash_credits"/>
+      android:text="@string/splash_credits"
+      style="@style/smallTextView"/>
     <EditText
       android:id="@+id/splash_credit_edit"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:inputType="numberDecimal"
-      android:maxLength="5"/>
+      android:maxLength="5"
+      style="@style/smallTextView"/>
   </LinearLayout>
 
   <!--BUTTON FOR A NEW GAME-->
