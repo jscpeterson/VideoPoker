@@ -23,6 +23,7 @@
       android:screenOrientation="landscape"
       android:parentActivityName="edu.cnm.deepdive.videopoker.controller.SplashActivity">
       <meta-data
+        android:launchMode="singleTop"
         android:name="android.support.PARENT_ACTIVITY"
         android:value="edu.cnm.deepdive.videopoker.controller.SplashActivity"/>
     </activity>

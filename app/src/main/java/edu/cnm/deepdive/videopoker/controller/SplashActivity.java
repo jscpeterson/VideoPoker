@@ -25,26 +25,20 @@ public class SplashActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    // TODO Add an option to reset paytable defaults
     super.onCreate(savedInstanceState);
     new Thread(() -> {
       PaytableDatabase.getInstance(this).getPaytableDao().select();
     }).start();
-
-
     setContentView(R.layout.activity_splash);
     Button playButton = findViewById(R.id.splash_play_button);
     playButton.setOnClickListener((v) -> {
       Intent intent = new Intent(this, GameActivity.class);
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
       // TODO Get these values from an alertDialog
       intent.putExtra(PURSE_KEY, 100);
       intent.putExtra(CREDIT_VALUE_KEY, 0.50);
-
       // TODO Make multiple game buttons
       intent.putExtra(PAYTABLE_ID_KEY, instance.getLocalDb().get(gameId).getId());
       intent.putExtra(PAYTABLE_NAME_KEY, instance.getLocalDb().get(gameId).getName());
-
       startActivity(intent);
     });
   }
@@ -57,12 +51,6 @@ public class SplashActivity extends AppCompatActivity {
 
     GameApplication instance = GameApplication.getInstance();
     private Context context;
-
-    public String getName() {
-      return name;
-    }
-
-    private String name;
 
     private SetupTask(Context context) {
       this.context = context;

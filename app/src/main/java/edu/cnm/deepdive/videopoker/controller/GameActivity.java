@@ -138,17 +138,19 @@ public class GameActivity extends AppCompatActivity {
   }
 
   @Override
-  protected void onDestroy() {
-    super.onDestroy();
-//    paytableDb.close();
-  }
-
-  @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     boolean handled = true;
+    Intent intent;
     switch (item.getItemId()) {
       default:
         handled = super.onOptionsItemSelected(item);
+        break;
+      case R.id.home:
+        // Clicking the back button will keep the game in the current stack, so the user can start
+        // multiple games if so desired.
+        intent = new Intent(this, SplashActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
         break;
       case R.id.switch_currency_view:
         viewAsDollars = !viewAsDollars;
@@ -157,9 +159,11 @@ public class GameActivity extends AppCompatActivity {
         betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
         break;
       case R.id.view_payout_table:
-        Intent intent = new Intent(this, PaytableActivity.class);
+        intent = new Intent(this, PaytableActivity.class);
         intent.putExtra(PAYTABLE_ID_KEY, paytableId);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
+        break;
     }
     return handled;
   }
@@ -209,13 +213,16 @@ public class GameActivity extends AppCompatActivity {
     }
 
     mainButton.setOnClickListener((v) -> {
+      // The main button ends the current game.
       Intent intent = new Intent(this, SplashActivity.class);
       intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
       startActivity(intent);
+      finish();
     });
 
     helpButton.setOnClickListener((v) -> {
       Intent intent = new Intent(this, HelpActivity.class);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
       startActivity(intent);
     });
 
