@@ -1,9 +1,11 @@
 package edu.cnm.deepdive.videopoker.controller;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import edu.cnm.deepdive.videopoker.GameApplication;
@@ -14,15 +16,6 @@ import java.io.IOException;
 
 public class SplashActivity extends AppCompatActivity {
 
-  //CONSTANTS
-  private static final String PURSE_KEY = "purse";
-  private static final String CREDIT_VALUE_KEY = "creditValue";
-  private static final String PAYTABLE_ID_KEY = "paytableId";
-  private static final String PAYTABLE_NAME_KEY = "paytableNameKey";
-
-  private int gameId = 1;
-  private GameApplication instance = GameApplication.getInstance();
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -31,15 +24,12 @@ public class SplashActivity extends AppCompatActivity {
     }).start();
     setContentView(R.layout.activity_splash);
     Button playButton = findViewById(R.id.splash_play_button);
+
+    GameSelectDialog gameSelectDialog = new GameSelectDialog();
+    FragmentManager fm = getFragmentManager();
     playButton.setOnClickListener((v) -> {
-      Intent intent = new Intent(this, GameActivity.class);
+      gameSelectDialog.show(getSupportFragmentManager(), "dialog");
       // TODO Get these values from edit text views.
-      intent.putExtra(PURSE_KEY, 100);
-      intent.putExtra(CREDIT_VALUE_KEY, 0.50);
-      // TODO Get game version from dialog
-      intent.putExtra(PAYTABLE_ID_KEY, instance.getLocalDb().get(gameId).getId());
-      intent.putExtra(PAYTABLE_NAME_KEY, instance.getLocalDb().get(gameId).getName());
-      startActivity(intent);
     });
   }
 

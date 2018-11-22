@@ -20,6 +20,6 @@ public interface PaytableDao {
   @Query("SELECT * FROM Paytable WHERE name = :name LIMIT 1")
   Paytable select(String name);
 
-  @Query("SELECT * FROM Paytable ORDER BY name")
+  @Query("SELECT * FROM Paytable ORDER BY paytable_id")
   List<Paytable> select();
 }
