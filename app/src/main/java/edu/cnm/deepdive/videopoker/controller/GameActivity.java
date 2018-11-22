@@ -151,6 +151,8 @@ public class GameActivity extends AppCompatActivity {
         handled = super.onOptionsItemSelected(item);
         break;
       case android.R.id.home:
+        // Ends the game.
+        // TODO Ask "Are you sure you want to quit?"
         onBackPressed();
         break;
       case R.id.switch_currency_view:
@@ -217,16 +219,15 @@ public class GameActivity extends AppCompatActivity {
     }
 
     mainButton.setOnClickListener((v) -> {
-      // The main button only returns the main screen to the user, it does not end the current game.
-      // Using the main button the user can run multiple games at once.
+      // Returns the main screen to the user but does not end the game unless the user selects
+      // a new game.
       Intent intent = new Intent(this, SplashActivity.class);
-      intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+      intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
       startActivity(intent);
     });
 
     helpButton.setOnClickListener((v) -> {
       Intent intent = new Intent(this, HelpActivity.class);
-//      intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
       startActivity(intent);
     });
 

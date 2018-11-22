@@ -47,10 +47,12 @@ public class GameSelectDialog extends DialogFragment {
         android.R.layout.simple_list_item_1, items);
     gameList.setOnItemClickListener((parent, view1, position, id) -> {
       Intent intent = new Intent(getContext(), GameActivity.class);
+      // TODO Get these values from edit text views.
       intent.putExtra(PURSE_KEY, 100);
       intent.putExtra(CREDIT_VALUE_KEY, 0.50);
       intent.putExtra(PAYTABLE_ID_KEY, (long) position + 1);
       intent.putExtra(PAYTABLE_NAME_KEY, GameApplication.getInstance().getLocalDb().get(position).getName());
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
       startActivity(intent);
     });
     gameList.setAdapter(adapter);

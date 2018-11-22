@@ -2,19 +2,17 @@ package edu.cnm.deepdive.videopoker.controller;
 
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import edu.cnm.deepdive.videopoker.GameApplication;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
-import java.io.IOException;
-
 
 public class SplashActivity extends AppCompatActivity {
+
+  GameSelectDialog gameSelectDialog;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +22,18 @@ public class SplashActivity extends AppCompatActivity {
     }).start();
     setContentView(R.layout.activity_splash);
     Button playButton = findViewById(R.id.splash_play_button);
-
-    GameSelectDialog gameSelectDialog = new GameSelectDialog();
-    FragmentManager fm = getFragmentManager();
     playButton.setOnClickListener((v) -> {
+      gameSelectDialog = new GameSelectDialog();
       gameSelectDialog.show(getSupportFragmentManager(), "dialog");
-      // TODO Get these values from edit text views.
     });
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    if (gameSelectDialog != null) {
+      gameSelectDialog.dismiss();
+    }
   }
 
   public void ready() {
@@ -52,7 +55,7 @@ public class SplashActivity extends AppCompatActivity {
       instance.setLocalDb(PaytableDatabase.getInstance(context.getApplicationContext())
           .getPaytableDao().select());
       return null;
-   }
+    }
 
   }
 

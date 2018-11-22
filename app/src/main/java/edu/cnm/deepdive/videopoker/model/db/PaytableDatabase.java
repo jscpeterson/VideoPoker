@@ -96,11 +96,9 @@ public abstract class PaytableDatabase extends RoomDatabase {
             PokerHand newHand = new PokerHand();
             Paytable paytable = db.getPaytableDao().select(paytableRecord.get(INDEX_GAME_NAME));
             newHand.setPaytableId(paytable.getId());
-
             newHand.setName(paytableRecord.get(INDEX_HAND_NAME));
             newHand.setRuleSequence(paytableRecord.get(INDEX_RULE_SEQUENCE));
             newHand.setBetOneValue(Integer.parseInt(paytableRecord.get(INDEX_BET_ONE_VALUE)));
-
             if (paytableRecord.size() == INDEX_OVERLOADED_PARAM + 1) {
               newHand.setBetFiveValue(Integer.parseInt(paytableRecord.get(INDEX_OVERLOADED_PARAM)));
             } else {
