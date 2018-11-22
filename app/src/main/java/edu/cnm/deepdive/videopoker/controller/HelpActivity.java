@@ -20,7 +20,7 @@ public class HelpActivity extends AppCompatActivity {
     setContentView(R.layout.activity_help);
     helpText = findViewById(R.id.help_text);
     helpText.setText("Help text here....");
-    this.setTitle("How to play Video Poker");
+    this.setTitle(getString(R.string.help_title));
   }
 
   @Override

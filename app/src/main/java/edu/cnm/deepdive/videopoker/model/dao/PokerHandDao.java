@@ -13,12 +13,10 @@ public interface PokerHandDao {
   @Insert(onConflict = OnConflictStrategy.FAIL)
   long insert(PokerHand pokerhand);
 
-  @Query("SELECT * FROM PokerHand ORDER BY betOneValue DESC")
-  List<PokerHand> selectPokerHandsByBetOne();
-
   @Query("SELECT * FROM PokerHand WHERE paytable_id IS :paytableId ORDER BY betOneValue DESC")
   List<PokerHand> selectPokerHandsByBetOneFromPaytable(long paytableId);
 
   @Query("SELECT name FROM PokerHand WHERE paytable_id IS :paytableId ORDER BY betOneValue DESC")
   List<String> selectPokerHandNamesByBetOneFromPaytable(long paytableId);
+
 }

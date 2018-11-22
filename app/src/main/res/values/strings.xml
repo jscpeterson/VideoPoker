@@ -20,5 +20,7 @@
   <string name="main_button_text">MAIN</string>
   <string name="win_text_credits_format">%d WIN</string>
   <string name="win_text_dollar_format">\$%.2f WIN</string>
+  <string name="help_title">How to play Video Poker</string>
+  <string name="paytable_title">PAYTABLE</string>
 
 </resources>

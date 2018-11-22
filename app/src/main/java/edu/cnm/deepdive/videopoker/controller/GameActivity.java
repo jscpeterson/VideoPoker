@@ -29,7 +29,7 @@ public class GameActivity extends AppCompatActivity {
   private static final String CREDIT_VALUE_KEY = "creditValue";
   private static final String PAYTABLE_ID_KEY = "paytableId";
   private static final String PAYTABLE_NAME_KEY = "paytableNameKey";
-  public static final String CURRENCY_VIEW_PREF = "viewAsDollars";
+  private static final String CURRENCY_VIEW_PREF = "viewAsDollars";
 
   //EXTRAS
   private long paytableId;
@@ -179,6 +179,7 @@ public class GameActivity extends AppCompatActivity {
         intent = new Intent(this, PaytableActivity.class);
         intent.putExtra(PAYTABLE_ID_KEY, paytableId);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.putExtra(PAYTABLE_NAME_KEY, paytableName);
         startActivity(intent);
         break;
     }
