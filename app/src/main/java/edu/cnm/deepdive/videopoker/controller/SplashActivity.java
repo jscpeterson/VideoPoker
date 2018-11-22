@@ -33,10 +33,10 @@ public class SplashActivity extends AppCompatActivity {
     Button playButton = findViewById(R.id.splash_play_button);
     playButton.setOnClickListener((v) -> {
       Intent intent = new Intent(this, GameActivity.class);
-      // TODO Get these values from an alertDialog
+      // TODO Get these values from edit text views.
       intent.putExtra(PURSE_KEY, 100);
       intent.putExtra(CREDIT_VALUE_KEY, 0.50);
-      // TODO Make multiple game buttons
+      // TODO Get game version from dialog
       intent.putExtra(PAYTABLE_ID_KEY, instance.getLocalDb().get(gameId).getId());
       intent.putExtra(PAYTABLE_NAME_KEY, instance.getLocalDb().get(gameId).getName());
       startActivity(intent);

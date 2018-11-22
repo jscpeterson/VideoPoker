@@ -1,15 +1,16 @@
 package edu.cnm.deepdive.videopoker.controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Converter;
 import edu.cnm.deepdive.videopoker.model.Game;
@@ -28,6 +29,7 @@ public class GameActivity extends AppCompatActivity {
   private static final String CREDIT_VALUE_KEY = "creditValue";
   private static final String PAYTABLE_ID_KEY = "paytableId";
   private static final String PAYTABLE_NAME_KEY = "paytableNameKey";
+  public static final String CURRENCY_VIEW_PREF = "viewAsDollars";
 
   //EXTRAS
   private long paytableId;
@@ -44,7 +46,7 @@ public class GameActivity extends AppCompatActivity {
 
   //FLAGS
   private boolean firstDeal = true;
-  private boolean viewAsDollars = false;
+  private boolean viewAsDollars;
 
   //TEXT VIEWS
   private TextView winningHandView;
@@ -55,6 +57,7 @@ public class GameActivity extends AppCompatActivity {
   //OBJECTS
   private Game game;
   private Converter converter = new Converter();
+  private SharedPreferences sharedPref;
 
   private void betOne() {
     if (game.getBet() < BET_MAX) {
@@ -125,6 +128,8 @@ public class GameActivity extends AppCompatActivity {
         new SecureRandom());
     paytableId = extras.getLong(PAYTABLE_ID_KEY);
     paytableName = extras.getString(PAYTABLE_NAME_KEY);
+    sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+    viewAsDollars = sharedPref.getBoolean(CURRENCY_VIEW_PREF, false);
     setupButtons();
     setupTextViews();
     this.setTitle(paytableName);
@@ -150,6 +155,9 @@ public class GameActivity extends AppCompatActivity {
         break;
       case R.id.switch_currency_view:
         viewAsDollars = !viewAsDollars;
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(CURRENCY_VIEW_PREF, viewAsDollars);
+        editor.apply();
         winView.setText(getWinString(game.getWin(), game.getCreditValue(), viewAsDollars));
         purseView.setText(getPurseString(game.getPurse(), game.getCreditValue(), viewAsDollars));
         betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));

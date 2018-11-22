@@ -82,7 +82,6 @@ public abstract class PaytableDatabase extends RoomDatabase {
             new CSVParser(new InputStreamReader(paytablesInputStream), CSVFormat.DEFAULT);
         CSVParser gamesCsvParser =
             new CSVParser(new InputStreamReader(gamesInputStream), CSVFormat.DEFAULT);
-        //TODO add and handle headers
 
         for (CSVRecord gameRecord : gamesCsvParser.getRecords()) {
           if (gameRecord.getRecordNumber() >= 1) {
@@ -121,7 +120,7 @@ public abstract class PaytableDatabase extends RoomDatabase {
           }
         }
       } catch (IOException e) {
-        //TODO handle or don't
+        System.out.println("Database unable to populate from CSV file.");
       }
       return null;
     }
