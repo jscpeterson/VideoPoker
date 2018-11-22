@@ -21,6 +21,7 @@ import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.entity.Paytable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.w3c.dom.Text;
 
 public class GameSelectDialog extends DialogFragment {
@@ -43,13 +44,14 @@ public class GameSelectDialog extends DialogFragment {
     for (Paytable paytable : GameApplication.getInstance().getLocalDb()) {
       items.add(paytable.getName());
     }
-    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
         android.R.layout.simple_list_item_1, items);
     gameList.setOnItemClickListener((parent, view1, position, id) -> {
       Intent intent = new Intent(getContext(), GameActivity.class);
-      // TODO Get these values from edit text views.
-      intent.putExtra(PURSE_KEY, 100);
-      intent.putExtra(CREDIT_VALUE_KEY, 0.50);
+      Bundle arguments = this.getArguments();
+      assert arguments != null;
+      intent.putExtra(PURSE_KEY, arguments.getInt(PURSE_KEY));
+      intent.putExtra(CREDIT_VALUE_KEY, arguments.getDouble(CREDIT_VALUE_KEY));
       intent.putExtra(PAYTABLE_ID_KEY, (long) position + 1);
       intent.putExtra(PAYTABLE_NAME_KEY, GameApplication.getInstance().getLocalDb().get(position).getName());
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

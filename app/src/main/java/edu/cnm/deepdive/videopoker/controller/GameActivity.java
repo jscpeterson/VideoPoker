@@ -95,6 +95,14 @@ public class GameActivity extends AppCompatActivity {
     cardButtons[index].setImageResource(identifier);
   }
 
+  private void gameOver() {
+    winningHandView.setText(R.string.purse_empty_text);
+    betOneButton.setEnabled(false);
+    betMaxButton.setEnabled(false);
+    dealButton.setEnabled(false);
+    drawButton.setEnabled(false);
+  }
+
   private String getWinString(int win, double creditValue, boolean viewAsDollars) {
     if (viewAsDollars) {
       return getString(R.string.win_text_dollar_format, (double) win * creditValue);
@@ -133,6 +141,9 @@ public class GameActivity extends AppCompatActivity {
     setupButtons();
     setupTextViews();
     this.setTitle(paytableName);
+    if (game.getPurse() <= 0 || game.getCreditValue() <= 0) {
+      gameOver();
+    }
   }
 
   @Override
@@ -190,7 +201,7 @@ public class GameActivity extends AppCompatActivity {
     } else if (game.getPurse() > 0) {
       betOneButton.setEnabled(true);
     } else {
-      winningHandView.setText(R.string.purse_empty_text);
+      gameOver();
     }
   }
 
@@ -203,6 +214,7 @@ public class GameActivity extends AppCompatActivity {
     drawButton.setEnabled(false);
     betOneButton = findViewById(R.id.bet1_button);
     betMaxButton = findViewById(R.id.bet_max_button);
+    if (game.getPurse() < BET_MAX) betMaxButton.setEnabled(false);
     cardButtons = new CardButton[]{
         findViewById(R.id.card1),
         findViewById(R.id.card2),

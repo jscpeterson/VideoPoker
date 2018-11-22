@@ -12,10 +12,13 @@
   <string name="purse_empty_text">☹ Game Over ☹</string>
   <string name="purse_text_credits_format">CREDITS %d</string>
   <string name="purse_text_dollar_format">\$%.2f</string>
+  <string name="splash_credits">Credit Worth:</string>
   <string name="splash_image_content_description">A hand of playing cards.</string>
   <string name="splash_title">Video Poker</string>
-  <string name="splash_play">New Game</string>
+  <string name="splash_play">Play!</string>
+  <string name="splash_purse">Number of Credits:</string>
   <string name="main_button_text">MAIN</string>
   <string name="win_text_credits_format">%d WIN</string>
   <string name="win_text_dollar_format">\$%.2f WIN</string>
+
 </resources>

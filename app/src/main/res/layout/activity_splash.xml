@@ -36,7 +36,43 @@
       style="@style/textView"/>
   </LinearLayout>
 
-  <!--BUTTONS FOR A NEW GAME-->
+  <!-- PURSE EDIT FIELD-->
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+    <TextView
+      android:id="@+id/splash_purse_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/splash_purse"/>
+    <EditText
+      android:id="@+id/splash_purse_edit"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:inputType="number"
+      android:maxLength="4"/>
+  </LinearLayout>
+
+  <!--CREDIT VALUE EDIT FIELD-->
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+    <TextView
+      android:id="@+id/splash_credit_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/splash_credits"/>
+    <EditText
+      android:id="@+id/splash_credit_edit"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:inputType="numberDecimal"
+      android:maxLength="5"/>
+  </LinearLayout>
+
+  <!--BUTTON FOR A NEW GAME-->
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
