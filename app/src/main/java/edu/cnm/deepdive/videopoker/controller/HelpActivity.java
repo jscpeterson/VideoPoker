@@ -19,7 +19,6 @@ public class HelpActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_help);
     helpText = findViewById(R.id.help_text);
-    helpText.setText("Help text here....");
     this.setTitle(getString(R.string.help_title));
   }
 

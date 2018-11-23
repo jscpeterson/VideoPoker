@@ -71,7 +71,9 @@ public class PaytableActivity extends AppCompatActivity {
     @Override
     protected void onPostExecute(List<PokerHand> pokerHands) {
       for (PokerHand hand : paytable) {
-        System.out.println(hand);
+        System.out.println(hand.getName());
+        System.out.println(hand.getBetOneValue());
+        System.out.println(hand.getBetFiveValue());
       }
       super.onPostExecute(pokerHands);
     }
