@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/paytable_row_layout"
+  android:layout_width="0dp"
+  app:layout_constraintStart_toStartOf="parent"
+  app:layout_constraintEnd_toEndOf="parent"
+  android:layout_height="wrap_content">
+  <TextView
+    android:id="@+id/paytable_hand_name"
+    android:layout_width="0dp"
+    android:layout_weight=".5"
+    android:layout_column="1"
+    android:padding="4dp"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toStartOf="@+id/paytable_bet1"/>
+
+  <TextView
+    android:id="@+id/paytable_bet1"
+    android:layout_width="0dp"
+    android:layout_weight=".1"
+    android:layout_column="1"
+    android:padding="4dp"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toEndOf="@id/paytable_hand_name"
+    app:layout_constraintEnd_toStartOf="@+id/paytable_bet2"/>
+
+  <TextView
+    android:id="@+id/paytable_bet2"
+    android:layout_width="0dp"
+    android:layout_weight=".1"
+    android:layout_column="1"
+    android:padding="4dp"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toEndOf="@id/paytable_bet1"
+    app:layout_constraintEnd_toStartOf="@+id/paytable_bet3"/>
+
+  <TextView
+    android:id="@+id/paytable_bet3"
+    android:layout_width="0dp"
+    android:layout_weight=".1"
+    android:layout_column="1"
+    android:padding="4dp"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toEndOf="@id/paytable_bet2"
+    app:layout_constraintEnd_toStartOf="@+id/paytable_bet4"/>
+
+  <TextView
+    android:id="@+id/paytable_bet4"
+    android:layout_width="0dp"
+    android:layout_weight=".1"
+    android:layout_column="1"
+    android:padding="4dp"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toEndOf="@id/paytable_bet3"
+    app:layout_constraintEnd_toStartOf="@+id/paytable_bet5"/>
+
+  <TextView
+    android:id="@+id/paytable_bet5"
+    android:layout_width="0dp"
+    android:layout_weight=".1"
+    android:layout_column="1"
+    android:padding="4dp"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toEndOf="@id/paytable_bet4"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+</TableRow>

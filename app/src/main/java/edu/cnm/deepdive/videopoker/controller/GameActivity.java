@@ -30,6 +30,8 @@ public class GameActivity extends AppCompatActivity {
   private static final String PAYTABLE_ID_KEY = "paytableId";
   private static final String PAYTABLE_NAME_KEY = "paytableNameKey";
   private static final String CURRENCY_VIEW_PREF = "viewAsDollars";
+  public static final String DRAWABLE = "drawable";
+  public static final String PACKAGE = "edu.cnm.deepdive.videopoker";
 
   //EXTRAS
   private long paytableId;
@@ -91,7 +93,7 @@ public class GameActivity extends AppCompatActivity {
   private void displayCard(int index) {
     String resourceId = game.getPlayerHand().get(index).getResourceId();
     int identifier = getResources()
-        .getIdentifier(resourceId, "drawable", "edu.cnm.deepdive.videopoker");
+        .getIdentifier(resourceId, DRAWABLE, PACKAGE);
     cardButtons[index].setImageResource(identifier);
   }
 

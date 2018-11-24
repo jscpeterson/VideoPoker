@@ -7,7 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableLayout.LayoutParams;
+import android.widget.TableRow;
+import android.widget.TextView;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.dao.PaytableDao;
 import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
@@ -46,7 +52,7 @@ public class PaytableActivity extends AppCompatActivity {
       onBackPressed();
       return true;
     }
-    return(super.onOptionsItemSelected(item));
+    return (super.onOptionsItemSelected(item));
   }
 
   private class GetPaytableData extends AsyncTask<Long, Void, List<PokerHand>> {
@@ -70,10 +76,36 @@ public class PaytableActivity extends AppCompatActivity {
 
     @Override
     protected void onPostExecute(List<PokerHand> pokerHands) {
+//      TextView pokerHandView = findViewById(R.id.paytable_hand_name);
+//      TextView bet1View = findViewById(R.id.paytable_bet1);
+//      TextView bet2View = findViewById(R.id.paytable_bet2);
+//      TextView bet3View = findViewById(R.id.paytable_bet3);
+//      TextView bet4View = findViewById(R.id.paytable_bet4);
+//      TextView bet5View = findViewById(R.id.paytable_bet5);
+
+      TableLayout tableLayout = findViewById(R.id.paytable_layout);
+
       for (PokerHand hand : paytable) {
-        System.out.println(hand.getName());
-        System.out.println(hand.getBetOneValue());
-        System.out.println(hand.getBetFiveValue());
+        if (!hand.isShowInTable()) {
+          //Skip loop if hand has showInTable flag set to false (value is 0 or there is a duplicate)
+          continue;
+        }
+        TableRow row = (TableRow)
+            LayoutInflater.from(PaytableActivity.this).inflate(R.layout.paytable_row,
+                findViewById(R.id.paytable_row_layout), false);
+        TextView pokerHandView = (TextView) row.getChildAt(0);
+        pokerHandView.setText(hand.getName());
+        TextView bet1View = (TextView) row.getChildAt(1);
+        bet1View.setText(Integer.toString(hand.getBetOneValue()));
+        TextView bet2View = (TextView) row.getChildAt(2);
+        bet2View.setText(Integer.toString(hand.getBetOneValue()*2));
+        TextView bet3View = (TextView) row.getChildAt(3);;
+        bet3View.setText(Integer.toString(hand.getBetOneValue()*3));
+        TextView bet4View =  (TextView) row.getChildAt(4);;
+        bet4View.setText(Integer.toString(hand.getBetOneValue()*4));
+        TextView bet5View  = (TextView) row.getChildAt(5);;
+        bet5View.setText(Integer.toString(hand.getBetFiveValue()));
+        tableLayout.addView(row);
       }
       super.onPostExecute(pokerHands);
     }
