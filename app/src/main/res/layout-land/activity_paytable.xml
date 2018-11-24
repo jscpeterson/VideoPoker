@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+  android:layout_height="match_parent"
+  android:layout_width="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
 <TableLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/paytable_layout"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <ListView
-    android:id="@+id/payout_table_list"
+  <!--
+  <TableRow
+    android:id="@+id/paytable_row"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content">
 
+    <TextView
+      android:id="@+id/paytable_hand_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+    <TextView
+      android:id="@+id/paytable_bet1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+    <TextView
+      android:id="@+id/paytable_bet2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+    <TextView
+      android:id="@+id/paytable_bet3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+    <TextView
+      android:id="@+id/paytable_bet4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+    <TextView
+      android:id="@+id/paytable_bet5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+  </TableRow>
+-->
 </TableLayout>
+</android.support.constraint.ConstraintLayout>

@@ -7,7 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.dao.PaytableDao;
 import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
@@ -70,10 +74,39 @@ public class PaytableActivity extends AppCompatActivity {
 
     @Override
     protected void onPostExecute(List<PokerHand> pokerHands) {
+//      TextView pokerHandView = findViewById(R.id.paytable_hand_name);
+//      TextView bet1View = findViewById(R.id.paytable_bet1);
+//      TextView bet2View = findViewById(R.id.paytable_bet2);
+//      TextView bet3View = findViewById(R.id.paytable_bet3);
+//      TextView bet4View = findViewById(R.id.paytable_bet4);
+//      TextView bet5View = findViewById(R.id.paytable_bet5);
+      TableLayout tableLayout = findViewById(R.id.paytable_layout);
       for (PokerHand hand : paytable) {
+        System.out.println("loop started");
+        TableRow row = (TableRow)
+            LayoutInflater.from(PaytableActivity.this).inflate(R.layout.paytable_row,
+                findViewById(R.id.paytable_row_layout));
         System.out.println(hand.getName());
-        System.out.println(hand.getBetOneValue());
-        System.out.println(hand.getBetFiveValue());
+        System.out.println(R.id.paytable_hand_name);
+        TextView pokerHandView = findViewById(R.id.paytable_hand_name);
+        pokerHandView.setText(hand.getName());
+        row.addView(pokerHandView);
+        TextView bet1View = findViewById(R.id.paytable_bet1);
+        bet1View.setText(hand.getBetOneValue());
+        row.addView(bet1View);
+        TextView bet2View = findViewById(R.id.paytable_bet2);
+        bet1View.setText(hand.getBetOneValue()*2);
+        row.addView(bet2View);
+        TextView bet3View = findViewById(R.id.paytable_bet3);
+        bet1View.setText(hand.getBetOneValue()*3);
+        row.addView(bet3View);
+        TextView bet4View = findViewById(R.id.paytable_bet4);
+        bet1View.setText(hand.getBetOneValue()*4);
+        row.addView(bet4View);
+        TextView bet5View = findViewById(R.id.paytable_bet5);
+        bet1View.setText(hand.getBetFiveValue());
+        row.addView(bet5View);
+
       }
       super.onPostExecute(pokerHands);
     }
