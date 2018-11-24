@@ -50,7 +50,7 @@ public class PaytableActivity extends AppCompatActivity {
       onBackPressed();
       return true;
     }
-    return(super.onOptionsItemSelected(item));
+    return (super.onOptionsItemSelected(item));
   }
 
   private class GetPaytableData extends AsyncTask<Long, Void, List<PokerHand>> {
@@ -80,7 +80,9 @@ public class PaytableActivity extends AppCompatActivity {
 //      TextView bet3View = findViewById(R.id.paytable_bet3);
 //      TextView bet4View = findViewById(R.id.paytable_bet4);
 //      TextView bet5View = findViewById(R.id.paytable_bet5);
+
       TableLayout tableLayout = findViewById(R.id.paytable_layout);
+
       for (PokerHand hand : paytable) {
         System.out.println("loop started");
         TableRow row = (TableRow)
@@ -88,9 +90,13 @@ public class PaytableActivity extends AppCompatActivity {
                 findViewById(R.id.paytable_row_layout));
         System.out.println(hand.getName());
         System.out.println(R.id.paytable_hand_name);
-        TextView pokerHandView = findViewById(R.id.paytable_hand_name);
+        //Activity should display hand names
+        //Code is not displaying anything
+        TextView pokerHandView = new TextView(PaytableActivity.this);
         pokerHandView.setText(hand.getName());
         row.addView(pokerHandView);
+
+            /*
         TextView bet1View = findViewById(R.id.paytable_bet1);
         bet1View.setText(hand.getBetOneValue());
         row.addView(bet1View);
@@ -105,7 +111,7 @@ public class PaytableActivity extends AppCompatActivity {
         row.addView(bet4View);
         TextView bet5View = findViewById(R.id.paytable_bet5);
         bet1View.setText(hand.getBetFiveValue());
-        row.addView(bet5View);
+        row.addView(bet5View);*/
 
       }
       super.onPostExecute(pokerHands);
