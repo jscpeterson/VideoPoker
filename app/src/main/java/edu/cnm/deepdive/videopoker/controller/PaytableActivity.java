@@ -90,35 +90,21 @@ public class PaytableActivity extends AppCompatActivity {
           //Skip loop if hand has showInTable flag set to false (value is 0 or there is a duplicate)
           continue;
         }
-        System.out.println("loop started");
-        TableLayout.LayoutParams lp = new TableLayout.LayoutParams(
-            LayoutParams.MATCH_PARENT,
-            LayoutParams.WRAP_CONTENT);
-        lp.setMargins(5, 5, 5, 5);
         TableRow row = (TableRow)
             LayoutInflater.from(PaytableActivity.this).inflate(R.layout.paytable_row,
                 findViewById(R.id.paytable_row_layout), false);
-        row.setLayoutParams(lp);
-        System.out.println(hand.getName());
-        System.out.println(R.id.paytable_hand_name);
-        TextView pokerHandView = new TextView(PaytableActivity.this);
+        TextView pokerHandView = (TextView) row.getChildAt(0);
         pokerHandView.setText(hand.getName());
-        row.addView(pokerHandView);
-        TextView bet1View = new TextView(PaytableActivity.this);
+        TextView bet1View = (TextView) row.getChildAt(1);
         bet1View.setText(Integer.toString(hand.getBetOneValue()));
-        row.addView(bet1View);
-        TextView bet2View = new TextView(PaytableActivity.this);
+        TextView bet2View = (TextView) row.getChildAt(2);
         bet2View.setText(Integer.toString(hand.getBetOneValue()*2));
-        row.addView(bet2View);
-        TextView bet3View = new TextView(PaytableActivity.this);
+        TextView bet3View = (TextView) row.getChildAt(3);;
         bet3View.setText(Integer.toString(hand.getBetOneValue()*3));
-        row.addView(bet3View);
-        TextView bet4View = new TextView(PaytableActivity.this);
+        TextView bet4View =  (TextView) row.getChildAt(4);;
         bet4View.setText(Integer.toString(hand.getBetOneValue()*4));
-        row.addView(bet4View);
-        TextView bet5View = new TextView(PaytableActivity.this);
+        TextView bet5View  = (TextView) row.getChildAt(5);;
         bet5View.setText(Integer.toString(hand.getBetFiveValue()));
-        row.addView(bet5View);
         tableLayout.addView(row);
       }
       super.onPostExecute(pokerHands);
