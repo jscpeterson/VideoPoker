@@ -94,7 +94,7 @@ public class PaytableActivity extends AppCompatActivity {
         TableLayout.LayoutParams lp = new TableLayout.LayoutParams(
             LayoutParams.MATCH_PARENT,
             LayoutParams.WRAP_CONTENT);
-//        lp.setMargins(5, 5, 0, 5);
+        lp.setMargins(5, 5, 5, 5);
         TableRow row = (TableRow)
             LayoutInflater.from(PaytableActivity.this).inflate(R.layout.paytable_row,
                 findViewById(R.id.paytable_row_layout), false);
@@ -104,23 +104,21 @@ public class PaytableActivity extends AppCompatActivity {
         TextView pokerHandView = new TextView(PaytableActivity.this);
         pokerHandView.setText(hand.getName());
         row.addView(pokerHandView);
-        /*
         TextView bet1View = new TextView(PaytableActivity.this);
-        bet1View.setText(hand.getBetOneValue());
+        bet1View.setText(Integer.toString(hand.getBetOneValue()));
         row.addView(bet1View);
         TextView bet2View = new TextView(PaytableActivity.this);
-        bet1View.setText(hand.getBetOneValue()*2);
+        bet2View.setText(Integer.toString(hand.getBetOneValue()*2));
         row.addView(bet2View);
         TextView bet3View = new TextView(PaytableActivity.this);
-        bet1View.setText(hand.getBetOneValue()*3);
+        bet3View.setText(Integer.toString(hand.getBetOneValue()*3));
         row.addView(bet3View);
         TextView bet4View = new TextView(PaytableActivity.this);
-        bet1View.setText(hand.getBetOneValue()*4);
+        bet4View.setText(Integer.toString(hand.getBetOneValue()*4));
         row.addView(bet4View);
         TextView bet5View = new TextView(PaytableActivity.this);
-        bet1View.setText(hand.getBetFiveValue());
+        bet5View.setText(Integer.toString(hand.getBetFiveValue()));
         row.addView(bet5View);
-        */
         tableLayout.addView(row);
       }
       super.onPostExecute(pokerHands);
