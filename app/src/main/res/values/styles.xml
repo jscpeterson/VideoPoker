@@ -1,12 +1,12 @@
 <resources>
 
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <item name="android:background">@color/backgroundBlue</item>
+    <item name="android:background">@color/background_blue</item>
     <item name="android:colorAccent">@color/red</item>
     <item name="android:textColor">@color/yellow</item>
   </style>
 
-  <style name="alertDialog">
+  <style name="alert_dialog">
     <item name="android:windowBackground">@android:color/transparent</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowIsFloating">true</item>
@@ -22,7 +22,7 @@
     <item name="android:textColor">@color/button</item>
   </style>
 
-  <style name="cardStyle">
+  <style name="card_style">
     <item name="android:layout_width">100dp</item>
     <item name="android:layout_height">160dp</item>
     <item name="android:paddingBottom">16dp</item>
@@ -31,19 +31,19 @@
     <item name="android:tint">@color/card</item>
   </style>
 
-  <style name="changePayoutEditText">
+  <style name="change_payout_edit_text">
     <item name="android:inputType">number</item>
     <item name="android:maxLength">5</item>
   </style>
 
-  <style name="smallTextView">
+  <style name="small_text_view">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textColor">@color/yellow</item>
     <item name="android:textSize">14sp</item>
   </style>
 
-  <style name="textView">
+  <style name="state_text_view">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textColor">@color/yellow</item>
@@ -56,7 +56,7 @@
     <item name="android:padding">8dp</item>
   </style>
 
-  <style name="winningHandView">
+  <style name="winning_hand_view">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textColor">@color/yellow</item>

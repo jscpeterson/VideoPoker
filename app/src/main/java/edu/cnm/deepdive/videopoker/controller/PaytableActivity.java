@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.videopoker.controller;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
-import edu.cnm.deepdive.videopoker.model.entity.Paytable;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 import java.util.List;
 
@@ -89,7 +87,7 @@ public class PaytableActivity extends AppCompatActivity {
         TextView bet1View = (TextView) row.getChildAt(1);
         bet1View.setText(Integer.toString(hand.getBetOneValue()));
         bet1View.setOnClickListener( (v) -> {
-          AlertDialog.Builder changePayoutDialog = new AlertDialog.Builder(PaytableActivity.this, R.style.alertDialog);
+          AlertDialog.Builder changePayoutDialog = new AlertDialog.Builder(PaytableActivity.this, R.style.alert_dialog);
           EditText editText = new EditText(PaytableActivity.this);
           changePayoutDialog.setMessage(String.format(getString(R.string.change_payout_format),
               hand.getName()));

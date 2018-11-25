@@ -1,7 +1,5 @@
 package edu.cnm.deepdive.videopoker.controller;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -154,7 +152,7 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   public void onBackPressed() {
-    AlertDialog.Builder exitDialog = new AlertDialog.Builder(this, R.style.alertDialog);
+    AlertDialog.Builder exitDialog = new AlertDialog.Builder(this, R.style.alert_dialog);
     exitDialog.setMessage(R.string.exit_dialog_text);
     exitDialog.setPositiveButton(R.string.exit_dialog_pos, (dialog, which) -> System.exit(0));
     exitDialog.setNegativeButton(R.string.exit_dialog_neg,  (dialog, which) -> dialog.cancel());

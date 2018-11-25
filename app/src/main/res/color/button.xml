@@ -5,7 +5,7 @@
     android:color="@color/red"
     android:state_enabled="true"/>
 
-  <item android:color="@color/redTint"
+  <item android:color="@color/red_tint"
     android:state_enabled="false"/>
 
 </selector>

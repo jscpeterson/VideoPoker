@@ -13,19 +13,19 @@
     android:orientation="horizontal">
     <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card1"
-      style="@style/cardStyle"/>
+      style="@style/card_style"/>
     <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card2"
-      style="@style/cardStyle"/>
+      style="@style/card_style"/>
     <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card3"
-      style="@style/cardStyle"/>
+      style="@style/card_style"/>
     <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card4"
-      style="@style/cardStyle"/>
+      style="@style/card_style"/>
     <edu.cnm.deepdive.videopoker.controller.CardButton
       android:id="@+id/card5"
-      style="@style/cardStyle"/>
+      style="@style/card_style"/>
   </LinearLayout>
   <!--/CARD VIEWS-->
 
@@ -36,7 +36,7 @@
     android:gravity="center">
     <TextView
       android:id="@+id/win_notifier"
-      style="@style/winningHandView"/>
+      style="@style/winning_hand_view"/>
   </LinearLayout>
   <!--/WINNING HAND TEXT VIEW-->
 
@@ -52,7 +52,7 @@
       android:gravity="start">
       <TextView
         android:id="@+id/win_view"
-        style="@style/textView"/>
+        style="@style/state_text_view"/>
     </LinearLayout>
     <LinearLayout
       android:layout_width="0dp"
@@ -61,7 +61,7 @@
       android:gravity="center">
       <TextView
         android:id="@+id/bet_view"
-        style="@style/textView"/>
+        style="@style/state_text_view"/>
     </LinearLayout>
     <LinearLayout
       android:layout_width="0dp"
@@ -70,7 +70,7 @@
       android:gravity="end">
       <TextView
         android:id="@+id/purse_view"
-        style="@style/textView"/>
+        style="@style/state_text_view"/>
     </LinearLayout>
   </LinearLayout>
   <!--/GAME STATE TEXT VIEWS-->

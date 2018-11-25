@@ -34,7 +34,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:text="@string/splash_title"
-      style="@style/textView"/>
+      style="@style/state_text_view"/>
   </LinearLayout>
   <!--/SPLASH GAME TITLE-->
 
@@ -49,14 +49,14 @@
       android:labelFor="@id/splash_purse_edit"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      style="@style/smallTextView"/>
+      style="@style/small_text_view"/>
     <EditText
       android:id="@+id/splash_purse_edit"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:inputType="number"
       android:maxLength="4"
-      style="@style/smallTextView"/>
+      style="@style/small_text_view"/>
   </LinearLayout>
   <!--/PURSE EDIT FIELD-->
 
@@ -71,14 +71,14 @@
       android:labelFor="@+id/splash_credit_edit"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      style="@style/smallTextView"/>
+      style="@style/small_text_view"/>
     <EditText
       android:id="@+id/splash_credit_edit"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:inputType="numberDecimal"
       android:maxLength="5"
-      style="@style/smallTextView"/>
+      style="@style/small_text_view"/>
   </LinearLayout>
   <!--/CREDIT VALUE EDIT FIELD-->
 

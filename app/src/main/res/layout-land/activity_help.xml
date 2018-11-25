@@ -9,7 +9,7 @@
     android:id="@+id/help_text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    style="@style/smallTextView"
+    style="@style/small_text_view"
     android:padding="24sp"
     android:text="@string/help_text_full"
     app:layout_constraintTop_toTopOf="parent"
