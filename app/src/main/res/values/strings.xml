@@ -8,7 +8,7 @@
   <string name="button_draw">DRAW</string>
   <string name="button_help">HELP</string>
   <string name="button_main">MAIN</string>
-  <string name="change_payout_format">Enter a new value: </string>
+  <string name="change_payout_format">Enter a new value for %s:</string>
   <string name="exit_dialog_text">Are you sure you would like to quit?</string>
   <string name="exit_dialog_pos">YES</string>
   <string name="exit_dialog_neg">NO</string>
