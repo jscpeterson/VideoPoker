@@ -17,6 +17,9 @@ public interface PokerHandDao {
   @Query("UPDATE PokerHand SET betOneValue = :newValue WHERE name = :handName AND paytable_id = :paytableId")
   long updateBetOneValue(long paytableId, String handName, int newValue);
 
+  @Query("UPDATE PokerHand SET betFiveValue = :newValue WHERE name = :handName AND paytable_id = :paytableId")
+  long updateBetFiveValue(long paytableId, String handName, int newValue);
+
   @Query("SELECT * FROM PokerHand WHERE paytable_id IS :paytableId ORDER BY betOneValue DESC")
   List<PokerHand> selectPokerHandsByBetOneFromPaytable(long paytableId);
 

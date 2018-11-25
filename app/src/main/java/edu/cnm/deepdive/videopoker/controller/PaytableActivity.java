@@ -95,32 +95,50 @@ public class PaytableActivity extends AppCompatActivity {
         pokerHandView.setText(hand.getName());
         TextView bet1View = (TextView) row.getChildAt(1);
         bet1View.setText(Integer.toString(hand.getBetOneValue()));
-        bet1View.setOnClickListener( (v) -> {
-          AlertDialog.Builder changePayoutDialog = new AlertDialog.Builder(PaytableActivity.this, R.style.alert_dialog);
-          EditText editText = new EditText(new ContextThemeWrapper(PaytableActivity.this, R.style.change_payout_edit_text));
+        bet1View.setOnClickListener((v) -> {
+          AlertDialog.Builder changePayoutDialog = new AlertDialog.Builder(PaytableActivity.this,
+              R.style.alert_dialog);
+          EditText editText = new EditText(
+              new ContextThemeWrapper(PaytableActivity.this, R.style.change_payout_edit_text));
           changePayoutDialog.setMessage(String.format(getString(R.string.change_payout_format),
               hand.getName()));
           changePayoutDialog.setView(editText);
-          changePayoutDialog.setPositiveButton("Yes", (dialog, whichButton) -> {
+          changePayoutDialog.setPositiveButton(R.string.change_payout_pos, (dialog, whichButton) -> {
             int value = Integer.valueOf(editText.getText().toString());
             hand.setBetOneValue(value);
+            hand.setBetFiveValue(value * 5);
             new ChangePayoutTask().execute(hand);
           });
-          changePayoutDialog.setNegativeButton("Nah", (dialog, whichButton) -> {
+          changePayoutDialog.setNegativeButton(R.string.change_payout_neg, (dialog, whichButton) -> {
             dialog.cancel();
           });
           changePayoutDialog.show();
         });
         TextView bet2View = (TextView) row.getChildAt(2);
-        bet2View.setText(Integer.toString(hand.getBetOneValue()*2));
+        bet2View.setText(Integer.toString(hand.getBetOneValue() * 2));
         TextView bet3View = (TextView) row.getChildAt(3);
-        bet3View.setText(Integer.toString(hand.getBetOneValue()*3));
-        TextView bet4View =  (TextView) row.getChildAt(4);
-        bet4View.setText(Integer.toString(hand.getBetOneValue()*4));
-        TextView bet5View  = (TextView) row.getChildAt(5);
+        bet3View.setText(Integer.toString(hand.getBetOneValue() * 3));
+        TextView bet4View = (TextView) row.getChildAt(4);
+        bet4View.setText(Integer.toString(hand.getBetOneValue() * 4));
+        TextView bet5View = (TextView) row.getChildAt(5);
         bet5View.setText(Integer.toString(hand.getBetFiveValue()));
-        bet5View.setOnClickListener( (v) -> {
-          Toast.makeText(PaytableActivity.this, "Henlo", Toast.LENGTH_SHORT).show();
+        bet5View.setOnClickListener((v) -> {
+          AlertDialog.Builder changePayoutDialog = new AlertDialog.Builder(PaytableActivity.this,
+              R.style.alert_dialog);
+          EditText editText = new EditText(
+              new ContextThemeWrapper(PaytableActivity.this, R.style.change_payout_edit_text));
+          changePayoutDialog.setMessage(String.format(getString(R.string.change_payout_format),
+              hand.getName()));
+          changePayoutDialog.setView(editText);
+          changePayoutDialog.setPositiveButton(R.string.change_payout_pos, (dialog, whichButton) -> {
+            int value = Integer.valueOf(editText.getText().toString());
+            hand.setBetFiveValue(value);
+            new ChangePayoutTask().execute(hand);
+          });
+          changePayoutDialog.setNegativeButton(R.string.change_payout_neg, (dialog, whichButton) -> {
+            dialog.cancel();
+          });
+          changePayoutDialog.show();
         });
         tableLayout.addView(row);
       }
@@ -131,21 +149,13 @@ public class PaytableActivity extends AppCompatActivity {
 
   private class ChangePayoutTask extends AsyncTask<PokerHand, Void, List<PokerHand>> {
 
-    //TODO implement change paytable ability
-
-
-
-    @Override
-    protected void onPreExecute() {
-      super.onPreExecute();
-    }
-
     @Override
     protected List<PokerHand> doInBackground(PokerHand... pokerHands) {
       PokerHand hand = pokerHands[0];
       PaytableDatabase db = PaytableDatabase.getInstance(getApplicationContext());
       PokerHandDao dao = db.getPokerHandDao();
       dao.updateBetOneValue(PaytableActivity.this.getPaytableId(), hand.getName(), hand.getBetOneValue());
+      dao.updateBetFiveValue(PaytableActivity.this.getPaytableId(), hand.getName(), hand.getBetFiveValue());
       return null;
     }
 
