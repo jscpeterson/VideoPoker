@@ -76,7 +76,7 @@ The only external services this app consumes are CSV files to read into a local 
 
 
 ### Build instructions
-[Build Instructions](docs/UserInstructions.md)
+[Build Instructions](docs/BuildInstructions.md)
 
 ### Usage instructions
 [Usage Instructions](docs/UserInstructions.md)
