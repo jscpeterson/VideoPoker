@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableLayout.LayoutParams;
@@ -55,6 +56,7 @@ public class PaytableActivity extends AppCompatActivity {
     return (super.onOptionsItemSelected(item));
   }
 
+  //TODO make static
   private class GetPaytableData extends AsyncTask<Long, Void, List<PokerHand>> {
 
     List<PokerHand> paytable;
@@ -97,6 +99,9 @@ public class PaytableActivity extends AppCompatActivity {
         pokerHandView.setText(hand.getName());
         TextView bet1View = (TextView) row.getChildAt(1);
         bet1View.setText(Integer.toString(hand.getBetOneValue()));
+        bet1View.setOnClickListener( (v) -> {
+          //TODO new value dialog
+        });
         TextView bet2View = (TextView) row.getChildAt(2);
         bet2View.setText(Integer.toString(hand.getBetOneValue()*2));
         TextView bet3View = (TextView) row.getChildAt(3);;
@@ -127,6 +132,25 @@ public class PaytableActivity extends AppCompatActivity {
     @Override
     protected void onPostExecute(List<PokerHand> pokerHands) {
       super.onPostExecute(pokerHands);
+    }
+
+  }
+
+  private class ResetDefaultsTask extends AsyncTask<Integer, Void, Void> {
+
+    @Override
+    protected void onPreExecute() {
+      super.onPreExecute();
+    }
+
+    @Override
+    protected Void doInBackground(Integer... integers) {
+      return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+      super.onPostExecute(aVoid);
     }
 
   }

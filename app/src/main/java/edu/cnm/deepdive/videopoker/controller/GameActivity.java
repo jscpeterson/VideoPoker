@@ -197,6 +197,10 @@ public class GameActivity extends AppCompatActivity {
     for (CardButton card : cardButtons) {
       card.setEnabled(false);
       card.setChecked(false);
+      card.setOnLongClickListener((v) -> {
+        //TODO change card dialog
+        return true;
+      });
     }
     if (game.getPurse() >= BET_MAX) {
       betMaxButton.setEnabled(true);
