@@ -7,8 +7,7 @@ As a fan of casino video poker games, I've developed an interest in exploring th
 
 ### Current State
 *A description of the current state of completion/readiness of your app. This should include a “hit list” of deficiencies: any unimplemented/incomplete elements, and known bugs, that would have to be implemented or corrected for a usable prototype (i.e. one that could be given to a skilled user for testing and feedback), ordered with the most urgent items first.*
-Currently the user is able to select a game (only three available at the moment) and play it with a given credit value. Each rule sequence has been tested in JUnit to ensure they are properly parsed. Paytable and Help display necessary content. The user can modify payouts from the Paytable activity. Unaware of any serious bugs. Incomplete elements, excluding stretch goals, are:
-* User needs to be able to refresh the paytable database from the paytable activity.
+Currently the user is able to select a game (only three available at the moment) and play it with a given credit value. Each rule sequence has been tested in JUnit to ensure they are properly parsed. Paytable and Help display necessary content. The user can modify payouts from the Paytable activity and revert them to their defaults from the external CSV file. Unaware of any serious bugs. Incomplete elements, excluding stretch goals, are:
 * User needs to be able to change a card in a hand on a long press.
 
 ### Versions

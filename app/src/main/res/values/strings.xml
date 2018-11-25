@@ -37,4 +37,5 @@
   <string name="splash_purse">Number of Credits:</string>
   <string name="win_text_credits_format">%d WIN</string>
   <string name="win_text_dollar_format">\$%.2f WIN</string>
+  <string name="paytable_revert_defaults">Revert defaults</string>
 </resources>

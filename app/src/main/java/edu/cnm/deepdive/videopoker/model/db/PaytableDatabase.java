@@ -104,7 +104,6 @@ public abstract class PaytableDatabase extends RoomDatabase {
             } else {
               newHand.setBetFiveValue(newHand.getBetOneValue() * 5);
             }
-
             // showInTable flag off if the hand is useless (0 value) or already named in the game
             if (pokerHandDao.selectPokerHandNamesByBetOneFromPaytable(paytable.getId())
                 .contains(newHand.getName())) {
@@ -112,9 +111,7 @@ public abstract class PaytableDatabase extends RoomDatabase {
             } else {
               newHand.setShowInTable(newHand.getBetOneValue() > 0);
             }
-
             pokerHandDao.insert(newHand);
-
           }
         }
       } catch (IOException e) {
