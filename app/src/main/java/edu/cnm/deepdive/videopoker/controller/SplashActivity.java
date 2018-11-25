@@ -16,6 +16,9 @@ public class SplashActivity extends AppCompatActivity {
   //CONSTANTS
   private static final String PURSE_KEY = "purse";
   private static final String CREDIT_VALUE_KEY = "creditValue";
+  private static final int PURSE_DEFAULT = 50;
+  private static final double CREDIT_VALUE_DEFAULT = 0.25;
+  private static final String GAME_SELECT_DIALOG_TAG = "dialog";
 
   //FIELDS
   private GameSelectDialog gameSelectDialog;
@@ -31,9 +34,9 @@ public class SplashActivity extends AppCompatActivity {
     Button playButton = findViewById(R.id.splash_play_button);
     purseEdit = findViewById(R.id.splash_purse_edit);
     creditValueEdit = findViewById(R.id.splash_credit_edit);
-    purseEdit.setText(Integer.toString(50));
-    creditValueEdit.setText(
-        Double.toString(0.25)); //TODO change decimal formatting (right now you can do $5.325)
+    purseEdit.setText(Integer.toString(PURSE_DEFAULT));
+    creditValueEdit.setText(Double.toString(
+        CREDIT_VALUE_DEFAULT)); //TODO change decimal formatting (right now you can do $5.325)
     playButton.setOnClickListener((v) -> {
       gameSelectDialog = new GameSelectDialog();
       Bundle arguments = new Bundle();
@@ -42,7 +45,7 @@ public class SplashActivity extends AppCompatActivity {
       arguments.putInt(PURSE_KEY, purseInput);
       arguments.putDouble(CREDIT_VALUE_KEY, creditValueInput);
       gameSelectDialog.setArguments(arguments);
-      gameSelectDialog.show(getSupportFragmentManager(), "dialog");
+      gameSelectDialog.show(getSupportFragmentManager(), GAME_SELECT_DIALOG_TAG);
     });
   }
 

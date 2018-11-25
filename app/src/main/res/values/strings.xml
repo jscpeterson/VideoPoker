@@ -8,6 +8,10 @@
   <string name="button_draw">DRAW</string>
   <string name="button_help">HELP</string>
   <string name="button_main">MAIN</string>
+  <string name="change_payout_format">Enter a new value: </string>
+  <string name="exit_dialog_text">Are you sure you would like to quit?</string>
+  <string name="exit_dialog_pos">YES</string>
+  <string name="exit_dialog_neg">NO</string>
   <string name="help_text_full">Use the Bet One or Bet Max buttons to place an initial bet. Once you have placed a bet, you cannot retract your bet. Press the deal button when ready.\n\nFive cards are dealt upon pressing deal. Select the cards you would like to hold by pressing on them. When you are ready to select DRAW, the cards you have not held will be discarded and you will be dealt replacements.\n\nIf the cards you hold after a draw result in a winning hand, credits will be accumulated to your purse according to your bet. At this point, if you have more credits to bet with you can enter another bet before dealing again.</string>
   <string name="help_title">How to play Video Poker</string>
   <string name="not_yet_implemented">Not Yet Implemented</string>

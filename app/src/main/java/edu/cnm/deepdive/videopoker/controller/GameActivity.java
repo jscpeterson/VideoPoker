@@ -1,10 +1,13 @@
 package edu.cnm.deepdive.videopoker.controller;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -150,6 +153,15 @@ public class GameActivity extends AppCompatActivity {
   }
 
   @Override
+  public void onBackPressed() {
+    AlertDialog.Builder exitDialog = new AlertDialog.Builder(this, R.style.alertDialog);
+    exitDialog.setMessage(R.string.exit_dialog_text);
+    exitDialog.setPositiveButton(R.string.exit_dialog_pos, (dialog, which) -> System.exit(0));
+    exitDialog.setNegativeButton(R.string.exit_dialog_neg,  (dialog, which) -> dialog.cancel());
+    exitDialog.show();
+  }
+
+  @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     super.onCreateOptionsMenu(menu);
     getMenuInflater().inflate(R.menu.options, menu);
@@ -166,7 +178,6 @@ public class GameActivity extends AppCompatActivity {
         break;
       case android.R.id.home:
         // Ends the game.
-        // TODO Ask "Are you sure you want to quit?"
         onBackPressed();
         break;
       case R.id.switch_currency_view:
