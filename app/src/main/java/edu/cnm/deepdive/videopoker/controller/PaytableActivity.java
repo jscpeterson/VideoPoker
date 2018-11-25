@@ -1,10 +1,13 @@
 package edu.cnm.deepdive.videopoker.controller;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
+import edu.cnm.deepdive.videopoker.model.entity.Paytable;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 import java.util.List;
 
@@ -22,13 +26,18 @@ public class PaytableActivity extends AppCompatActivity {
 
   private static final String PAYTABLE_ID_KEY = "paytableId";
   private static final String PAYTABLE_NAME_KEY = "paytableNameKey";
+  private long paytableId;
+
+  public long getPaytableId() {
+    return paytableId;
+  }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Bundle extras = getIntent().getExtras();
     setContentView(R.layout.activity_paytable);
-    long paytableId = extras.getLong(PAYTABLE_ID_KEY);
+    paytableId = extras.getLong(PAYTABLE_ID_KEY);
     String paytableName = extras.getString(PAYTABLE_NAME_KEY);
     this.setTitle(paytableName);
     new GetPaytableData().execute(paytableId);
@@ -88,15 +97,17 @@ public class PaytableActivity extends AppCompatActivity {
         bet1View.setText(Integer.toString(hand.getBetOneValue()));
         bet1View.setOnClickListener( (v) -> {
           AlertDialog.Builder changePayoutDialog = new AlertDialog.Builder(PaytableActivity.this, R.style.alert_dialog);
-          EditText editText = new EditText(PaytableActivity.this);
+          EditText editText = new EditText(new ContextThemeWrapper(PaytableActivity.this, R.style.change_payout_edit_text));
           changePayoutDialog.setMessage(String.format(getString(R.string.change_payout_format),
               hand.getName()));
           changePayoutDialog.setView(editText);
           changePayoutDialog.setPositiveButton("Yes", (dialog, whichButton) -> {
-
+            int value = Integer.valueOf(editText.getText().toString());
+            hand.setBetOneValue(value);
+            new ChangePayoutTask().execute(hand);
           });
           changePayoutDialog.setNegativeButton("Nah", (dialog, whichButton) -> {
-
+            dialog.cancel();
           });
           changePayoutDialog.show();
         });
@@ -118,9 +129,11 @@ public class PaytableActivity extends AppCompatActivity {
 
   }
 
-  private class ChangePayout extends AsyncTask<Integer, Void, List<PokerHand>> {
+  private class ChangePayoutTask extends AsyncTask<PokerHand, Void, List<PokerHand>> {
 
     //TODO implement change paytable ability
+
+
 
     @Override
     protected void onPreExecute() {
@@ -128,12 +141,19 @@ public class PaytableActivity extends AppCompatActivity {
     }
 
     @Override
-    protected List<PokerHand> doInBackground(Integer... integers) {
+    protected List<PokerHand> doInBackground(PokerHand... pokerHands) {
+      PokerHand hand = pokerHands[0];
+      PaytableDatabase db = PaytableDatabase.getInstance(getApplicationContext());
+      PokerHandDao dao = db.getPokerHandDao();
+      dao.updateBetOneValue(PaytableActivity.this.getPaytableId(), hand.getName(), hand.getBetOneValue());
       return null;
     }
 
     @Override
     protected void onPostExecute(List<PokerHand> pokerHands) {
+      Intent intent = getIntent();
+      finish();
+      startActivity(intent);
       super.onPostExecute(pokerHands);
     }
 

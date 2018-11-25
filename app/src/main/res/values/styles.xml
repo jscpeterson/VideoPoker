@@ -34,6 +34,7 @@
   <style name="change_payout_edit_text">
     <item name="android:inputType">number</item>
     <item name="android:maxLength">5</item>
+    <item name="android:color">@color/yellow</item>
   </style>
 
   <style name="small_text_view">
