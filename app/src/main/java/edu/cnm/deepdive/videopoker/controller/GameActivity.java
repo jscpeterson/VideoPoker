@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.Converter;
 import edu.cnm.deepdive.videopoker.model.Game;
@@ -30,8 +31,8 @@ public class GameActivity extends AppCompatActivity {
   private static final String PAYTABLE_ID_KEY = "paytableId";
   private static final String PAYTABLE_NAME_KEY = "paytableNameKey";
   private static final String CURRENCY_VIEW_PREF = "viewAsDollars";
-  public static final String DRAWABLE = "drawable";
-  public static final String PACKAGE = "edu.cnm.deepdive.videopoker";
+  private static final String DRAWABLE = "drawable";
+  private static final String PACKAGE = "edu.cnm.deepdive.videopoker";
 
   //EXTRAS
   private long paytableId;
@@ -180,9 +181,14 @@ public class GameActivity extends AppCompatActivity {
       case R.id.view_payout_table:
         intent = new Intent(this, PaytableActivity.class);
         intent.putExtra(PAYTABLE_ID_KEY, paytableId);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         intent.putExtra(PAYTABLE_NAME_KEY, paytableName);
         startActivity(intent);
+        break;
+      case R.id.hand_analysis:
+        Toast.makeText(this, R.string.not_yet_implemented, Toast.LENGTH_SHORT).show();
+        break;
+      case R.id.autoplay:
+        Toast.makeText(this, R.string.not_yet_implemented, Toast.LENGTH_SHORT).show();
         break;
     }
     return handled;
@@ -197,10 +203,6 @@ public class GameActivity extends AppCompatActivity {
     for (CardButton card : cardButtons) {
       card.setEnabled(false);
       card.setChecked(false);
-      card.setOnLongClickListener((v) -> {
-        //TODO change card dialog
-        return true;
-      });
     }
     if (game.getPurse() >= BET_MAX) {
       betMaxButton.setEnabled(true);
@@ -221,7 +223,9 @@ public class GameActivity extends AppCompatActivity {
     drawButton.setEnabled(false);
     betOneButton = findViewById(R.id.bet1_button);
     betMaxButton = findViewById(R.id.bet_max_button);
-    if (game.getPurse() < BET_MAX) betMaxButton.setEnabled(false);
+    if (game.getPurse() < BET_MAX) {
+      betMaxButton.setEnabled(false);
+    }
     cardButtons = new CardButton[]{
         findViewById(R.id.card1),
         findViewById(R.id.card2),
@@ -234,7 +238,11 @@ public class GameActivity extends AppCompatActivity {
       card.setVisibility(View.INVISIBLE);
       card.setEnabled(false);
       card.setOnClickListener((v) -> card.toggle());
-      //TODO Change card ability on long press
+      card.setOnLongClickListener((v) -> {
+        //TODO Open ChangeCardDialog
+        Toast.makeText(this, R.string.not_yet_implemented, Toast.LENGTH_SHORT).show();
+        return true;
+      });
     }
 
     mainButton.setOnClickListener((v) -> {
@@ -260,9 +268,7 @@ public class GameActivity extends AppCompatActivity {
       dealButton.setEnabled(true);
     });
 
-    dealButton.setOnClickListener((v) -> {
-      new DealTask().execute(game.getPlayerHand());
-    });
+    dealButton.setOnClickListener((v) -> new DealTask().execute(game.getPlayerHand()));
 
     drawButton.setOnClickListener((v) -> new DrawTask().execute(game.getPlayerHand()));
   }

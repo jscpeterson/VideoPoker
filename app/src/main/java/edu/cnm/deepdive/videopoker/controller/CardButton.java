@@ -6,8 +6,6 @@ import android.widget.Checkable;
 
 public class CardButton extends android.support.v7.widget.AppCompatImageView implements Checkable {
 
-  //https://stackoverflow.com/questions/33942116/state-checked-doesnt-toggle-imageview-on-and-off/34020870
-
   private boolean checked;
 
   private static final int[] CHECKED_STATE_SET = {

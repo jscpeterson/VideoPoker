@@ -21,6 +21,7 @@
       android:src="@mipmap/ic_spade"
       android:contentDescription="@string/splash_image_content_description"/>
   </LinearLayout>
+  <!--/SPLASH IMAGE ICON-->
 
   <!--SPLASH GAME TITLE-->
   <LinearLayout
@@ -35,6 +36,7 @@
       android:text="@string/splash_title"
       style="@style/textView"/>
   </LinearLayout>
+  <!--/SPLASH GAME TITLE-->
 
   <!-- PURSE EDIT FIELD-->
   <LinearLayout
@@ -43,9 +45,10 @@
     android:gravity="center">
     <TextView
       android:id="@+id/splash_purse_text"
+      android:text="@string/splash_purse"
+      android:labelFor="@id/splash_purse_edit"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/splash_purse"
       style="@style/smallTextView"/>
     <EditText
       android:id="@+id/splash_purse_edit"
@@ -55,6 +58,7 @@
       android:maxLength="4"
       style="@style/smallTextView"/>
   </LinearLayout>
+  <!--/PURSE EDIT FIELD-->
 
   <!--CREDIT VALUE EDIT FIELD-->
   <LinearLayout
@@ -63,9 +67,10 @@
     android:gravity="center">
     <TextView
       android:id="@+id/splash_credit_text"
+      android:text="@string/splash_credits"
+      android:labelFor="@+id/splash_credit_edit"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/splash_credits"
       style="@style/smallTextView"/>
     <EditText
       android:id="@+id/splash_credit_edit"
@@ -75,6 +80,7 @@
       android:maxLength="5"
       style="@style/smallTextView"/>
   </LinearLayout>
+  <!--/CREDIT VALUE EDIT FIELD-->
 
   <!--BUTTON FOR A NEW GAME-->
   <LinearLayout
@@ -89,5 +95,6 @@
       android:layout_gravity="center"
       style="?android:attr/buttonBarButtonStyle"/>
   </LinearLayout>
+  <!--/BUTTON FOR A NEW GAME-->
 
 </LinearLayout>

@@ -27,6 +27,7 @@
       android:id="@+id/card5"
       style="@style/cardStyle"/>
   </LinearLayout>
+  <!--/CARD VIEWS-->
 
   <!--WINNING HAND TEXT VIEW-->
   <LinearLayout
@@ -37,6 +38,7 @@
       android:id="@+id/win_notifier"
       style="@style/winningHandView"/>
   </LinearLayout>
+  <!--/WINNING HAND TEXT VIEW-->
 
   <!--GAME STATE TEXT VIEWS-->
   <LinearLayout
@@ -71,6 +73,7 @@
         style="@style/textView"/>
     </LinearLayout>
   </LinearLayout>
+  <!--/GAME STATE TEXT VIEWS-->
 
   <!--BUTTONS-->
   <LinearLayout
@@ -86,11 +89,11 @@
       <Button
         android:id="@+id/main_button"
        style="@style/button"
-        android:text="@string/main_button_text"/>
+        android:text="@string/button_main"/>
       <Button
         android:id="@+id/help_button"
         style="@style/button"
-        android:text="@string/help_button_text"/>
+        android:text="@string/button_help"/>
     </LinearLayout>
     <LinearLayout
       android:layout_width="0dp"
@@ -100,11 +103,11 @@
       <Button
         android:id="@+id/bet1_button"
         style="@style/button"
-        android:text="@string/bet_one_button_text"/>
+        android:text="@string/button_bet_one"/>
       <Button
         android:id="@+id/bet_max_button"
         style="@style/button"
-        android:text="@string/bet_max_button_text"/>
+        android:text="@string/button_bet_max"/>
     </LinearLayout>
     <LinearLayout
       android:layout_width="0dp"
@@ -114,12 +117,13 @@
       <Button
         android:id="@+id/deal_button"
         style="@style/button"
-        android:text="@string/deal_button_text"/>
+        android:text="@string/button_deal"/>
       <Button
         android:id="@+id/draw_button"
         style="@style/button"
-        android:text="@string/draw_button_text"/>
+        android:text="@string/button_draw"/>
     </LinearLayout>
+    <!--/BUTTONS-->
 
   </LinearLayout>
 

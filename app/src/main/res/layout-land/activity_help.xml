@@ -11,10 +11,7 @@
     android:layout_height="wrap_content"
     style="@style/smallTextView"
     android:padding="24sp"
-    android:text="Use the Bet One or Bet Max buttons to place an initial bet. Once you have placed a bet, you cannot retract your bet. Press the deal button when ready.\n\n
-Five cards are dealt upon pressing deal. Use the options menu to view the paytable. Select the cards you would like to hold by pressing on them. Once you are ready, press the draw button. \n\n
-If the next draw results in a winning hand, credits will be accumulated to your purse according to your bet. At this point, you can enter another bet before dealing again.\n\n
-Pressing the Main button will allow you to return to the launcher screen and select a different game. "
+    android:text="@string/help_text_full"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"/>
 

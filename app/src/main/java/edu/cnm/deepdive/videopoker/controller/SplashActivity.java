@@ -1,11 +1,10 @@
 package edu.cnm.deepdive.videopoker.controller;
 
-import android.app.FragmentManager;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.widget.Button;
 import android.widget.EditText;
 import edu.cnm.deepdive.videopoker.GameApplication;
@@ -14,25 +13,27 @@ import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
 
 public class SplashActivity extends AppCompatActivity {
 
+  //CONSTANTS
   private static final String PURSE_KEY = "purse";
   private static final String CREDIT_VALUE_KEY = "creditValue";
 
+  //FIELDS
   private GameSelectDialog gameSelectDialog;
   private EditText purseEdit;
   private EditText creditValueEdit;
 
+  @SuppressLint("SetTextI18n")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    new Thread(() -> {
-      PaytableDatabase.getInstance(this).getPaytableDao().select();
-    }).start();
+    new Thread(() -> PaytableDatabase.getInstance(this).getPaytableDao().select()).start();
     setContentView(R.layout.activity_splash);
     Button playButton = findViewById(R.id.splash_play_button);
     purseEdit = findViewById(R.id.splash_purse_edit);
     creditValueEdit = findViewById(R.id.splash_credit_edit);
     purseEdit.setText(Integer.toString(50));
-    creditValueEdit.setText(Double.toString(0.25)); //TODO change decimal formatting (right now you can do $5.325)
+    creditValueEdit.setText(
+        Double.toString(0.25)); //TODO change decimal formatting (right now you can do $5.325)
     playButton.setOnClickListener((v) -> {
       gameSelectDialog = new GameSelectDialog();
       Bundle arguments = new Bundle();
@@ -73,7 +74,5 @@ public class SplashActivity extends AppCompatActivity {
           .getPaytableDao().select());
       return null;
     }
-
   }
-
 }

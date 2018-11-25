@@ -11,4 +11,14 @@
     android:title="@string/options_view_payout_table"
     app:showAsAction="never"/>
 
+  <item
+    android:id="@+id/hand_analysis"
+    android:title="@string/options_hand_analysis"
+    app:showAsAction="never" />
+
+  <item
+    android:id="@+id/autoplay"
+    android:title="@string/options_autoplay"
+    app:showAsAction="never" />
+
 </menu>
