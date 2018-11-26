@@ -57,7 +57,6 @@ public abstract class PaytableDatabase extends RoomDatabase {
             }
           })
           .build();
-
     }
     return instance;
   }

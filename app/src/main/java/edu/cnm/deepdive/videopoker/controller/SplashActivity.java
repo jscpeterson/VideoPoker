@@ -11,6 +11,12 @@ import edu.cnm.deepdive.videopoker.GameApplication;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
 
+/**
+ * This is the launcher screen activity that opens when the user opens the app. The app will
+ * call the PaytableDatabase to populate if it does not exist yet. The user chooses options for a
+ * new game from here, providing values for the purse and credit values. When the user selects
+ * "Play!" it will open the GameSelectDialog.
+ */
 public class SplashActivity extends AppCompatActivity {
 
   //CONSTANTS
@@ -57,10 +63,18 @@ public class SplashActivity extends AppCompatActivity {
     }
   }
 
+  /**
+   * This method is called from the PaytableDatabase to confirm that the database does not need to
+   * be created, and data can be extracted from it.
+   */
   public void ready() {
     new SetupTask(this).execute();
   }
 
+  /**
+   * This asynchronous task sends information about the database to the GameApplication for local
+   * use. It is called from the ready method within the PaytableDatabase class.
+   */
   private static class SetupTask extends AsyncTask<Void, Void, Void> {
 
     GameApplication instance = GameApplication.getInstance();
@@ -72,7 +86,6 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected Void doInBackground(Void... voids) {
-      //do something with the database to initialize it
       instance.setLocalDb(PaytableDatabase.getInstance(context.getApplicationContext())
           .getPaytableDao().select());
       return null;

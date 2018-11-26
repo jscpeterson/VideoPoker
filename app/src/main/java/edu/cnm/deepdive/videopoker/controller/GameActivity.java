@@ -21,6 +21,15 @@ import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 import java.security.SecureRandom;
 
+/**
+ * This is the primary activity for the application where the user can play the Video Poker game
+ * they have selected. When the user selects Back from this screen, they will be prompted to exit
+ * the program. The user can select a new game from the MAIN button on this screen. The user can
+ * bet, deal, or draw as long as they have enough credits in their purse to continue playing. If
+ * there are zero credits or the credit value passed in is zero the game will display "Game Over"
+ * and only allow the user to navgiate off of the activity. The status of the purse is held in the
+ * Game class.
+ */
 public class GameActivity extends AppCompatActivity {
 
   //CONSTANTS
@@ -63,6 +72,10 @@ public class GameActivity extends AppCompatActivity {
   private Converter converter = new Converter();
   private SharedPreferences sharedPref;
 
+  /**
+   * This method provides functionality for the Bet One button. It is available as long as there are
+   * credits in the Game purse and the user has not hit the maximum bet.
+   */
   private void betOne() {
     if (game.getBet() < BET_MAX) {
       game.setBet(game.getBet() + 1);
@@ -74,6 +87,11 @@ public class GameActivity extends AppCompatActivity {
     betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
   }
 
+  /**
+   * This method provides functionality for the Bet Max button. The maximum bet is assumed to be
+   * five. The button is available as long as there are at least five credits in the game purse to
+   * maximize the bet with and the user has not placed any bet yet.
+   */
   private void betMax() {
     game.setBet(BET_MAX);
     betOneButton.setEnabled(false);
@@ -81,6 +99,10 @@ public class GameActivity extends AppCompatActivity {
     betView.setText(getBetString(game.getBet(), game.getCreditValue(), viewAsDollars));
   }
 
+  /**
+   * This method displays the result of a winning hand to the user and accumulates the win into
+   * the Game purse.
+   */
   private void collectWinnings() {
     // TODO Slow point accumulation for an "animated" win
     winningHandView.setText(game.getPlayerHand().getBestHand().getName());
@@ -92,6 +114,11 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
+  /**
+   * This method retrieves the drawable resource corresponding to the a card within the player's
+   * hand.
+   * @param index the index of the card in the player's hand.
+   */
   private void displayCard(int index) {
     String resourceId = game.getPlayerHand().get(index).getResourceId();
     int identifier = getResources()
@@ -99,6 +126,10 @@ public class GameActivity extends AppCompatActivity {
     cardButtons[index].setImageResource(identifier);
   }
 
+  /**
+   * This method disables all gameplay buttons and displays Game Over text to indicate the end
+   * of the game.
+   */
   private void gameOver() {
     winningHandView.setText(R.string.purse_empty_text);
     betOneButton.setEnabled(false);
@@ -107,6 +138,15 @@ public class GameActivity extends AppCompatActivity {
     drawButton.setEnabled(false);
   }
 
+  /**
+   * This method formats the "WIN" string (referring to the number credits won from a winning hand,
+   * not the name of the winning hand) to be passed into an appropriate text view.
+   * @param win the amount of credits won.
+   * @param creditValue the monetary value of each credit.
+   * @param viewAsDollars the state of the "viewAsDollars" flag to designate which display format
+   * to use.
+   * @return a formatted String to display the state to the user.
+   */
   private String getWinString(int win, double creditValue, boolean viewAsDollars) {
     if (viewAsDollars) {
       return getString(R.string.win_text_dollar_format, (double) win * creditValue);
@@ -115,6 +155,14 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
+  /**
+   * This method formats the "CREDITS" string to be passed into an appropriate text view.
+   * @param purse the amount of credits in the purse.
+   * @param creditValue the monetary value of each credit.
+   * @param viewAsDollars the state of the "viewAsDollars" flag to designate which display format
+   * to use.
+   * @return a formatted String to display the state to the user.
+   */
   private String getPurseString(int purse, double creditValue, boolean viewAsDollars) {
     if (viewAsDollars) {
       return getString(R.string.purse_text_dollar_format, (double) purse * creditValue);
@@ -122,6 +170,14 @@ public class GameActivity extends AppCompatActivity {
     return getString(R.string.purse_text_credits_format, purse);
   }
 
+  /**
+   * This method formats the "BET" string to be passed into an appropriate text view.
+   * @param bet the amount of credits in the bet.
+   * @param creditValue the monetary value of each credit.
+   * @param viewAsDollars the state of the "viewAsDollars" flag to designate which display format
+   * to use.
+   * @return a formatted String to display the state to the user.
+   */
   private String getBetString(int bet, double creditValue, boolean viewAsDollars) {
     if (viewAsDollars) {
       return getString(R.string.bet_text_dollar_format, (double) bet * creditValue);
@@ -150,6 +206,10 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
+  /**
+   * Pressing the back button from this screen opens a dialog to confirm that the user would like
+   * to exit the application.
+   */
   @Override
   public void onBackPressed() {
     AlertDialog.Builder exitDialog = new AlertDialog.Builder(this, R.style.alert_dialog);
@@ -203,6 +263,11 @@ public class GameActivity extends AppCompatActivity {
     return handled;
   }
 
+  /**
+   * This method is called upon the completion of a draw and sets the buttons and TextViews to an
+   * appropriate state for the user to continue playing based on the number of credits still
+   * available.
+   */
   private void resetGame() {
     game.getPlayerHand().setBestHand(null);
     game.setBet(0);
@@ -223,6 +288,10 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
+  /**
+   * This method initializes the buttons and listeners for the activity and sets their status to
+   * the initial state of the game.
+   */
   private void setupButtons() {
     mainButton = findViewById(R.id.main_button);
     helpButton = findViewById(R.id.help_button);
@@ -253,7 +322,6 @@ public class GameActivity extends AppCompatActivity {
         return true;
       });
     }
-
     mainButton.setOnClickListener((v) -> {
       // Returns the main screen to the user but does not end the game unless the user selects
       // a new game.
@@ -261,27 +329,25 @@ public class GameActivity extends AppCompatActivity {
       intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
       startActivity(intent);
     });
-
     helpButton.setOnClickListener((v) -> {
       Intent intent = new Intent(this, HelpActivity.class);
       startActivity(intent);
     });
-
     betOneButton.setOnClickListener((v) -> {
       betOne();
       dealButton.setEnabled(true);
     });
-
     betMaxButton.setOnClickListener((v) -> {
       betMax();
       dealButton.setEnabled(true);
     });
-
     dealButton.setOnClickListener((v) -> new DealTask().execute(game.getPlayerHand()));
-
     drawButton.setOnClickListener((v) -> new DrawTask().execute(game.getPlayerHand()));
   }
 
+  /**
+   * This method initializes the TextViews for the activity.
+   */
   private void setupTextViews() {
     winningHandView = findViewById(R.id.win_notifier);
     winView = findViewById(R.id.win_view);
@@ -295,7 +361,9 @@ public class GameActivity extends AppCompatActivity {
   }
 
   /**
-   * Asynchronous task for the first card deal and evaluation of any potential winning hand.
+   * Asynchronous task for the first deck shuffle and card deal. Accepts a PlayerHand as a
+   * parameter to deal to.  database accessed for the evaluation of any potential winning hand.
+   * Prepares the UI for the "Draw" state on completion.
    */
   private class DealTask extends AsyncTask<PlayerHand, Void, Void> {
 
@@ -349,7 +417,10 @@ public class GameActivity extends AppCompatActivity {
   }
 
   /**
-   * Asynchronous task for the subsequent card draw, winnings evaluated and game reset.
+   * Asynchronous task for the subsequent card draw. Accepts a PlayerHand to evaluate, cards are
+   * dealt from the deck to replace any cards that are not checked as held. The resulting hand is
+   * evaluated against the database. Once evaluated, the game updates with any win, and the UI is
+   * set to allow the user to continue playing if they still have credits to bet.
    */
   private class DrawTask extends AsyncTask<PlayerHand, Void, Void> {
 

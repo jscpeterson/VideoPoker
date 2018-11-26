@@ -16,6 +16,11 @@ import edu.cnm.deepdive.videopoker.model.entity.Paytable;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * This DialogFragment opens from the SplashActivity and provides a list of games in the database
+ * for the user to select from. It does not directly interact with the database, it assumes that
+ * local data has already been provided in GameApplication.
+ */
 public class GameSelectDialog extends DialogFragment {
 
   //CONSTANTS

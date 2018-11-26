@@ -5,6 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import edu.cnm.deepdive.videopoker.R;
 
+/**
+ * This class simply displays information about how to play the game to the user. There is very
+ * little interactivity, once the user is done reading they can press back on their menu bar or on
+ * their device to return tot he game.
+ */
 public class HelpActivity extends AppCompatActivity {
 
   @Override
