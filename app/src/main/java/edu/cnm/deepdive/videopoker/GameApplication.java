@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.videopoker;
 
 import android.app.Application;
-import com.facebook.stetho.Stetho;
 import edu.cnm.deepdive.videopoker.model.entity.Paytable;
 import java.util.List;
 
@@ -14,7 +13,6 @@ public class GameApplication extends Application {
   public void onCreate() {
     super.onCreate();
     instance = this;
-    Stetho.initializeWithDefaults(this);
   }
 
   static public GameApplication getInstance() {
