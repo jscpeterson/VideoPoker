@@ -20,6 +20,12 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+/**
+ * This is the master database class to contain the rules of multiple Video Poker games and their
+ * payouts. Default values are stored in CSV files in res/raw. The user can edit the database and
+ * restore these values from the PaytableActivity. CSV files must list the hands of a game in order
+ * and correspond with the order of the games listed in the games.csv file.
+ */
 @Database(
   entities = {Paytable.class, PokerHand.class},
   version = 1,
@@ -27,6 +33,7 @@ import org.apache.commons.csv.CSVRecord;
 )
 public abstract class PaytableDatabase extends RoomDatabase {
 
+  //CONSTANTS
   private static final String DB_NAME = "PaytableDatabase";
   private static final int INDEX_GAME_NAME = 0;
   private static final int INDEX_HAND_NAME = 1;
@@ -37,9 +44,15 @@ public abstract class PaytableDatabase extends RoomDatabase {
   private static PaytableDatabase instance = null;
   
   public abstract PokerHandDao getPokerHandDao();
-
   public abstract PaytableDao getPaytableDao();
 
+  /**
+   * This retrieves the instance of this database. If it has not been created yet, it will call the
+   * SetupTask to populate the database. If it already has been created, a method will be called in
+   * the launcher activity to confirm tha it is ready for usage.
+   * @param context the context of this database.
+   * @return a completed database for usage.
+   */
   public static PaytableDatabase getInstance(Context context) {
     if (instance == null) {
       instance = Room.databaseBuilder(context.getApplicationContext(), PaytableDatabase.class, DB_NAME)
@@ -61,6 +74,12 @@ public abstract class PaytableDatabase extends RoomDatabase {
     return instance;
   }
 
+  /**
+   * This asynchronous task populates the database with values from the CSV resources. If an IO
+   * exception is thrown when trying to access the files it will output a message to the console.
+   * After it has completed it will call a method in the launcher activity to confirm that it is
+   * ready for usage.
+   */
   private static class SetupTask extends AsyncTask<Void, Void, Void> {
 
     private Context context;

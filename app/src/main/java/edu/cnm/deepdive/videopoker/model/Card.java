@@ -1,16 +1,19 @@
 package edu.cnm.deepdive.videopoker.model;
 
-import java.util.Hashtable;
-import java.util.Map;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This class represents a playing card in a deck or a hand. It has a Rank and a Suit value
+ * associated with it, and uses the unicode values associated with this rank when it needs to be
+ * displayed as a string. This class can alternatively retrieve a drawable resource to be used by
+ * a controller class to display to the user.
+ */
 public class Card implements Comparable <Card>{
 
   private Rank rank;
   private Suit suit;
   private boolean held = false;
-
 
   /**
    * @param rank the Rank value of the card to be created.
@@ -21,10 +24,16 @@ public class Card implements Comparable <Card>{
     this.suit = suit;
   }
 
+  /**
+   * @return this card's rank value.
+   */
   Rank getRank() {
     return rank;
   }
 
+  /**
+   * @return this card's suit value.
+   */
   Suit getSuit() {
     return suit;
   }

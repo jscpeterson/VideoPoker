@@ -32,7 +32,10 @@ public class Deck extends Stack<Card> {
       }
     }
 
-    public void shuffle() {
+  /**
+   * Shuffles the deck according to the Random object held in this class.
+   */
+  public void shuffle() {
       Collections.shuffle(this, rng);
     }
 
@@ -61,7 +64,10 @@ public class Deck extends Stack<Card> {
       }
     }
 
-    int getSize() {
+  /**
+   * @return the size of this deck.
+   */
+  int getSize() {
       return this.size();
     }
 

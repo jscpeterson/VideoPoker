@@ -13,13 +13,17 @@ public enum Suit {
   private Color color;
   private char symbol;
 
+  /**
+   * Constructor for the suit accepts a color and a symbol.
+   * @param color the color associated with the suit.
+   * @param symbol the unicode symbol to refer to the suit by.
+   */
   Suit(Color color, char symbol) {
     this.color = color;
     this.symbol = symbol;
   }
 
   /**
-   * Suit colors are not needed in many variants of draw poker, but included for comprehension
    * @return the color BLACK or RED for the suit.
    */
   public Color getColor() {
@@ -34,10 +38,11 @@ public enum Suit {
   }
 
   /**
-   * A store of the color state of the suit in BLACK or RED.
+   * A store of the color state of the suit in BLACK or RED. Suit colors are not needed in many
+   * variants of draw poker, but included for comprehension.
    */
   public enum Color {
-    BLACK, RED;
+    BLACK, RED
   }
 
 }

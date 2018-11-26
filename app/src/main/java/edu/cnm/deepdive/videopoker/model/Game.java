@@ -1,6 +1,5 @@
 package edu.cnm.deepdive.videopoker.model;
 
-import java.security.SecureRandom;
 import java.util.Random;
 
 /**
@@ -35,48 +34,74 @@ public class Game {
     this.playerHand = deck.deal(HAND_SIZE);
   }
 
+  /**
+   * @return the deck used in the game in its current state.
+   */
   public Deck getDeck() {
     return deck;
   }
 
+  /**
+   * @return the player's hand used in the game in its current state.
+   */
   public PlayerHand getPlayerHand() {
     return playerHand;
   }
 
+  /**
+   * @param playerHand a new hand to assign to the hand currently used in the game.
+   */
   public void setPlayerHand(PlayerHand playerHand) {
     this.playerHand = playerHand;
   }
 
+  /**
+   * @return the monetary value of a credit in the current game.
+   */
   public double getCreditValue() {
     return creditValue;
   }
 
+  /**
+   * @return the current number of credits in the game.
+   */
   public int getPurse() {
     return purse;
   }
 
+  /**
+   * @param purse the number of credits to change the purse to.
+   */
   public void setPurse(int purse) {
     this.purse = purse;
   }
 
+  /**
+   * @return the current bet.
+   */
   public int getBet() {
     return bet;
   }
 
+  /**
+   * @param bet the bet to store in the class.
+   */
   public void setBet(int bet) {
     this.bet = bet;
   }
 
+  /**
+   * @return the amount won in a game.
+   */
   public int getWin() {
     return win;
   }
 
+  /**
+   * @param win the amount to assign to the win value of the game.
+   */
   public void setWin(int win) {
     this.win = win;
-  }
-
-  public void addWinToPurse() {
-    this.purse += this.win;
   }
 
 }

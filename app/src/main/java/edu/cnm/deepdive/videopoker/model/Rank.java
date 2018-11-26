@@ -22,6 +22,11 @@ public enum Rank {
   private int value;
   private String symbol;
 
+  /**
+   * Constructor for the rank accepts a numeric value and a unicode symbol.
+   * @param value the numeric value of the rank.
+   * @param symbol the single character symbol to represent the rank.
+   */
   Rank(int value, String symbol) {
     this.value = value;
     this.symbol = symbol;

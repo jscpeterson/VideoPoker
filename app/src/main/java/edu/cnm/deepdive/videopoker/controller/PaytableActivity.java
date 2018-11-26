@@ -221,7 +221,8 @@ public class PaytableActivity extends AppCompatActivity {
 
   /**
    * This asynchronous task reverts the payouts for the specific game to their default values as
-   * defined in the CSV resources. The onPostExecute refreshes the activity.
+   * defined in the CSV resources. The onPostExecute refreshes the activity. If an IO exception is
+   * thrown when trying to access the file it will output a message to the console.
    */
   private class ResetDefaultsTask extends AsyncTask<Void, Void, Void> {
 
