@@ -40,7 +40,6 @@ The only external services this app consumes are CSV files to read into a local 
 
 ### Cosmetic stretch goals
 *A list of aesthetic/cosmetic (not functional) improvements that you think would improve your app. This list should be ordered, with those that would give the most improvement (in your opinion) listed first.*
-* Default button backgrounds are ugly.
 * Timer to show the win accumulated rather than immediately changed. 
 * Sound effects on win.
 * Animation to show cards flip over individually on deal and draw.
