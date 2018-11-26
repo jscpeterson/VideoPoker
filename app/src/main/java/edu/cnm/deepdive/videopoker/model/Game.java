@@ -13,16 +13,35 @@ public class Game {
   //CONSTANTS
   private static final int HAND_SIZE = 5;
 
+  /**
+   * The deck in play for the game.
+   */
   private Deck deck;
+  /**
+   * The user's hand in play for the game.
+   */
   private PlayerHand playerHand;
+  /**
+   * The monetary value of a credit.
+   */
   private double creditValue;
+  /**
+   * The amount of credits in the purse.
+   */
   private int purse;
+  /**
+   * The current bet in play.
+   */
   private int bet = 0;
+  /**
+   * The amount of credits last won from a game.
+   */
   private int win = 0;
 
   /**
    * Creation of the game object sets the credits and their worth, creates a deck based on the
    * Random object given, and deals from that deck to a new hand.
+   *
    * @param purse the amount of credits to start playing with.
    * @param creditValue the monetary worth of each credit, assumed to be in US dollars.
    * @param rng the random number generation object to be passed into the deck for shuffling.

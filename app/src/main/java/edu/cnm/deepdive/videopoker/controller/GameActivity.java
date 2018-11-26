@@ -45,31 +45,78 @@ public class GameActivity extends AppCompatActivity {
   private static final String PACKAGE = "edu.cnm.deepdive.videopoker";
 
   //EXTRAS
+  /**
+   * The ID of the paytable being used for the current game.
+   */
   private long paytableId;
+  /**
+   * The name of the game currently being played.
+   */
   private String paytableName;
 
   //BUTTONS
-  private Button mainButton;
-  private Button helpButton;
+  /**
+   * The "Deal" button.
+   */
   private Button dealButton;
+  /**
+   * The "Draw" button.
+   */
   private Button drawButton;
+  /**
+   * A button to accumulate the user's bet by one.
+   */
   private Button betOneButton;
+  /**
+   * A button to maximize the user's bet. (note: maximum bet is five)
+   */
   private Button betMaxButton;
+  /**
+   * An array of buttons to display the cards in the user's hand.
+   */
   private CardButton[] cardButtons;
 
   //FLAGS
+  /**
+   * A flag to indicate that the game is in it's initial state and there has not been a deal yet.
+   * Initialized as a field intentionally.
+   */
   private boolean firstDeal = true;
+  /**
+   * A flag to specify the display in credit view or currency view.
+   */
   private boolean viewAsDollars;
 
   //TEXT VIEWS
+  /**
+   * A text view to display the name of a winning hand to the user, or any other important message.
+   */
   private TextView winningHandView;
+  /**
+   * A text view to display the amount of credits won on a successful game.
+   */
   private TextView winView;
+  /**
+   * A text view to display the user's current bet.
+   */
   private TextView betView;
+  /**
+   * A text view to display the number of credits the user is currently playing with.
+   */
   private TextView purseView;
 
   //OBJECTS
+  /**
+   * A class to hold information about the game, such as the purse, deck, and hand.
+   */
   private Game game;
+  /**
+   * The converter class used to parse rule sequences from the database.
+   */
   private Converter converter = new Converter();
+  /**
+   * Shared preferences for the application.
+   */
   private SharedPreferences sharedPref;
 
   /**
@@ -100,8 +147,8 @@ public class GameActivity extends AppCompatActivity {
   }
 
   /**
-   * This method displays the result of a winning hand to the user and accumulates the win into
-   * the Game purse.
+   * This method displays the result of a winning hand to the user and accumulates the win into the
+   * Game purse.
    */
   private void collectWinnings() {
     // TODO Slow point accumulation for an "animated" win
@@ -117,6 +164,7 @@ public class GameActivity extends AppCompatActivity {
   /**
    * This method retrieves the drawable resource corresponding to the a card within the player's
    * hand.
+   *
    * @param index the index of the card in the player's hand.
    */
   private void displayCard(int index) {
@@ -127,8 +175,8 @@ public class GameActivity extends AppCompatActivity {
   }
 
   /**
-   * This method disables all gameplay buttons and displays Game Over text to indicate the end
-   * of the game.
+   * This method disables all gameplay buttons and displays Game Over text to indicate the end of
+   * the game.
    */
   private void gameOver() {
     winningHandView.setText(R.string.purse_empty_text);
@@ -141,10 +189,11 @@ public class GameActivity extends AppCompatActivity {
   /**
    * This method formats the "WIN" string (referring to the number credits won from a winning hand,
    * not the name of the winning hand) to be passed into an appropriate text view.
+   *
    * @param win the amount of credits won.
    * @param creditValue the monetary value of each credit.
-   * @param viewAsDollars the state of the "viewAsDollars" flag to designate which display format
-   * to use.
+   * @param viewAsDollars the state of the "viewAsDollars" flag to designate which display format to
+   * use.
    * @return a formatted String to display the state to the user.
    */
   private String getWinString(int win, double creditValue, boolean viewAsDollars) {
@@ -157,10 +206,11 @@ public class GameActivity extends AppCompatActivity {
 
   /**
    * This method formats the "CREDITS" string to be passed into an appropriate text view.
+   *
    * @param purse the amount of credits in the purse.
    * @param creditValue the monetary value of each credit.
-   * @param viewAsDollars the state of the "viewAsDollars" flag to designate which display format
-   * to use.
+   * @param viewAsDollars the state of the "viewAsDollars" flag to designate which display format to
+   * use.
    * @return a formatted String to display the state to the user.
    */
   private String getPurseString(int purse, double creditValue, boolean viewAsDollars) {
@@ -172,10 +222,11 @@ public class GameActivity extends AppCompatActivity {
 
   /**
    * This method formats the "BET" string to be passed into an appropriate text view.
+   *
    * @param bet the amount of credits in the bet.
    * @param creditValue the monetary value of each credit.
-   * @param viewAsDollars the state of the "viewAsDollars" flag to designate which display format
-   * to use.
+   * @param viewAsDollars the state of the "viewAsDollars" flag to designate which display format to
+   * use.
    * @return a formatted String to display the state to the user.
    */
   private String getBetString(int bet, double creditValue, boolean viewAsDollars) {
@@ -207,15 +258,15 @@ public class GameActivity extends AppCompatActivity {
   }
 
   /**
-   * Pressing the back button from this screen opens a dialog to confirm that the user would like
-   * to exit the application.
+   * Pressing the back button from this screen opens a dialog to confirm that the user would like to
+   * exit the application.
    */
   @Override
   public void onBackPressed() {
     AlertDialog.Builder exitDialog = new AlertDialog.Builder(this, R.style.alert_dialog);
     exitDialog.setMessage(R.string.exit_dialog_text);
     exitDialog.setPositiveButton(R.string.exit_dialog_pos, (dialog, which) -> System.exit(0));
-    exitDialog.setNegativeButton(R.string.exit_dialog_neg,  (dialog, which) -> dialog.cancel());
+    exitDialog.setNegativeButton(R.string.exit_dialog_neg, (dialog, which) -> dialog.cancel());
     exitDialog.show();
   }
 
@@ -289,12 +340,12 @@ public class GameActivity extends AppCompatActivity {
   }
 
   /**
-   * This method initializes the buttons and listeners for the activity and sets their status to
-   * the initial state of the game.
+   * This method initializes the buttons and listeners for the activity and sets their status to the
+   * initial state of the game.
    */
   private void setupButtons() {
-    mainButton = findViewById(R.id.main_button);
-    helpButton = findViewById(R.id.help_button);
+    Button mainButton = findViewById(R.id.main_button);
+    Button helpButton = findViewById(R.id.help_button);
     dealButton = findViewById(R.id.deal_button);
     dealButton.setEnabled(false);
     drawButton = findViewById(R.id.draw_button);
@@ -361,9 +412,9 @@ public class GameActivity extends AppCompatActivity {
   }
 
   /**
-   * Asynchronous task for the first deck shuffle and card deal. Accepts a PlayerHand as a
-   * parameter to deal to.  database accessed for the evaluation of any potential winning hand.
-   * Prepares the UI for the "Draw" state on completion.
+   * Asynchronous task for the first deck shuffle and card deal. Accepts a PlayerHand as a parameter
+   * to deal to.  database accessed for the evaluation of any potential winning hand. Prepares the
+   * UI for the "Draw" state on completion.
    */
   private class DealTask extends AsyncTask<PlayerHand, Void, Void> {
 

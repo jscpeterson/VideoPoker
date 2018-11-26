@@ -27,8 +27,8 @@ import org.apache.commons.csv.CSVRecord;
  * and correspond with the order of the games listed in the games.csv file.
  */
 @Database(
-  entities = {Paytable.class, PokerHand.class},
-  version = 1,
+    entities = {Paytable.class, PokerHand.class},
+    version = 1,
     exportSchema = true
 )
 public abstract class PaytableDatabase extends RoomDatabase {
@@ -41,21 +41,27 @@ public abstract class PaytableDatabase extends RoomDatabase {
   private static final int INDEX_BET_ONE_VALUE = 3;
   private static final int INDEX_OVERLOADED_PARAM = 4;
 
+  /**
+   * The current instance of this database.
+   */
   private static PaytableDatabase instance = null;
-  
+
   public abstract PokerHandDao getPokerHandDao();
+
   public abstract PaytableDao getPaytableDao();
 
   /**
    * This retrieves the instance of this database. If it has not been created yet, it will call the
    * SetupTask to populate the database. If it already has been created, a method will be called in
    * the launcher activity to confirm tha it is ready for usage.
+   *
    * @param context the context of this database.
    * @return a completed database for usage.
    */
   public static PaytableDatabase getInstance(Context context) {
     if (instance == null) {
-      instance = Room.databaseBuilder(context.getApplicationContext(), PaytableDatabase.class, DB_NAME)
+      instance = Room
+          .databaseBuilder(context.getApplicationContext(), PaytableDatabase.class, DB_NAME)
           .addCallback(new Callback() {
             @Override
             public void onCreate(@NonNull SupportSQLiteDatabase db) {

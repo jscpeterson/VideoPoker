@@ -6,10 +6,10 @@ import android.widget.Checkable;
 
 /**
  * This button represents a playing card in a hand. It is a custom Button object based on an
- * ImageView that implements behavior of the Checkable class. While active, the user can toggle
- * this button to be checked (held) or unchecked and will update the drawable state. Drawable
- * resources are not actually retrieved here, this class primarily handles the functionality for
- * the toggle feature.
+ * ImageView that implements behavior of the Checkable class. While active, the user can toggle this
+ * button to be checked (held) or unchecked and will update the drawable state. Drawable resources
+ * are not actually retrieved here, this class primarily handles the functionality for the toggle
+ * feature.
  */
 public class CardButton extends android.support.v7.widget.AppCompatImageView implements Checkable {
 
@@ -17,6 +17,9 @@ public class CardButton extends android.support.v7.widget.AppCompatImageView imp
       android.R.attr.state_checked
   };
 
+  /**
+   * The status of the "checked" toggle.
+   */
   private boolean checked;
 
   @Override
@@ -66,6 +69,7 @@ public class CardButton extends android.support.v7.widget.AppCompatImageView imp
   /**
    * Sets the checked flag to a desired state if it is not already in that state, and refreshes the
    * drawable view if not.
+   *
    * @param checked the intended state of the "checked" flag.
    */
   public void setChecked(boolean checked) {

@@ -19,11 +19,18 @@ public enum Rank {
   QUEEN(12, "Q"),
   KING(13, "K");
 
+  /**
+   * The numeric value of the rank.
+   */
   private int value;
+  /**
+   * The single character symbol to represent the rank.
+   */
   private String symbol;
 
   /**
    * Constructor for the rank accepts a numeric value and a unicode symbol.
+   *
    * @param value the numeric value of the rank.
    * @param symbol the single character symbol to represent the rank.
    */
@@ -40,8 +47,8 @@ public enum Rank {
   }
 
   /**
-   * @return the symbol representation of the card. This is required to be a single character, so
-   * 10 is represented as T.
+   * @return the symbol representation of the card. This is required to be a single character, so 10
+   * is represented as T.
    */
   public String getSymbol() {
     //TODO Change to char?

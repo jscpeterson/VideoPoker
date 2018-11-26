@@ -31,6 +31,6 @@ public class HelpActivity extends AppCompatActivity {
       onBackPressed();
       return true;
     }
-    return(super.onOptionsItemSelected(item));
+    return (super.onOptionsItemSelected(item));
   }
 }

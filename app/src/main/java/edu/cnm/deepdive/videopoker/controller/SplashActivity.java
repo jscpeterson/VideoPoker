@@ -12,10 +12,10 @@ import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
 
 /**
- * This is the launcher screen activity that opens when the user opens the app. The app will
- * call the PaytableDatabase to populate if it does not exist yet. The user chooses options for a
- * new game from here, providing values for the purse and credit values. When the user selects
- * "Play!" it will open the GameSelectDialog.
+ * This is the launcher screen activity that opens when the user opens the app. The app will call
+ * the PaytableDatabase to populate if it does not exist yet. The user chooses options for a new
+ * game from here, providing values for the purse and credit values. When the user selects "Play!"
+ * it will open the GameSelectDialog.
  */
 public class SplashActivity extends AppCompatActivity {
 
@@ -27,8 +27,17 @@ public class SplashActivity extends AppCompatActivity {
   private static final String GAME_SELECT_DIALOG_TAG = "dialog";
 
   //FIELDS
+  /**
+   * Dialog fragment to open when the user selects Play.
+   */
   private GameSelectDialog gameSelectDialog;
+  /**
+   * Editable text field for credits.
+   */
   private EditText purseEdit;
+  /**
+   * Editable text field for credit value.
+   */
   private EditText creditValueEdit;
 
   @SuppressLint("SetTextI18n")

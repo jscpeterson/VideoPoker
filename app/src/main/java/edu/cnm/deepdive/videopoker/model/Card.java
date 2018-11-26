@@ -6,14 +6,19 @@ import org.jetbrains.annotations.NotNull;
 /**
  * This class represents a playing card in a deck or a hand. It has a Rank and a Suit value
  * associated with it, and uses the unicode values associated with this rank when it needs to be
- * displayed as a string. This class can alternatively retrieve a drawable resource to be used by
- * a controller class to display to the user.
+ * displayed as a string. This class can alternatively retrieve a drawable resource to be used by a
+ * controller class to display to the user.
  */
-public class Card implements Comparable <Card>{
+public class Card implements Comparable<Card> {
 
+  /**
+   * The rank of a card.
+   */
   private Rank rank;
+  /**
+   * The suit of a card.
+   */
   private Suit suit;
-  private boolean held = false;
 
   /**
    * @param rank the Rank value of the card to be created.
@@ -41,6 +46,7 @@ public class Card implements Comparable <Card>{
   /**
    * Overridden toString to display the symbol values of Rank and Suit, respectively. Suit symbols
    * may not appear correctly on all fonts.
+   *
    * @return a String such as "A♠"
    */
   @Override
@@ -48,12 +54,12 @@ public class Card implements Comparable <Card>{
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append(rank.getSymbol());
     stringBuilder.append(suit.getSymbol());
-    if (held) stringBuilder.append('*');
     return stringBuilder.toString();
   }
 
   /**
    * Retrieve a filename for a drawable resource.
+   *
    * @return a String that corresponds to a resource in res/drawable.
    */
   public String getResourceId() {

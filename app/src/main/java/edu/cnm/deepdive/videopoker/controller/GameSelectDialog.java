@@ -48,7 +48,8 @@ public class GameSelectDialog extends DialogFragment {
       intent.putExtra(PURSE_KEY, arguments.getInt(PURSE_KEY));
       intent.putExtra(CREDIT_VALUE_KEY, arguments.getDouble(CREDIT_VALUE_KEY));
       intent.putExtra(PAYTABLE_ID_KEY, (long) position + 1);
-      intent.putExtra(PAYTABLE_NAME_KEY, GameApplication.getInstance().getLocalDb().get(position).getName());
+      intent.putExtra(PAYTABLE_NAME_KEY,
+          GameApplication.getInstance().getLocalDb().get(position).getName());
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
       startActivity(intent);
     });

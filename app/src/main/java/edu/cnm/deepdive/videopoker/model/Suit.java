@@ -3,6 +3,7 @@ package edu.cnm.deepdive.videopoker.model;
 /**
  * This class represents the suit value in the order Clubs, Diamonds, Hearts, Spades. These are
  * assigned with a color for the suit of BLACK or RED and the unicode symbol representing the suit.
+ * Suit colors are not needed in many variants of draw poker, but included for comprehension.
  */
 public enum Suit {
   CLUBS(Color.BLACK, '\u2663'),
@@ -10,13 +11,21 @@ public enum Suit {
   HEARTS(Color.RED, '\u2661'),
   SPADES(Color.BLACK, '\u2660');
 
+  /**
+   * The color of the suit. Suit colors are not needed in many variants of draw poker, but included
+   * for comprehension.
+   */
   private Color color;
+  /**
+   * The unicode symbol to refer to the suit by. Not all fonts may support.
+   */
   private char symbol;
 
   /**
    * Constructor for the suit accepts a color and a symbol.
+   *
    * @param color the color associated with the suit.
-   * @param symbol the unicode symbol to refer to the suit by.
+   * @param symbol the unicode symbol to refer to the suit by. Not all fonts may support.
    */
   Suit(Color color, char symbol) {
     this.color = color;
@@ -24,7 +33,8 @@ public enum Suit {
   }
 
   /**
-   * @return the color BLACK or RED for the suit.
+   * @return the color BLACK or RED for the suit. Suit colors are not needed in many variants of
+   * draw poker, but included for comprehension.
    */
   public Color getColor() {
     return color;

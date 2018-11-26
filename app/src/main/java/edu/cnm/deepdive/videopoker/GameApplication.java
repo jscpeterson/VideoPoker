@@ -9,7 +9,13 @@ import java.util.List;
  */
 public class GameApplication extends Application {
 
+  /**
+   * The instance of this application.
+   */
   static private GameApplication instance;
+  /**
+   * A list of paytables to refer to locally without accessing the actual database.
+   */
   private List<Paytable> localDb;
 
   @Override
@@ -33,7 +39,7 @@ public class GameApplication extends Application {
   }
 
   /**
-   * @param localDb a list of paytables from the database to be recorded locally. 
+   * @param localDb a list of paytables from the database to be recorded locally.
    */
   public void setLocalDb(List<Paytable> localDb) {
     this.localDb = localDb;

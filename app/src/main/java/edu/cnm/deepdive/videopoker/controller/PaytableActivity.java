@@ -43,12 +43,19 @@ public class PaytableActivity extends AppCompatActivity {
   private static final int INDEX_OVERLOADED_PARAM = 4;
 
   //FIELDS
+  /**
+   * The ID of the paytable being used for the current game.
+   */
   private long paytableId;
+  /**
+   * The name of the game currently being played.
+   */
   private String paytableName;
 
   /**
    * Getter for the ID for the paytable of the game currently being played. This is only necessary
    * for task subclasses within this activity, so it is private.
+   *
    * @return the ID for the paytable of the game currently being played.
    */
   private long getPaytableId() {
@@ -243,8 +250,7 @@ public class PaytableActivity extends AppCompatActivity {
             if (paytableRecord.size() == INDEX_OVERLOADED_PARAM + 1) {
               pokerHandDao.updateBetFiveValue(paytableId, paytableRecord.get(INDEX_HAND_NAME),
                   Integer.valueOf(paytableRecord.get(INDEX_OVERLOADED_PARAM)));
-            }
-            else {
+            } else {
               pokerHandDao.updateBetFiveValue(paytableId, paytableRecord.get(INDEX_HAND_NAME),
                   Integer.valueOf(paytableRecord.get(INDEX_BET_ONE_VALUE)) * 5);
             }

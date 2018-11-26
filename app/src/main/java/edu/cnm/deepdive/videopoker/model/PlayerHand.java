@@ -10,6 +10,9 @@ import java.util.Stack;
  */
 public class PlayerHand extends Stack<Card> {
 
+  /**
+   * The best winning PokerHand this card has been evaluated as a match to.
+   */
   private PokerHand bestHand;
 
   /**
@@ -23,8 +26,9 @@ public class PlayerHand extends Stack<Card> {
 
   /**
    * Assumes that this has already been evaluated externally.
-   * @return the last PokerHand object that has been recorded as the best winning hand possible
-   * with the given cards in this set.
+   *
+   * @return the last PokerHand object that has been recorded as the best winning hand possible with
+   * the given cards in this set.
    */
   public PokerHand getBestHand() {
     return bestHand;
@@ -32,6 +36,7 @@ public class PlayerHand extends Stack<Card> {
 
   /**
    * Stores a PokerHand parameter as the best possible hand for this card.
+   *
    * @param bestHand a PokerHand object with associated rules and worth.
    */
   public void setBestHand(PokerHand bestHand) {
