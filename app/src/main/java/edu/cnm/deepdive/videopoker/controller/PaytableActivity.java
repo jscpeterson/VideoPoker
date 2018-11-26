@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.videopoker.controller;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,11 +14,9 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 import edu.cnm.deepdive.videopoker.R;
 import edu.cnm.deepdive.videopoker.model.dao.PokerHandDao;
 import edu.cnm.deepdive.videopoker.model.db.PaytableDatabase;
-import edu.cnm.deepdive.videopoker.model.entity.Paytable;
 import edu.cnm.deepdive.videopoker.model.entity.PokerHand;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,8 +26,14 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+/**
+ * This class allows the user to view and modify the payouts for the game they are currently
+ * playing. It has a distinct options menu where they can revert changes to the defaults from the
+ * CSV resources.
+ */
 public class PaytableActivity extends AppCompatActivity {
 
+  //CONSTANTS
   private static final String PAYTABLE_ID_KEY = "paytableId";
   private static final String PAYTABLE_NAME_KEY = "paytableNameKey";
   private static final int INDEX_GAME_NAME = 0;
@@ -38,10 +41,17 @@ public class PaytableActivity extends AppCompatActivity {
   private static final int INDEX_RULE_SEQUENCE = 2;
   private static final int INDEX_BET_ONE_VALUE = 3;
   private static final int INDEX_OVERLOADED_PARAM = 4;
+
+  //FIELDS
   private long paytableId;
   private String paytableName;
 
-  public long getPaytableId() {
+  /**
+   * Getter for the ID for the paytable of the game currently being played. This is only necessary
+   * for task subclasses within this activity, so it is private.
+   * @return the ID for the paytable of the game currently being played.
+   */
+  private long getPaytableId() {
     return paytableId;
   }
 
@@ -50,10 +60,11 @@ public class PaytableActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     Bundle extras = getIntent().getExtras();
     setContentView(R.layout.activity_paytable);
+    assert extras != null;
     paytableId = extras.getLong(PAYTABLE_ID_KEY);
     paytableName = extras.getString(PAYTABLE_NAME_KEY);
     this.setTitle(paytableName);
-    new GetPaytableData().execute(paytableId);
+    new GetPaytableDataTask().execute(paytableId);
   }
 
   @Override
@@ -82,20 +93,20 @@ public class PaytableActivity extends AppCompatActivity {
     return (super.onOptionsItemSelected(item));
   }
 
-  //TODO make static
-  private class GetPaytableData extends AsyncTask<Long, Void, List<PokerHand>> {
+  /**
+   * This asynchronous task retrieves the paytable data from the persistent library to display in
+   * the activity. It requires a long for the ID to reference the game by in the persistence
+   * library. The data retrieval is done in doInBackground, the table including onClickListeners is
+   * set up in the onPostExecute method.
+   */
+  private class GetPaytableDataTask extends AsyncTask<Long, Void, Void> {
 
     List<PokerHand> paytable;
     PaytableDatabase db;
     PokerHandDao dao;
 
     @Override
-    protected void onPreExecute() {
-      super.onPreExecute();
-    }
-
-    @Override
-    protected List<PokerHand> doInBackground(Long... longs) {
+    protected Void doInBackground(Long... longs) {
       db = PaytableDatabase.getInstance(getApplicationContext());
       dao = db.getPokerHandDao();
       paytable = dao.selectPokerHandsByBetOneFromPaytable(longs[0]);
@@ -104,9 +115,8 @@ public class PaytableActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onPostExecute(List<PokerHand> pokerHands) {
+    protected void onPostExecute(Void aVoid) {
       TableLayout tableLayout = findViewById(R.id.paytable_layout);
-
       for (PokerHand hand : paytable) {
         if (!hand.isShowInTable()) {
           //Skip loop if hand has showInTable flag set to false (value is 0 or there is a duplicate)
@@ -115,8 +125,10 @@ public class PaytableActivity extends AppCompatActivity {
         TableRow row = (TableRow)
             LayoutInflater.from(PaytableActivity.this).inflate(R.layout.paytable_row,
                 findViewById(R.id.paytable_row_layout), false);
+
         TextView pokerHandView = (TextView) row.getChildAt(0);
         pokerHandView.setText(hand.getName());
+
         TextView bet1View = (TextView) row.getChildAt(1);
         bet1View.setText(Integer.toString(hand.getBetOneValue()));
         bet1View.setOnClickListener((v) -> {
@@ -140,12 +152,16 @@ public class PaytableActivity extends AppCompatActivity {
               });
           changePayoutDialog.show();
         });
+
         TextView bet2View = (TextView) row.getChildAt(2);
         bet2View.setText(Integer.toString(hand.getBetOneValue() * 2));
+
         TextView bet3View = (TextView) row.getChildAt(3);
         bet3View.setText(Integer.toString(hand.getBetOneValue() * 3));
+
         TextView bet4View = (TextView) row.getChildAt(4);
         bet4View.setText(Integer.toString(hand.getBetOneValue() * 4));
+
         TextView bet5View = (TextView) row.getChildAt(5);
         bet5View.setText(Integer.toString(hand.getBetFiveValue()));
         bet5View.setOnClickListener((v) -> {
@@ -170,11 +186,15 @@ public class PaytableActivity extends AppCompatActivity {
         });
         tableLayout.addView(row);
       }
-      super.onPostExecute(pokerHands);
+      super.onPostExecute(aVoid);
     }
 
   }
 
+  /**
+   * This asynchronous task allows the user to update a . It accepts a modified PokerHand as a
+   * parameter and updates the database with it. The onPostExecute refreshes the activity.
+   */
   private class ChangePayoutTask extends AsyncTask<PokerHand, Void, Void> {
 
     @Override
@@ -199,6 +219,10 @@ public class PaytableActivity extends AppCompatActivity {
 
   }
 
+  /**
+   * This asynchronous task reverts the payouts for the specific game to their default values as
+   * defined in the CSV resources. The onPostExecute refreshes the activity.
+   */
   private class ResetDefaultsTask extends AsyncTask<Void, Void, Void> {
 
     @Override
@@ -213,7 +237,8 @@ public class PaytableActivity extends AppCompatActivity {
             CSVFormat.DEFAULT);
         for (CSVRecord paytableRecord : paytablesCsvParser.getRecords()) {
           if (paytableRecord.get(INDEX_GAME_NAME).equals(paytableName)) {
-            pokerHandDao.updateBetOneValue(paytableId, paytableRecord.get(INDEX_HAND_NAME), Integer.valueOf(paytableRecord.get(INDEX_BET_ONE_VALUE)));
+            pokerHandDao.updateBetOneValue(paytableId, paytableRecord.get(INDEX_HAND_NAME),
+                Integer.valueOf(paytableRecord.get(INDEX_BET_ONE_VALUE)));
             if (paytableRecord.size() == INDEX_OVERLOADED_PARAM + 1) {
               pokerHandDao.updateBetFiveValue(paytableId, paytableRecord.get(INDEX_HAND_NAME),
                   Integer.valueOf(paytableRecord.get(INDEX_OVERLOADED_PARAM)));
@@ -225,7 +250,7 @@ public class PaytableActivity extends AppCompatActivity {
           }
         }
       } catch (IOException e) {
-        System.out.println("Database unable to populate from CSV file.");
+        System.out.println(getString(R.string.io_exception));
       }
       return null;
     }

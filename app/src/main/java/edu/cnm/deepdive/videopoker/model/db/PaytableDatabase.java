@@ -115,7 +115,7 @@ public abstract class PaytableDatabase extends RoomDatabase {
           }
         }
       } catch (IOException e) {
-        System.out.println("Database unable to populate from CSV file.");
+        System.out.println(context.getString(R.string.io_exception));
       }
       return null;
     }
