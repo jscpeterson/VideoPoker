@@ -1,0 +1,6 @@
+edu.cnm.deepdive.videopoker
+edu.cnm.deepdive.videopoker.controller
+edu.cnm.deepdive.videopoker.model
+edu.cnm.deepdive.videopoker.model.dao
+edu.cnm.deepdive.videopoker.model.db
+edu.cnm.deepdive.videopoker.model.entity

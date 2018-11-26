@@ -1,7 +1,9 @@
 package edu.cnm.deepdive.videopoker;
 
+/**
+ * When implemented, this class will analyze the estimated value of a given hand.
+ */
 public class Analyzer {
-
 
   //zGet combinations for the given hand
   //Get list of poker hands by value
