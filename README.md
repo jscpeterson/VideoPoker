@@ -57,7 +57,7 @@ The only external services this app consumes are CSV files to read into a local 
 [Javadocs](docs/index.html)
 
 ### Licenses
-[Apache Commons License](LICENSE) (for this project and the Apache Commons CSV library)
+[Apache Commons License](LICENSE.txt) (for this project and the Apache Commons CSV library)
    
 ### Build instructions
 [Build Instructions](docs/BuildInstructions.md)
