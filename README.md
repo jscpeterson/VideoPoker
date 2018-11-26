@@ -33,7 +33,6 @@ Image resource scaling varies depending on the device.
 *A list of the 3rd-party libraries (i.e. anything beyond the Android standard and support libraries) used by your app.*
    * [Apache Commons CSV](https://commons.apache.org/proper/commons-csv/)
    * [Card images courtesy of American Contract Bridge League](http://acbl.mybigcommerce.com/52-playing-cards/)
-   * 'com.facebook.stetho:stetho:1.5.0' **(TO REMOVE AT LAUNCH)**
    
 ### External services
 *A list of the external services (including Google services such as Sign In, Calendar, Maps, etc.) consumed by your app.*
@@ -61,7 +60,7 @@ The only external services this app consumes are CSV files to read into a local 
 
 ### ERD and DDL
 [ERD](docs/ERD.pdf) <br />
-[DDL](docs/DDL.pdf) **NOT READY**
+[DDL](docs/DDL.sql)
 
 ### Javadocs
 *A link to generated Javadoc HTML pages in your repository (see below).*
@@ -71,8 +70,7 @@ The only external services this app consumes are CSV files to read into a local 
 *Links to all applicable licenses.*
    * [LICENSE](LICENSE)
    * [Apache Commons License](licenses/ApacheSoftwareLicense.txt)
-
-
+   
 ### Build instructions
 [Build Instructions](docs/BuildInstructions.md)
 
