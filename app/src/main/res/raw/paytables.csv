@@ -40,3 +40,12 @@
 "Double Bonus Poker","Two Pair","**,=*;**,=*",1
 "Double Bonus Poker","Jacks or Better","F*,=*",1
 "Double Bonus Poker","☹","**,**,**,**,**",0
+"Death Adder","Royal Flush","A=,T=,J=,Q=,K=",250,4000
+"Death Adder","Royal Straight","A*,T*,J*,Q*,K*",50
+"Death Adder","Straight","A*,T*,J*,Q*,K*",5
+"Death Adder","Straight","**,+*,+*,+*,+*",5
+"Death Adder","Four to a Straight","A*,K*,Q*,J*",3
+"Death Adder","Four to a Straight","**,+*,+*,+*",3
+"Death Adder","Three to a Straight","A*,K*,Q*",1
+"Death Adder","Three to a Straight","**,+*,+*",1
+"Death Adder","☹","**",0

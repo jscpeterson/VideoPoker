@@ -5,9 +5,10 @@ package edu.cnm.deepdive.videopoker;
  */
 public class Analyzer {
 
-  //zGet combinations for the given hand
-  //Get list of poker hands by value
-  //Calculate estimated value of each hand
+  //Calculate estimated value of hand
+
+  //for each payout greater than 0
+  // calculate the probability to get the hand ??
 
 // hold 5
       /*
@@ -18,6 +19,7 @@ public class Analyzer {
      */
 
 // hold 4
+  //combinations of 5 can be taken out of 4
       /*   Things start getting more complicated when you draw one or more cards. For strategy number two,
  let’s assume that you are going to discard the leftmost card in your hand and replace it with one
  of the remaining 47 cards in the deck. Each of these other 47 possible draws is equally likely.
